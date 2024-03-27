@@ -1,0 +1,31 @@
+stationName,stationNumber,stationID,stationGroup
+Tucson,1,az01,5
+Yuma Valley,2,az02,2
+Safford,4,az04,6
+Coolidge,5,az05,5
+Maricopa,6,az06,5
+Aguila,7,az07,3
+Parker,8,az08,1
+Bonita,9,az09,6
+Phoenix Greenway,12,az12,4
+Yuma North Gila,14,az14,2
+Phoenix Encanto,15,az15,4
+Paloma,19,az19,3
+Mohave,20,az20,1
+Queen Creek,22,az22,5
+Harquahala,23,az23,3
+Roll,24,az24,2
+Buckeye,26,az26,3
+Desert Ridge,27,az27,4
+Mohave-2,28,az28,1
+Payson,32,az32,4
+Bowie,33,az33,6
+Parker-2,35,az35,1
+Yuma South,36,az36,2
+San Simon,37,az37,6
+Sahuarita,38,az38,5
+Willcox Bench,39,az39,6
+Ft Mohave CA,40,az40,1
+Salome,41,az41,3
+Wellton ETo,42,az42,2
+Yuma Valley ETo,43,az43,2

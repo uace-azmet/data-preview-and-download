@@ -1,0 +1,83 @@
+/* class */
+
+.control-label {
+  color: #343a40; font-weight: bold;
+}
+
+.datepicker {
+  background-color: #fff !important; color: #343a40;
+}
+
+.help-block {
+  color: #828282;
+}
+
+.selectize-input.items.full.has-options.has-items {
+  border-radius: 0px;
+}
+
+.shiny-html-output {
+  max-height: 381px; min-height: auto; overflow: auto;
+}
+
+.shiny-html-output thead th {
+  position: sticky; top: 0;
+}
+
+.shiny-output-error-datepicker {
+  background-color: #007D84; border: 1px solid rgba(0,0,0,.125); border-radius: 0px; color: #FFFFFF !important; font-weight: bold; font-style: italic; padding: 20px;
+}
+
+.shiny-notification {
+  background-color: rgba(129,211,235,0.9) !important; border: none !important; box-shadow: 1px 2px rgba(0,0,0,0.1) !important; color: #1E5288 !important; font-style: italic !important; position: fixed !important; top: calc(50%) !important; left: calc(50% - 100px) !important;
+}
+
+.table-caption {
+  color: #828282; font-style: italic;
+}
+
+.table-footer-help-text {
+  color: #828282; font-style: italic;
+}
+
+.table-help-text {
+  color: #828282; font-style: italic;
+}
+
+.table-subtitle {
+  color: #343a40; font-weight: plain; margin-top: 0;
+}
+
+.table-title {
+  color: #343a40; font-weight: bold; margin-bottom: 0; margin-top: 0;
+}
+
+/* id */
+
+#downloadTSV {
+  background-color: transparent; border-color: #001C48; color: #001C48; margin-bottom: 4px; margin-left: 4px; margin-top: 4px;
+}
+
+#downloadTSV:active {
+  background-color: #001C48; color: #fff;
+}
+
+#downloadTSV:hover {
+  background-color: #001C48; color: #fff;
+}
+
+#previewData {
+  background-color: transparent; border-color: #001C48; color: #001C48;
+}
+
+#previewData:active {
+  background-color: #001C48; color: #fff;
+}
+
+#previewData:hover {
+  background-color: #001C48; color: #fff;
+}
+
+#sidebarPanel {
+  background-color: #E2E9EB !important; margin-bottom: 72px;
+}
