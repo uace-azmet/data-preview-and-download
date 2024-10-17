@@ -54,9 +54,9 @@ ui <- htmltools::htmlTemplate(
         dateInput(
           inputId = "startDate",
           label = "Start Date",
-          value = Sys.Date() - 1,
+          value = lubridate::today(tzone = "America/Phoenix") - 1,
           min = apiStartDate,
-          max = Sys.Date() - 1,
+          max = lubridate::today(tzone = "America/Phoenix"), # Initial timeStep is 'Hourly'
           format = "MM d, yyyy",
           startview = "month",
           weekstart = 0, # Sunday
@@ -67,9 +67,9 @@ ui <- htmltools::htmlTemplate(
         dateInput(
           inputId = "endDate",
           label = "End Date",
-          value = Sys.Date() - 1,
+          value = lubridate::today(tzone = "America/Phoenix"),
           min = apiStartDate,
-          max = Sys.Date() - 1,
+          max = lubridate::today(tzone = "America/Phoenix"),  # Initial timeStep is 'Hourly'
           format = "MM d, yyyy",
           startview = "month",
           weekstart = 0, # Sunday
@@ -135,6 +135,58 @@ ui <- htmltools::htmlTemplate(
 server <- function(input, output, session) {
   
   # Reactive events -----
+  
+  shiny::observeEvent(input$timeStep, {
+    if (input$timeStep == "Daily") {
+      if (input$startDate == lubridate::today(tzone = "America/Phoenix")) {
+        startDateAdjusted <- lubridate::today(tzone = "America/Phoenix") - 1
+      } else {
+        startDateAdjusted <- input$startDate
+      }
+      
+      if (input$endDate == lubridate::today(tzone = "America/Phoenix")) {
+        endDateAdjusted <- lubridate::today(tzone = "America/Phoenix") - 1
+      } else {
+        endDateAdjusted <- input$endDate
+      }
+      
+      shiny::updateDateInput(
+        session = session, 
+        inputId = "startDate",
+        label = "Start Date",
+        value = startDateAdjusted,
+        min = apiStartDate,
+        max = lubridate::today(tzone = "America/Phoenix") - 1
+      )
+      
+      shiny::updateDateInput(
+        session = session, 
+        inputId = "endDate",
+        label = "End Date",
+        value = endDateAdjusted,
+        min = apiStartDate,
+        max = lubridate::today(tzone = "America/Phoenix") - 1
+      )
+    } else if (input$timeStep == "Hourly") {
+      shiny::updateDateInput(
+        session = session, 
+        inputId = "startDate",
+        label = "Start Date",
+        value = input$startDate,
+        min = apiStartDate,
+        max = lubridate::today(tzone = "America/Phoenix")
+      )
+      
+      shiny::updateDateInput(
+        session = session, 
+        inputId = "endDate",
+        label = "End Date",
+        value = input$endDate,
+        min = apiStartDate,
+        max = lubridate::today(tzone = "America/Phoenix")
+      )
+    }
+  })
   
   # AZMet data ELT
   dfAZMetData <- eventReactive(input$previewData, {
