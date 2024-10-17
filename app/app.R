@@ -6,6 +6,7 @@
 # Libraries
 library(azmetr)
 library(dplyr)
+library(gt)
 library(htmltools)
 library(lubridate)
 library(shiny)
@@ -106,6 +107,12 @@ ui <- htmltools::htmlTemplate(
       fluidRow(
         column(width = 11, align = "left", offset = 1, tableOutput(outputId = "dataTablePreview"))
       ), 
+      
+      br(),
+      fluidRow(
+        column(width = 11, align = "left", offset = 1, gt_output(outputId = "table"))
+      ), 
+      br(),
       
       br(), br(),
       fluidRow(
@@ -213,6 +220,13 @@ server <- function(input, output, session) {
     )
   })
   
+  
+  gt_tbl <- eventReactive(dfAZMetData(), {
+    dfAZMetData() |>
+      gt()
+  })
+  
+  
   # Format AZMet data for HTML table preview
   dfAZMetDataPreview <- eventReactive(dfAZMetData(), {
     fxnAZMetDataPreview(
@@ -266,6 +280,8 @@ server <- function(input, output, session) {
   })
   
   # Outputs -----
+  
+  output$table <- render_gt(expr = gt_tbl)
   
   output$dataTablePreview <- renderTable(
     expr = dfAZMetDataPreview(), 
