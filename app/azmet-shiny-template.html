@@ -11,10 +11,12 @@
     <!-- link rel="canonical" href="https://azmet.arizona.edu/past-data" /-->
     <!-- link rel="shortlink" href="https://azmet.arizona.edu/node/6" /-->
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYPVJ988V5"></script>
-    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-HYPVJ988V5');</script>
+    <!-- script async src="https://www.googletagmanager.com/gtag/js?id=G-HYPVJ988V5"></script -->
+    <!-- script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-HYPVJ988V5');</script -->
     <!-- script src="https://staging.azmet.arizona.edu/sites/default/files/google_tag/az_comprehensive/google_tag.script.js?s0j7xh" defer></script -->
     <title>Data Preview and Download | Arizona Meteorological Network</title> <!-- Edit this line based on individual Shiny app -->
+    <!-- Shiny head code, https://shiny.posit.co/r/articles/build/templates/ -->
+    {{ headContent() }}
     <link rel="stylesheet" media="all" href="https://azmet.arizona.edu/profiles/custom/az_quickstart/modules/custom/az_flexible_page/css/az_flexible_page.theme.css?sact2n" />
     <link rel="stylesheet" media="all" href="https://azmet.arizona.edu/core/modules/system/css/components/ajax-progress.module.css?sact2n" />
     <link rel="stylesheet" media="all" href="https://azmet.arizona.edu/core/modules/system/css/components/align.module.css?sact2n" />
@@ -87,8 +89,6 @@
     <link rel="stylesheet" media="all" href="https://azmet.arizona.edu/profiles/custom/az_quickstart/themes/custom/az_barrio/css/az-barrio-off-canvas-nav.css?sact2n" />
     <!-- CSS specific to this AZMet Shiny app -->
     <link rel="stylesheet" media="all" href="data-preview-and-download.css" />
-    <!-- Shiny head code, https://shiny.posit.co/r/articles/build/templates/ -->
-    {{ headContent() }}
   </head>
   <body class="exclude-node-title layout-no-sidebars path-node node--type-az-flexible-page">
     <a href="#content" class="visually-hidden focusable skip-link">Skip to main content</a>
@@ -287,7 +287,7 @@
             <div class="container">
               <!-- div -->
                 <!-- Shiny app -->
-                {{ sidebarLayout }}
+                {{ pageSidebar }}
               <!-- /div -->
             </div>
             <div class="container">

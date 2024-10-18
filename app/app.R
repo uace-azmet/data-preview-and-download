@@ -1,7 +1,4 @@
-
-
 # Preview and download hourly and daily data by specified stations and date ranges from API database
-
 
 # Libraries
 library(azmetr)
