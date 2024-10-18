@@ -6,9 +6,11 @@
 # Libraries
 library(azmetr)
 library(dplyr)
-library(gt)
+library(DT)
+#library(gt)
 library(htmltools)
 library(lubridate)
+#library(reactable)
 library(shiny)
 library(vroom)
 
@@ -108,11 +110,19 @@ ui <- htmltools::htmlTemplate(
         column(width = 11, align = "left", offset = 1, tableOutput(outputId = "dataTablePreview"))
       ), 
       
+      
+      
       br(),
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, gt_output(outputId = "table"))
-      ), 
+      div(fluidRow(
+        #column(width = 11, align = "left", offset = 1, gt::gt_output(outputId = "gt_tbl"))
+        #column(width = 11, align = "left", offset = 1, reactable::reactableOutput("gt_tbl"))
+        column(width = 11, align = "left", offset = 1, DT::DTOutput("gt_tbl"))
+      )), 
+      
       br(),
+      
+      
+      
       
       br(), br(),
       fluidRow(
@@ -220,20 +230,24 @@ server <- function(input, output, session) {
     )
   })
   
-  
-  gt_tbl <- eventReactive(dfAZMetData(), {
-    dfAZMetData() |>
-      gt()
-  })
-  
-  
   # Format AZMet data for HTML table preview
-  dfAZMetDataPreview <- eventReactive(dfAZMetData(), {
-    fxnAZMetDataPreview(
-      inData = dfAZMetData(), 
-      timeStep = input$timeStep
-    )
-  })
+  #dfAZMetDataPreview <- eventReactive(dfAZMetData(), {
+  #  fxnAZMetDataPreview(
+  #    inData = dfAZMetData(), 
+  #    timeStep = input$timeStep
+  #  )
+  #})
+  #gt_tbl <- 
+  #  gtcars |>
+  #  gt() |>
+  #  fmt_currency(columns = msrp, decimals = 0) |>
+  #  cols_hide(columns = -c(mfr, model, year, mpg_c, msrp)) |>
+  #  cols_label_with(columns = everything(), fn = toupper) |>
+  #  data_color(columns = msrp, method = "numeric", palette = "viridis") |>
+  #  sub_missing() |>
+  #  opt_interactive(use_compact_mode = TRUE)
+  
+  
   
   # Build table caption
   tableCaption <- eventReactive(dfAZMetData(), {
@@ -281,21 +295,23 @@ server <- function(input, output, session) {
   
   # Outputs -----
   
-  output$table <- render_gt(expr = gt_tbl)
+  #output$gt_tbl <- gt::render_gt(expr = gt_tbl)
+  #output$gt_tbl <- reactable::renderReactable(reactable(iris))
+  output$gt_tbl <- DT::renderDT(iris, options = list(lengthChange = FALSE))
   
-  output$dataTablePreview <- renderTable(
-    expr = dfAZMetDataPreview(), 
-    striped = TRUE, 
-    hover = TRUE, 
-    bordered = FALSE, 
-    spacing = "xs", 
-    width = "auto", 
-    align = "c", 
-    rownames = FALSE, 
-    colnames = TRUE, 
-    digits = NULL, 
-    na = "na"
-  )
+  #output$dataTablePreview <- renderTable(
+  #  expr = dfAZMetDataPreview(), 
+  #  striped = TRUE, 
+  #  hover = TRUE, 
+  #  bordered = FALSE, 
+  #  spacing = "xs", 
+  #  width = "auto", 
+  #  align = "c", 
+  #  rownames = FALSE, 
+  #  colnames = TRUE, 
+  #  digits = NULL, 
+  #  na = "na"
+  #)
   
   output$downloadButtonTSV <- renderUI({
     req(dfAZMetData())
