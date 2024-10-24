@@ -2,6 +2,8 @@
 
 # Libraries
 library(azmetr)
+library(bsicons)
+library(bslib)
 library(dplyr)
 library(htmltools)
 library(lubridate)
@@ -21,109 +23,28 @@ ui <- htmltools::htmlTemplate(
   
   "azmet-shiny-template.html",
   
-  sidebarLayout = sidebarLayout(
-    position = "left",
+  pageSidebar = bslib::page_sidebar(
+    title = NULL,
+    sidebar = sidebar, # `scr04_sidebar.R`
+    fillable = TRUE,
+    fillable_mobile = FALSE,
+    #theme = theme, # `scr03_theme.R`
+    lang = NULL,
+    window_title = NA,
     
-    sidebarPanel(
-      id = "sidebarPanel",
-      width = 4,
-      
-      verticalLayout(
-        helpText(em(
-          "Select an AZMet station, specify the time step, and set dates for the period of interest. Then, click or tap 'PREVIEW DATA'."
-        )),
-        
-        br(),
-        selectInput(
-          inputId = "azmetStation", 
-          label = "AZMet Station",
-          choices = stns[order(stns$stationName), ]$stationName,
-          selected = "Aguila"
-        ),
-        
-        selectInput(
-          inputId = "timeStep", 
-          label = "Time Step",
-          choices = timeSteps,
-          selected = "Hourly"
-        ),
-        
-        dateInput(
-          inputId = "startDate",
-          label = "Start Date",
-          value = lubridate::today(tzone = "America/Phoenix") - 1,
-          min = apiStartDate,
-          max = lubridate::today(tzone = "America/Phoenix"), # Initial timeStep is 'Hourly'
-          format = "MM d, yyyy",
-          startview = "month",
-          weekstart = 0, # Sunday
-          width = "100%",
-          autoclose = TRUE
-        ),
-        
-        dateInput(
-          inputId = "endDate",
-          label = "End Date",
-          value = lubridate::today(tzone = "America/Phoenix"),
-          min = apiStartDate,
-          max = lubridate::today(tzone = "America/Phoenix"),  # Initial timeStep is 'Hourly'
-          format = "MM d, yyyy",
-          startview = "month",
-          weekstart = 0, # Sunday
-          width = "100%",
-          autoclose = TRUE
-        ),
-        
-        br(),
-        actionButton(
-          inputId = "previewData", 
-          label = "Preview Data",
-          class = "btn btn-block btn-blue"
-        )
-      )
-    ), # sidebarPanel()
-    
-    mainPanel(
-      id = "mainPanel",
-      width = 8,
-      
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, htmlOutput(outputId = "tableTitle"))
-      ), 
-      
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, htmlOutput(outputId = "tableSubtitle"))
-      ),
-      
-      br(),
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, htmlOutput(outputId = "tableHelpText"))
-      ),
-      
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, tableOutput(outputId = "dataTablePreview"))
-      ), 
-      
-      br(), br(),
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, htmlOutput(outputId = "tableCaption"))
-      ),
-      
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, uiOutput(outputId = "downloadButtonTSV"))
-      ),
-      
-      br(), br(),
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, htmlOutput(outputId = "tableFooterHelpText"))
-      ),
-      
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, htmlOutput(outputId = "tableFooter"))
-      ),
-      br()
-    ) # mainPanel()
-  ) # sidebarLayout()
+    shiny::htmlOutput(outputId = "tableTitle"),
+    shiny::htmlOutput(outputId = "tableTitle"),
+    shiny::htmlOutput(outputId = "tableHelpText"),
+    #navsetCardTab, # `scr05_navsetCardTab.R`
+    shiny::tableOutput(outputId = "dataTablePreview"),
+    shiny::htmlOutput(outputId = "tableCaption"),
+    shiny::uiOutput(outputId = "downloadButtonTSV"),
+    br(), 
+    br(),
+    br(),
+    shiny::htmlOutput(outputId = "tableFooterHelpText"),
+    shiny::htmlOutput(outputId = "tableFooter")
+  )
 ) # htmltools::htmlTemplate()
 
 
