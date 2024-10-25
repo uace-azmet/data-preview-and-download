@@ -33,20 +33,21 @@ ui <- htmltools::htmlTemplate(
     lang = NULL,
     window_title = NA,
     
-    #shiny::htmlOutput(outputId = "tableTitle"),
-    #shiny::htmlOutput(outputId = "tableHelpText"),
-    gt::gt_output(outputId = "gt_tbl")
-    #navsetCardTab, # `scr05_navsetCardTab.R`
+    shiny::htmlOutput(outputId = "tableTitle"),
+    shiny::htmlOutput(outputId = "tableHelpText"),
+    
+    cardDatatable, # `scr05_cardDatatable.R`
+    
     #shiny::tableOutput(outputId = "dataTablePreview"),
-    #htmltools::br(), 
-    #htmltools::br(),
-    #shiny::htmlOutput(outputId = "tableCaption"),
-    #shiny::uiOutput(outputId = "downloadButtonTSV"),
-    #htmltools::br(), 
-    #htmltools::br(),
-    #htmltools::br(),
-    #shiny::htmlOutput(outputId = "tableFooterHelpText"),
-    #shiny::htmlOutput(outputId = "tableFooter")
+    htmltools::br(), 
+    htmltools::br(),
+    shiny::htmlOutput(outputId = "tableCaption"),
+    shiny::uiOutput(outputId = "downloadButtonTSV"),
+    htmltools::br(), 
+    htmltools::br(),
+    htmltools::br(),
+    shiny::htmlOutput(outputId = "tableFooterHelpText"),
+    shiny::htmlOutput(outputId = "tableFooter")
   )
 )
 
@@ -110,6 +111,7 @@ server <- function(input, output, session) {
     }
   })
   
+  # Date error notification
   shiny::observeEvent(input$previewData, {
     if (input$startDate > input$endDate) {
       shiny::showModal(datepickerErrorModal) # `scr06_datepickerErrorModal.R`
@@ -193,8 +195,7 @@ server <- function(input, output, session) {
   # Outputs -----
   
   output$gt_tbl <- gt::render_gt({
-    shiny::req(dfAZMetData())
-    expr = iris
+    expr = dfAZMetDataPreview()
   })
   
   output$dataTablePreview <- renderTable(

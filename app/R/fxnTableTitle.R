@@ -7,7 +7,7 @@
 
 fxnTableTitle <- function(azmetStation, timeStep) {
   tableTitle <- 
-    htmltools::h4(
+    htmltools::p(
       htmltools::HTML(
         paste(
           "Preview of", timeStep, "Data from the AZMet", azmetStation, "station", 
