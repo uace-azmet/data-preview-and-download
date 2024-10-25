@@ -7,14 +7,27 @@
 #' @return `dfAZMetData` - Transformed data table
 
 
-fxnAZMetDataELT <- function(azmetStation, timeStep, startDate, endDate) {
+fxnAZMetDataELT <- function(
+    azmetStation, 
+    timeStep, 
+    startDate, 
+    endDate
+  ) {
   
   # HOURLY
   if (timeStep == "Hourly") {
+    start_date_time = paste(startDate, "01", sep = " ")
+    
+    if (endDate == lubridate::today(tzone = "America/Phoenix")) {
+      end_date_time = NULL
+    } else {
+      end_date_time = paste(endDate, "24", sep = " ")
+    }
+    
     dfAZMetData <- azmetr::az_hourly(
       station_id = dplyr::filter(azmetStations, stationName == azmetStation)$stationID,
-      start_date_time = paste(startDate, "01", sep = " "),
-      end_date_time = paste(endDate, "24", sep = " ")
+      start_date_time = start_date_time,
+      end_date_time = end_date_time
     )
     
     # Set identification variables of interest from the following hourly data variables: 
@@ -40,7 +53,7 @@ fxnAZMetDataELT <- function(azmetStation, timeStep, startDate, endDate) {
   # DAILY
   if (timeStep == "Daily") {
     dfAZMetData <- azmetr::az_daily(
-      station_id = dplyr::filter(stns, stationName == azmetStation)$stationID, 
+      station_id = dplyr::filter(azmetStations, stationName == azmetStation)$stationID, 
       start = startDate, 
       end = endDate
     )

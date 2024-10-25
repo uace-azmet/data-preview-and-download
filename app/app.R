@@ -1,10 +1,11 @@
-# Preview and download hourly and daily data by specified stations and date ranges from API database
+# Preview and download hourly and daily data from API database by specified stations and date ranges
 
 # Libraries
 library(azmetr)
 library(bsicons)
 library(bslib)
 library(dplyr)
+library(gt)
 library(htmltools)
 library(lubridate)
 library(shiny)
@@ -28,32 +29,35 @@ ui <- htmltools::htmlTemplate(
     sidebar = sidebar, # `scr04_sidebar.R`
     fillable = TRUE,
     fillable_mobile = FALSE,
-    #theme = theme, # `scr03_theme.R`
+    theme = theme, # `scr03_theme.R`
     lang = NULL,
     window_title = NA,
     
-    shiny::htmlOutput(outputId = "tableTitle"),
-    shiny::htmlOutput(outputId = "tableTitle"),
-    shiny::htmlOutput(outputId = "tableHelpText"),
+    #shiny::htmlOutput(outputId = "tableTitle"),
+    #shiny::htmlOutput(outputId = "tableHelpText"),
+    gt::gt_output(outputId = "gt_tbl")
     #navsetCardTab, # `scr05_navsetCardTab.R`
-    shiny::tableOutput(outputId = "dataTablePreview"),
-    shiny::htmlOutput(outputId = "tableCaption"),
-    shiny::uiOutput(outputId = "downloadButtonTSV"),
-    br(), 
-    br(),
-    br(),
-    shiny::htmlOutput(outputId = "tableFooterHelpText"),
-    shiny::htmlOutput(outputId = "tableFooter")
+    #shiny::tableOutput(outputId = "dataTablePreview"),
+    #htmltools::br(), 
+    #htmltools::br(),
+    #shiny::htmlOutput(outputId = "tableCaption"),
+    #shiny::uiOutput(outputId = "downloadButtonTSV"),
+    #htmltools::br(), 
+    #htmltools::br(),
+    #htmltools::br(),
+    #shiny::htmlOutput(outputId = "tableFooterHelpText"),
+    #shiny::htmlOutput(outputId = "tableFooter")
   )
-) # htmltools::htmlTemplate()
+)
 
 
 # Server --------------------
 
 server <- function(input, output, session) {
   
-  # Reactive events -----
+  # Observables -----
   
+  # Update maximum calendar date based on time step 
   shiny::observeEvent(input$timeStep, {
     if (input$timeStep == "Daily") {
       if (input$startDate == lubridate::today(tzone = "America/Phoenix")) {
@@ -106,13 +110,24 @@ server <- function(input, output, session) {
     }
   })
   
-  # AZMet data ELT
-  dfAZMetData <- eventReactive(input$previewData, {
-    validate(
-      need(expr = input$startDate <= input$endDate, message = FALSE)
+  shiny::observeEvent(input$previewData, {
+    if (input$startDate > input$endDate) {
+      shiny::showModal(datepickerErrorModal) # `scr06_datepickerErrorModal.R`
+    }
+  })
+  
+  # Reactives -----
+  
+  # Download AZMet data
+  dfAZMetData <- shiny::eventReactive(input$previewData, {
+    shiny::validate(
+      shiny::need(
+        expr = input$startDate <= input$endDate, 
+        message = FALSE
+      )
     )
     
-    idPreview <- showNotification(
+    idPreview <- shiny::showNotification(
       ui = "Preparing data preview . . .", 
       action = NULL, 
       duration = NULL, 
@@ -121,7 +136,7 @@ server <- function(input, output, session) {
       type = "message"
     )
     
-    on.exit(removeNotification(id = idPreview), add = TRUE)
+    on.exit(shiny::removeNotification(id = idPreview), add = TRUE)
     
     fxnAZMetDataELT(
       azmetStation = input$azmetStation, 
@@ -131,8 +146,8 @@ server <- function(input, output, session) {
     )
   })
   
-  # Format AZMet data for HTML table preview
-  dfAZMetDataPreview <- eventReactive(dfAZMetData(), {
+  # Format AZMet data for table preview
+  dfAZMetDataPreview <- shiny::eventReactive(dfAZMetData(), {
     fxnAZMetDataPreview(
       inData = dfAZMetData(), 
       timeStep = input$timeStep
@@ -140,27 +155,27 @@ server <- function(input, output, session) {
   })
   
   # Build table caption
-  tableCaption <- eventReactive(dfAZMetData(), {
+  tableCaption <- shiny::eventReactive(dfAZMetData(), {
     fxnTableCaption()
   })
   
   # Build table footer
-  tableFooter <- eventReactive(dfAZMetData(), {
+  tableFooter <- shiny::eventReactive(dfAZMetData(), {
     fxnTableFooter(timeStep = input$timeStep)
   })
   
   # Build table footer help text
-  tableFooterHelpText <- eventReactive(dfAZMetData(), {
+  tableFooterHelpText <- shiny::eventReactive(dfAZMetData(), {
     fxnTableFooterHelpText()
   })
   
   # Build table help text
-  tableHelpText <- eventReactive(dfAZMetData(), {
+  tableHelpText <- shiny::eventReactive(dfAZMetData(), {
     fxnTableHelpText()
   })
   
   # Build table subtitle
-  tableSubtitle <- eventReactive(dfAZMetData(), {
+  tableSubtitle <- shiny::eventReactive(dfAZMetData(), {
     fxnTableSubtitle(
       startDate = input$startDate, 
       endDate = input$endDate
@@ -168,15 +183,7 @@ server <- function(input, output, session) {
   })
   
   # Build table title
-  tableTitle <- eventReactive(input$previewData, {
-    validate(
-      need(
-        expr = input$startDate <= input$endDate, 
-        message = "Please select a 'Start Date' that is earlier than or the same as the 'End Date'."
-      ),
-      errorClass = "datepicker"
-    )
-    
+  tableTitle <- shiny::eventReactive(dfAZMetData(), {
     fxnTableTitle(
       azmetStation = input$azmetStation,
       timeStep = input$timeStep
@@ -184,6 +191,11 @@ server <- function(input, output, session) {
   })
   
   # Outputs -----
+  
+  output$gt_tbl <- gt::render_gt({
+    shiny::req(dfAZMetData())
+    expr = iris
+  })
   
   output$dataTablePreview <- renderTable(
     expr = dfAZMetDataPreview(), 

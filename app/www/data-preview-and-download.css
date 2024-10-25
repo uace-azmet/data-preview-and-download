@@ -215,6 +215,9 @@
   border-radius: 0px;
 }
 
+
+
+
 .shiny-html-output {
   max-height: 381px; min-height: auto; overflow: auto;
 }
@@ -222,13 +225,6 @@
 .shiny-html-output thead th {
   position: sticky; top: 0;
 }
-
-
-
-.shiny-output-error-datepicker {
-  background-color: #007D84; border: 1px solid rgba(0,0,0,.125); border-radius: 0px; color: #FFFFFF !important; font-weight: bold; font-style: italic; padding: 20px;
-}
-
 
 
 
@@ -308,9 +304,11 @@
 /* id */
 
 #datepickerModal {
-  color: #989898 !important;
+  color: blue !important;
   font-size: 1rem;
   text-align: left;
+  display: flex;
+  justify-content: center;
 }
 
 /* id */

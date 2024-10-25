@@ -22,7 +22,7 @@ sidebar <- bslib::sidebar(
   
   shiny::helpText(
     shiny::em(
-      "Select and AZMet station, specify the time step, and set dates for the period of interest. Then, click or tap 'PREVIEW DATA'."
+      "Select an AZMet station, specify the time step, and set dates for the period of interest. Then, click or tap 'PREVIEW DATA'."
     )
   ),
   
