@@ -33,8 +33,8 @@ ui <- htmltools::htmlTemplate(
     lang = NULL,
     window_title = NA,
     
-    shiny::htmlOutput(outputId = "tableTitle"),
-    shiny::htmlOutput(outputId = "tableHelpText"),
+    #shiny::htmlOutput(outputId = "tableTitle"),
+    #shiny::htmlOutput(outputId = "tableHelpText"),
     
     cardDatatable, # `scr05_cardDatatable.R`
     

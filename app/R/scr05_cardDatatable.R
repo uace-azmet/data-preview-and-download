@@ -1,9 +1,8 @@
 cardDatatable <- bslib::card(
-  max_height = 800,
+  max_height = 600,
   full_screen = TRUE,
   
   bslib::card_header(
-    #class = "bg-light",
     shiny::htmlOutput(outputId = "tableTitle")
   ),
   
@@ -14,6 +13,8 @@ cardDatatable <- bslib::card(
   
   bslib::card_footer(
     class = "fs-6",
+    lorem::ipsum(paragraphs = 1, sentences = 1),
+    shiny::uiOutput(outputId = "downloadButtonTSV"),
     lorem::ipsum(paragraphs = 1, sentences = 1)
   )
 ) |>

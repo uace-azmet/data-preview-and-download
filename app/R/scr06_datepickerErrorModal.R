@@ -9,8 +9,8 @@ datepickerErrorModal <-
     size = "s",
     title = htmltools::p(
       id = "datepickerModal",
-      bsicons::bs_icon("calendar-event"), 
+      bsicons::bs_icon("sliders"), 
       htmltools::HTML("&nbsp;"),
-      "DATE SELECTION"
+      "DATA OPTIONS"
     )
   )

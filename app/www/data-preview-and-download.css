@@ -261,14 +261,27 @@
   color: #343a40; font-weight: plain; margin-top: 0;
 }
 
-.table-title {
-  color: red;
-  font-size: "1rem";
-  padding-left: "0px";
-  text-transform: uppercase; 
-  /* margin-bottom: 0; 
-  margin-top: 0; */
+
+
+
+.main.bslib-gap-spacing.html-fill-container {
+  padding-top: calc(calc(1rem*2)*1.5);
 }
+
+.card-header {
+  padding-left: 0px;
+  padding-top: 0px;
+}
+
+.table-title {
+  color: #202020;
+  font-size: 1rem;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+
+
 
 .year:hover {
   background-color: rgb(226, 233, 235) !important;
@@ -317,6 +330,7 @@
 #datepickerModal {
   color: #989898 !important;
   font-size: 1rem;
+  font-weight: normal;
   text-align: left;
 }
 

@@ -1,15 +1,21 @@
-#' `fxnTableTitle.R` - Build title for HTML table based on user input
+#' `fxnTableTitle.R` - Build title for data table based on user input
 #' 
 #' @param azmetStation - AZMet station selection by user
-#' @param timeStep - AZMet data time step
-#' @return `tableTitle` - Table title for HTML table based on user input
+#' @param timeStep - AZMet data time step selection by user
+#' @return `tableTitle` - Title for dataa table based on user input
 
 
-fxnTableTitle <- function(azmetStation, timeStep) {
+fxnTableTitle <- function(
+    azmetStation, 
+    timeStep
+  ) {
+  
   tableTitle <- 
     htmltools::p(
       htmltools::HTML(
         paste(
+          bsicons::bs_icon("table"), 
+          htmltools::HTML("&nbsp;"), 
           "Preview of", timeStep, "Data from the AZMet", azmetStation, "station", 
           sep = " "
         ),
