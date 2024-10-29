@@ -21,9 +21,7 @@ sidebar <- bslib::sidebar(
   ),
   
   shiny::helpText(
-    shiny::em(
-      "Select an AZMet station, specify the time step, and set dates for the period of interest. Then, click or tap 'PREVIEW DATA'."
-    )
+    "Select an AZMet station, specify the time step, and set dates for the period of interest. Then, click or tap 'PREVIEW DATA'."
   ),
   
   shiny::selectInput(
@@ -43,9 +41,9 @@ sidebar <- bslib::sidebar(
   shiny::dateInput(
     inputId = "startDate",
     label = "Start Date",
-    value = lubridate::today(tzone = "America/Phoenix") - 1,
+    value = initialInputDate,
     min = apiStartDate,
-    max = lubridate::today(tzone = "America/Phoenix"), # Initial timeStep is 'Hourly'
+    max = initialInputDate,
     format = "MM d, yyyy",
     startview = "month",
     weekstart = 0, # Sunday
@@ -56,9 +54,9 @@ sidebar <- bslib::sidebar(
   shiny::dateInput(
     inputId = "endDate",
     label = "End Date",
-    value = lubridate::today(tzone = "America/Phoenix"),
+    value = initialInputDate,,
     min = apiStartDate,
-    max = lubridate::today(tzone = "America/Phoenix"),  # Initial timeStep is 'Hourly'
+    max = initialInputDate,
     format = "MM d, yyyy",
     startview = "month",
     weekstart = 0, # Sunday
@@ -66,13 +64,9 @@ sidebar <- bslib::sidebar(
     autoclose = TRUE
   ),
   
-  htmltools::br(),
-  
   shiny::actionButton(
     inputId = "previewData", 
     label = "Preview Data",
     class = "btn btn-block btn-blue"
-  ),
-  
-  htmltools::br()
-) # bslib::sidebar()
+  )
+)

@@ -1,21 +1,19 @@
 cardDatatable <- bslib::card(
-  max_height = 600,
   full_screen = TRUE,
+  max_height = 600,
   
   bslib::card_header(
-    shiny::htmlOutput(outputId = "tableTitle")
+    shiny::htmlOutput(outputId = "tableTitle"),
+    shiny::htmlOutput(outputId = "tableHelpText")
   ),
   
   bslib::card_body(
-    class = "p-0",
+    #class = "p-0",
     gt::gt_output(outputId = "gt_tbl")
   ),
   
   bslib::card_footer(
-    class = "fs-6",
-    lorem::ipsum(paragraphs = 1, sentences = 1),
-    shiny::uiOutput(outputId = "downloadButtonTSV"),
-    lorem::ipsum(paragraphs = 1, sentences = 1)
+    shiny::htmlOutput(outputId = "tableFooterHelpText")
   )
 ) |>
   htmltools::tagAppendAttributes(

@@ -2,7 +2,7 @@
 #' 
 #' @param azmetStation - AZMet station selection by user
 #' @param timeStep - AZMet data time step selection by user
-#' @return `tableTitle` - Title for dataa table based on user input
+#' @return `tableTitle` - Title for data table based on user input
 
 
 fxnTableTitle <- function(
@@ -16,7 +16,7 @@ fxnTableTitle <- function(
         paste(
           bsicons::bs_icon("table"), 
           htmltools::HTML("&nbsp;"), 
-          "Preview of", timeStep, "Data from the AZMet", azmetStation, "station", 
+          timeStep, "Data from the AZMet", azmetStation, "station", 
           sep = " "
         ),
       ),

@@ -22,10 +22,7 @@ theme =
     heading_font = NULL,
     font_scale = NULL,
     bootswatch = NULL,
-    "card-border-radius" = 0,
-    "focus-ring-color" = rgb(0, 0, 0, 0.1),
-    "focus-ring-width" = "0.1rem",
-    "tooltip-bg" = rgb(red = 30/255, green = 82/255, blue = 136/255, alpha = 0.9)
+    "card-border-radius" = 0
   ) |>
   bslib::bs_add_rules("
     .card-header {
@@ -62,9 +59,5 @@ theme =
     .nav-link.active:hover {
       color: #3f0009 !important;
       text-decoration: underline;
-    }
-    
-    .tooltip-inner {
-      background-color: rgba(30, 82, 136, 0.9) !important;
     }
   ")

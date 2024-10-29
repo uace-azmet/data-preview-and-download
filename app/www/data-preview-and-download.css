@@ -23,6 +23,7 @@
   background-color: #FFFFFF; 
   border-color: #001C48; 
   color: #001C48;
+  margin-top: 1.5rem;
 }
 
 .btn:active {
@@ -125,6 +126,8 @@
 .help-block {
   color: #989898 !important;
   font-size: 1rem;
+  font-style: italic;
+  font-weight: normal;
 }
 
 .modal-body {
@@ -135,6 +138,13 @@
   border-radius: var(--bs-border-radius) !important;
   box-shadow: 0px 1px 2px rgba(var(--bslib-box-shadow-color-rgb)) !important;
   padding-top: 0px !important;
+}
+
+.modal-dialog.modal-sm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .modal-header {
@@ -215,11 +225,10 @@
   border-radius: 0px;
 }
 
-
-
-
 .shiny-html-output {
-  max-height: 381px; min-height: auto; overflow: auto;
+  max-height: 381px; 
+  min-height: auto; 
+  overflow: auto;
 }
 
 .shiny-html-output thead th {
@@ -241,7 +250,8 @@
 }
 
 .table-caption {
-  color: #828282; font-style: italic;
+  color: #989898; 
+  font-style: italic;
 }
 
 .table-condensed {
@@ -250,27 +260,24 @@
 }
 
 .table-footer-help-text {
-  color: #828282; font-style: italic;
+  color: #202020; 
+  font-style: normal;
+  margin-top: 1.0rem;
 }
 
 .table-help-text {
-  color: #828282; font-style: italic;
+  color: #989898 !important;
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: normal;
+  margin-bottom: 0.0rem;
+  margin-top: 1.75rem;
 }
 
 .table-subtitle {
-  color: #343a40; font-weight: plain; margin-top: 0;
-}
-
-
-
-
-.main.bslib-gap-spacing.html-fill-container {
-  padding-top: calc(calc(1rem*2)*1.5);
-}
-
-.card-header {
-  padding-left: 0px;
-  padding-top: 0px;
+  color: #343a40; 
+  font-weight: plain; 
+  margin-top: 0;
 }
 
 .table-title {
@@ -279,6 +286,30 @@
   font-weight: normal;
   text-transform: uppercase;
 }
+
+
+
+.card-body {
+  padding: 0px;
+}
+
+.main.bslib-gap-spacing.html-fill-container {
+  padding-top: calc(calc(1rem*2)*1.5);
+}
+
+.card-header {
+  border-bottom: 0px;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-top: 0px;
+}
+
+.card-footer {
+  background-color: rgb(255, 255, 255);
+  padding: 0px;
+}
+
 
 
 
@@ -318,13 +349,6 @@
   text-shadow: none !important;
 }
 
-.modal-dialog.modal-sm {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 /* id */
 
 #datepickerModal {
@@ -335,7 +359,12 @@
 }
 
 #downloadTSV {
-  background-color: transparent; border-color: #001C48; color: #001C48; margin-bottom: 4px; margin-left: 4px; margin-top: 4px;
+  background-color: transparent; 
+  border-color: #001C48; 
+  color: #001C48; 
+  margin-bottom: 0px; 
+  margin-left: 0px;
+  margin-top: 1.0rem;
 }
 
 #downloadTSV:active {
