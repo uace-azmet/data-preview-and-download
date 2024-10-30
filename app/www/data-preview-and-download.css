@@ -46,6 +46,23 @@
   color: #FFFFFF;
 }
 
+.card-body {
+  padding: 0px;
+}
+
+.card-header {
+  border-bottom: 0px;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-top: 0px;
+}
+
+.card-footer {
+  background-color: rgb(255, 255, 255);
+  padding: 0px;
+}
+
 .century.active.disabled.focused {
   background-color: rgb(226, 233, 235) !important;
   border-color: none !important;
@@ -112,11 +129,6 @@
   text-shadow: none !important;
 }
 
-.figure-help-text {
-  color: #989898;
-  font-size: 0.9rem;
-  font-style: italic;
-}
 
 .form-control:focus {
   border: 1px solid #CCCCCC !important;
@@ -128,6 +140,10 @@
   font-size: 1rem;
   font-style: italic;
   font-weight: normal;
+}
+
+.main.bslib-gap-spacing.html-fill-container {
+  padding-top: calc(calc(1rem*2)*1.5);
 }
 
 .modal-body {
@@ -252,6 +268,7 @@
 .table-caption {
   color: #989898; 
   font-style: italic;
+  padding-top: 1.5rem;
 }
 
 .table-condensed {
@@ -274,45 +291,12 @@
   margin-top: 1.75rem;
 }
 
-.table-subtitle {
-  color: #343a40; 
-  font-weight: plain; 
-  margin-top: 0;
-}
-
 .table-title {
   color: #202020;
   font-size: 1rem;
   font-weight: normal;
   text-transform: uppercase;
 }
-
-
-
-.card-body {
-  padding: 0px;
-}
-
-.main.bslib-gap-spacing.html-fill-container {
-  padding-top: calc(calc(1rem*2)*1.5);
-}
-
-.card-header {
-  border-bottom: 0px;
-  margin-bottom: 0.5rem;
-  padding-bottom: 0px;
-  padding-left: 0px;
-  padding-top: 0px;
-}
-
-.card-footer {
-  background-color: rgb(255, 255, 255);
-  padding: 0px;
-}
-
-
-
-
 
 .year:hover {
   background-color: rgb(226, 233, 235) !important;
@@ -362,31 +346,38 @@
   background-color: transparent; 
   border-color: #001C48; 
   color: #001C48; 
-  margin-bottom: 0px; 
+  margin-bottom: 48px; 
   margin-left: 0px;
   margin-top: 1.0rem;
 }
 
 #downloadTSV:active {
-  background-color: #001C48; color: #fff;
+  background-color: #001C48; 
+  color: #fff;
 }
 
 #downloadTSV:hover {
-  background-color: #001C48; color: #fff;
+  background-color: #001C48; 
+  color: #fff;
 }
 
 #previewData {
-  background-color: transparent; border-color: #001C48; color: #001C48;
+  background-color: transparent; 
+  border-color: #001C48; 
+  color: #001C48;
 }
 
 #previewData:active {
-  background-color: #001C48; color: #fff;
+  background-color: #001C48; 
+  color: #fff;
 }
 
 #previewData:hover {
-  background-color: #001C48; color: #fff;
+  background-color: #001C48; 
+  color: #fff;
 }
 
 #sidebarPanel {
-  background-color: #E2E9EB !important; margin-bottom: 72px;
+  background-color: #E2E9EB !important; 
+  margin-bottom: 72px;
 }

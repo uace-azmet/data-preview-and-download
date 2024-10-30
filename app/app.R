@@ -33,20 +33,12 @@ ui <- htmltools::htmlTemplate(
     lang = NULL,
     window_title = NA,
     
-    #shiny::htmlOutput(outputId = "tableHelpText"),
-    
     cardDatatable, # `scr05_cardDatatable.R`
     
-    #shiny::tableOutput(outputId = "dataTablePreview"),
-    #htmltools::br(), 
-    htmltools::br(),
-    shiny::htmlOutput(outputId = "tableCaption"),
     #htmltools::br(),
+    
+    shiny::htmlOutput(outputId = "tableCaption"),
     shiny::uiOutput(outputId = "downloadButtonTSV"),
-    htmltools::br(), 
-    htmltools::br(),
-    htmltools::br(),
-    #shiny::htmlOutput(outputId = "tableFooterHelpText"),
     shiny::htmlOutput(outputId = "tableFooter")
   )
 )
