@@ -1,11 +1,11 @@
-#' `fxnAZMetDataPreview.R` - Format downloaded AZMet hourly or daily data for HTML table preview
+#' `fxn_AZMetDataPreview.R` - Format downloaded AZMet hourly or daily data for HTML table preview
 #' 
-#' @param inData - Downloaded AZMet hourly or daily data from `fxnAZMetDataELT.R`
+#' @param inData - Downloaded AZMet hourly or daily data from `fxn_AZMetDataELT.R`
 #' @param timeStep - AZMet data time step
 #' @return `dfAZMetDataPreview` - data table formatted for HTML table
 
 
-fxnAZMetDataPreview <- function(inData, timeStep) {
+fxn_AZMetDataPreview <- function(inData, timeStep) {
   
   # HOURLY "date_datetime", "wind_2min_timestamp"
   if (timeStep == "Hourly") {

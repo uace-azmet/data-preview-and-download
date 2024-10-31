@@ -1,10 +1,10 @@
-#' `fxnSidebarPageText.R` - Build footer for HTML table based on user input
+#' `fxn_sidebarPageText.R` - Build footer for HTML table based on user input
 #' 
 #' @param timeStep - AZMet data time step
 #' @return `sidebarPageText` - Table footer for HTML table based on user input
 
 
-fxnSidebarPageText <- function(timeStep) {
+fxn_sidebarPageText <- function(timeStep) {
   
   # Inputs to build text
   

@@ -1,4 +1,4 @@
-#' `fxnAZMetDataELT.R` AZMet hourly or daily data download from API-based database
+#' `fxn_AZMetDataELT.R` AZMet hourly or daily data download from API-based database
 #' 
 #' @param azmetStation - AZMet station name
 #' @param timeStep - AZMet data time step
@@ -7,7 +7,7 @@
 #' @return `dfAZMetData` - Transformed data table
 
 
-fxnAZMetDataELT <- function(
+fxn_AZMetDataELT <- function(
     azmetStation, 
     timeStep, 
     startDate, 

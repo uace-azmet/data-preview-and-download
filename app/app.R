@@ -12,10 +12,10 @@ library(shiny)
 library(vroom)
 
 # Functions 
-#source("./R/fxnABC.R", local = TRUE)
+#source("./R/fxn_ABC.R", local = TRUE)
 
 # Scripts
-#source("./R/scr##DEF.R", local = TRUE)
+#source("./R/scr##_DEF.R", local = TRUE)
 
 
 # UI --------------------
@@ -33,7 +33,7 @@ ui <- htmltools::htmlTemplate(
     lang = NULL,
     window_title = NA,
     
-    cardDataTable, # `scr05_cardDatatable.R`
+    cardDataTable, # `scr05_cardDataTable.R`
     shiny::htmlOutput(outputId = "downloadButtonHelpText"),
     shiny::uiOutput(outputId = "downloadButtonTSV"),
     shiny::htmlOutput(outputId = "sidebarPageText")
@@ -109,17 +109,9 @@ server <- function(input, output, session) {
   
   # Reactives -----
   
-  # Build card header subtitle
-  #cardHeaderSubtitle <- shiny::eventReactive(dfAZMetData(), {
-  #  fxnCardHeaderSubtitle(
-  #    startDate = input$startDate, 
-  #    endDate = input$endDate
-  #  )
-  #})
-  
   # Build table footer help text
   cardFooterText <- shiny::eventReactive(dfAZMetData(), {
-    fxnCardFooterText(
+    fxn_cardFooterText(
       inData = dfAZMetData(),
       timeStep = input$timeStep
     )
@@ -127,7 +119,7 @@ server <- function(input, output, session) {
   
   # Build card header title
   cardHeaderTitle <- shiny::eventReactive(dfAZMetData(), {
-    fxnCardHeaderTitle(
+    fxn_cardHeaderTitle(
       azmetStation = input$azmetStation,
       timeStep = input$timeStep
     )
@@ -153,7 +145,7 @@ server <- function(input, output, session) {
     
     on.exit(shiny::removeNotification(id = idPreview), add = TRUE)
     
-    fxnAZMetDataELT(
+    fxn_AZMetDataELT(
       azmetStation = input$azmetStation, 
       timeStep = input$timeStep, 
       startDate = input$startDate, 
@@ -163,7 +155,7 @@ server <- function(input, output, session) {
   
   # Format AZMet data for table preview
   dfAZMetDataPreview <- shiny::eventReactive(dfAZMetData(), {
-    fxnAZMetDataPreview(
+    fxn_AZMetDataPreview(
       inData = dfAZMetData(), 
       timeStep = input$timeStep
     )
@@ -171,17 +163,17 @@ server <- function(input, output, session) {
   
   # Build download button help text
   downloadButtonHelpText <- shiny::eventReactive(dfAZMetData(), {
-    fxnDownloadButtonHelpText()
+    fxn_downloadButtonHelpText()
   })
   
   # Build text for bottom of sidebar page
   sidebarPageText <- shiny::eventReactive(dfAZMetData(), {
-    fxnSidebarPageText(timeStep = input$timeStep)
+    fxn_sidebarPageText(timeStep = input$timeStep)
   })
   
   # Build table help text
   tableHelpText <- shiny::eventReactive(dfAZMetData(), {
-    fxnTableHelpText()
+    fxn_tableHelpText()
   })
   
   # Outputs -----
@@ -208,10 +200,6 @@ server <- function(input, output, session) {
     cardFooterText()
   })
   
-  #output$cardHeaderSubtitle <- renderUI({
-  #  cardHeaderSubtitle()
-  #})
-  
   output$cardHeaderTitle <- renderUI({
     cardHeaderTitle()
   })
@@ -233,7 +221,7 @@ server <- function(input, output, session) {
   output$downloadTSV <- downloadHandler(
     filename = function() {
       paste0(
-        "AZMet ", input$azmetStation, " ", input$timeStep, " Data ", input$startDate, " to ", input$endDate, ".tsv"
+        "AZMet-", input$azmetStation, "-", input$timeStep, "-Data-", input$startDate, "-to-", input$endDate, ".tsv"
       )
     },
     

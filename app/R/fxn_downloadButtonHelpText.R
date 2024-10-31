@@ -1,9 +1,9 @@
-#' `fxnDownloadButtonHelpText.R` - Build help text for download .tsv button
+#' `fxn_downloadButtonHelpText.R` - Build help text for download .tsv button
 #' 
 #' @return `downloadButtonHelpText` - Help text for download .tsv button
 
 
-fxnDownloadButtonHelpText <- function() {
+fxn_downloadButtonHelpText <- function() {
   downloadButtonHelpText <- 
     htmltools::p(
       htmltools::HTML(

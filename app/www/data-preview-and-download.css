@@ -45,7 +45,7 @@
 }
 
 .card-header-title {
-  color: #202020;
+  color: #191919;
   font-size: 1rem;
   font-weight: normal;
   text-transform: uppercase;
@@ -53,11 +53,12 @@
 
 .card-footer {
   background-color: rgb(255, 255, 255);
+  border-top: 0px;
   padding: 0px;
 }
 
 .card-footer-text {
-  color: #202020; 
+  color: #191919; 
   font-style: normal;
   margin-top: 1.0rem;
 }
@@ -260,7 +261,7 @@
 }
 
 .sidebar-page-text {
-  color: #202020;
+  color: #191919;
 }
 
 .table-condensed {
@@ -310,20 +311,6 @@
   border-color: none !important;
   color: var(--bs-body-color) !important;
   text-shadow: none !important;
-}
-
-[data-title]:after {
-    background-color: red !important;
-    border-radius: var(--bs-border-radius) !important;
-    color: #FFFFFF !important;
-    content: attr(data-title);
-    font-family: "Open Sans", verdana, arial, sans-serif !important;
-    font-weight: normal !important;
-}
-
-[data-title]:before {
-    border-left-color: red !important;
-    content: attr(data-title);
 }
 
 /* id */
