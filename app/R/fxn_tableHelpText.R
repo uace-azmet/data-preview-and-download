@@ -1,9 +1,9 @@
-#' `fxnTableHelpText.R` - Build help text for HTML table
+#' `fxn_tableHelpText.R` - Build help text for data table
 #' 
-#' @return `tableHelpText` - Help text for HTML table
+#' @return `tableHelpText` - Help text for data table
 
 
-fxnTableHelpText <- function() {
+fxn_tableHelpText <- function() {
   tableHelpText <- 
     htmltools::p(
       htmltools::HTML(

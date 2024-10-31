@@ -1,21 +1,21 @@
-
-
-# Preview and download hourly and daily data by specified stations and date ranges from API database
-
+# Preview and download hourly and daily data from API database by specified stations and date ranges
 
 # Libraries
 library(azmetr)
+library(bsicons)
+library(bslib)
 library(dplyr)
+library(gt)
 library(htmltools)
 library(lubridate)
 library(shiny)
 library(vroom)
 
 # Functions 
-#source("./R/fxnABC.R", local = TRUE)
+#source("./R/fxn_ABC.R", local = TRUE)
 
 # Scripts
-#source("./R/scr##DEF.R", local = TRUE)
+#source("./R/scr##_DEF.R", local = TRUE)
 
 
 # UI --------------------
@@ -24,118 +24,30 @@ ui <- htmltools::htmlTemplate(
   
   "azmet-shiny-template.html",
   
-  sidebarLayout = sidebarLayout(
-    position = "left",
+  pageSidebar = bslib::page_sidebar(
+    title = NULL,
+    sidebar = sidebar, # `scr04_sidebar.R`
+    fillable = TRUE,
+    fillable_mobile = FALSE,
+    theme = theme, # `scr03_theme.R`
+    lang = NULL,
+    window_title = NA,
     
-    sidebarPanel(
-      id = "sidebarPanel",
-      width = 4,
-      
-      verticalLayout(
-        helpText(em(
-          "Select an AZMet station, specify the time step, and set dates for the period of interest. Then, click or tap 'PREVIEW DATA'."
-        )),
-        
-        br(),
-        selectInput(
-          inputId = "azmetStation", 
-          label = "AZMet Station",
-          choices = stns[order(stns$stationName), ]$stationName,
-          selected = "Aguila"
-        ),
-        
-        selectInput(
-          inputId = "timeStep", 
-          label = "Time Step",
-          choices = timeSteps,
-          selected = "Hourly"
-        ),
-        
-        dateInput(
-          inputId = "startDate",
-          label = "Start Date",
-          value = lubridate::today(tzone = "America/Phoenix") - 1,
-          min = apiStartDate,
-          max = lubridate::today(tzone = "America/Phoenix"), # Initial timeStep is 'Hourly'
-          format = "MM d, yyyy",
-          startview = "month",
-          weekstart = 0, # Sunday
-          width = "100%",
-          autoclose = TRUE
-        ),
-        
-        dateInput(
-          inputId = "endDate",
-          label = "End Date",
-          value = lubridate::today(tzone = "America/Phoenix"),
-          min = apiStartDate,
-          max = lubridate::today(tzone = "America/Phoenix"),  # Initial timeStep is 'Hourly'
-          format = "MM d, yyyy",
-          startview = "month",
-          weekstart = 0, # Sunday
-          width = "100%",
-          autoclose = TRUE
-        ),
-        
-        br(),
-        actionButton(
-          inputId = "previewData", 
-          label = "Preview Data",
-          class = "btn btn-block btn-blue"
-        )
-      )
-    ), # sidebarPanel()
-    
-    mainPanel(
-      id = "mainPanel",
-      width = 8,
-      
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, htmlOutput(outputId = "tableTitle"))
-      ), 
-      
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, htmlOutput(outputId = "tableSubtitle"))
-      ),
-      
-      br(),
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, htmlOutput(outputId = "tableHelpText"))
-      ),
-      
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, tableOutput(outputId = "dataTablePreview"))
-      ), 
-      
-      br(), br(),
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, htmlOutput(outputId = "tableCaption"))
-      ),
-      
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, uiOutput(outputId = "downloadButtonTSV"))
-      ),
-      
-      br(), br(),
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, htmlOutput(outputId = "tableFooterHelpText"))
-      ),
-      
-      fluidRow(
-        column(width = 11, align = "left", offset = 1, htmlOutput(outputId = "tableFooter"))
-      ),
-      br()
-    ) # mainPanel()
-  ) # sidebarLayout()
-) # htmltools::htmlTemplate()
+    cardDataTable, # `scr05_cardDataTable.R`
+    shiny::htmlOutput(outputId = "downloadButtonHelpText"),
+    shiny::uiOutput(outputId = "downloadButtonTSV"),
+    shiny::htmlOutput(outputId = "sidebarPageText")
+  )
+)
 
 
 # Server --------------------
 
 server <- function(input, output, session) {
   
-  # Reactive events -----
+  # Observables -----
   
+  # Update maximum calendar date based on time step 
   shiny::observeEvent(input$timeStep, {
     if (input$timeStep == "Daily") {
       if (input$startDate == lubridate::today(tzone = "America/Phoenix")) {
@@ -188,13 +100,41 @@ server <- function(input, output, session) {
     }
   })
   
-  # AZMet data ELT
-  dfAZMetData <- eventReactive(input$previewData, {
-    validate(
-      need(expr = input$startDate <= input$endDate, message = FALSE)
+  # Date error notification
+  shiny::observeEvent(input$previewData, {
+    if (input$startDate > input$endDate) {
+      shiny::showModal(datepickerErrorModal) # `scr06_datepickerErrorModal.R`
+    }
+  })
+  
+  # Reactives -----
+  
+  # Build table footer help text
+  cardFooterText <- shiny::eventReactive(dfAZMetData(), {
+    fxn_cardFooterText(
+      inData = dfAZMetData(),
+      timeStep = input$timeStep
+    )
+  })
+  
+  # Build card header title
+  cardHeaderTitle <- shiny::eventReactive(dfAZMetData(), {
+    fxn_cardHeaderTitle(
+      azmetStation = input$azmetStation,
+      timeStep = input$timeStep
+    )
+  })
+  
+  # Download AZMet data
+  dfAZMetData <- shiny::eventReactive(input$previewData, {
+    shiny::validate(
+      shiny::need(
+        expr = input$startDate <= input$endDate, 
+        message = FALSE
+      )
     )
     
-    idPreview <- showNotification(
+    idPreview <- shiny::showNotification(
       ui = "Preparing data preview . . .", 
       action = NULL, 
       duration = NULL, 
@@ -203,9 +143,9 @@ server <- function(input, output, session) {
       type = "message"
     )
     
-    on.exit(removeNotification(id = idPreview), add = TRUE)
+    on.exit(shiny::removeNotification(id = idPreview), add = TRUE)
     
-    fxnAZMetDataELT(
+    fxn_AZMetDataELT(
       azmetStation = input$azmetStation, 
       timeStep = input$timeStep, 
       startDate = input$startDate, 
@@ -213,73 +153,60 @@ server <- function(input, output, session) {
     )
   })
   
-  # Format AZMet data for HTML table preview
-  dfAZMetDataPreview <- eventReactive(dfAZMetData(), {
-    fxnAZMetDataPreview(
+  # Format AZMet data for table preview
+  dfAZMetDataPreview <- shiny::eventReactive(dfAZMetData(), {
+    fxn_AZMetDataPreview(
       inData = dfAZMetData(), 
       timeStep = input$timeStep
     )
   })
   
-  # Build table caption
-  tableCaption <- eventReactive(dfAZMetData(), {
-    fxnTableCaption()
+  # Build download button help text
+  downloadButtonHelpText <- shiny::eventReactive(dfAZMetData(), {
+    fxn_downloadButtonHelpText()
   })
   
-  # Build table footer
-  tableFooter <- eventReactive(dfAZMetData(), {
-    fxnTableFooter(timeStep = input$timeStep)
-  })
-  
-  # Build table footer help text
-  tableFooterHelpText <- eventReactive(dfAZMetData(), {
-    fxnTableFooterHelpText()
+  # Build text for bottom of sidebar page
+  sidebarPageText <- shiny::eventReactive(dfAZMetData(), {
+    fxn_sidebarPageText(timeStep = input$timeStep)
   })
   
   # Build table help text
-  tableHelpText <- eventReactive(dfAZMetData(), {
-    fxnTableHelpText()
-  })
-  
-  # Build table subtitle
-  tableSubtitle <- eventReactive(dfAZMetData(), {
-    fxnTableSubtitle(
-      startDate = input$startDate, 
-      endDate = input$endDate
-    )
-  })
-  
-  # Build table title
-  tableTitle <- eventReactive(input$previewData, {
-    validate(
-      need(
-        expr = input$startDate <= input$endDate, 
-        message = "Please select a 'Start Date' that is earlier than or the same as the 'End Date'."
-      ),
-      errorClass = "datepicker"
-    )
-    
-    fxnTableTitle(
-      azmetStation = input$azmetStation,
-      timeStep = input$timeStep
-    )
+  tableHelpText <- shiny::eventReactive(dfAZMetData(), {
+    fxn_tableHelpText()
   })
   
   # Outputs -----
   
-  output$dataTablePreview <- renderTable(
-    expr = dfAZMetDataPreview(), 
-    striped = TRUE, 
-    hover = TRUE, 
-    bordered = FALSE, 
-    spacing = "xs", 
-    width = "auto", 
-    align = "c", 
-    rownames = FALSE, 
-    colnames = TRUE, 
-    digits = NULL, 
-    na = "na"
-  )
+  output$gt_tbl <- gt::render_gt({
+    expr = dfAZMetDataPreview()
+  })
+  
+  #output$dataTablePreview <- renderTable(
+  #  expr = dfAZMetDataPreview(), 
+  #  striped = TRUE, 
+  #  hover = TRUE, 
+  #  bordered = FALSE, 
+  #  spacing = "xs", 
+  #  width = "auto", 
+  #  align = "c", 
+  #  rownames = FALSE, 
+  #  colnames = TRUE, 
+  #  digits = NULL, 
+  #  na = "na"
+  #)
+  
+  output$cardFooterText <- renderUI({
+    cardFooterText()
+  })
+  
+  output$cardHeaderTitle <- renderUI({
+    cardHeaderTitle()
+  })
+  
+  output$downloadButtonHelpText <- renderUI({
+    downloadButtonHelpText()
+  })
   
   output$downloadButtonTSV <- renderUI({
     req(dfAZMetData())
@@ -294,36 +221,21 @@ server <- function(input, output, session) {
   output$downloadTSV <- downloadHandler(
     filename = function() {
       paste0(
-        "AZMet ", input$azmetStation, " ", input$timeStep, " Data ", input$startDate, " to ", input$endDate, ".tsv"
+        "AZMet-", input$azmetStation, "-", input$timeStep, "-Data-", input$startDate, "-to-", input$endDate, ".tsv"
       )
     },
+    
     content = function(file) {
       vroom::vroom_write(x = dfAZMetData(), file = file, delim = "\t")
     }
   )
   
-  output$tableCaption <- renderUI({
-    tableCaption()
-  })
-  
-  output$tableFooter <- renderUI({
-    tableFooter()
-  })
-  
-  output$tableFooterHelpText <- renderUI({
-    tableFooterHelpText()
+  output$sidebarPageText <- renderUI({
+    sidebarPageText()
   })
   
   output$tableHelpText <- renderUI({
     tableHelpText()
-  })
-  
-  output$tableSubtitle <- renderUI({
-    tableSubtitle()
-  })
-  
-  output$tableTitle <- renderUI({
-    tableTitle()
   })
 }
 
