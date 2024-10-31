@@ -1,9 +1,9 @@
-cardDatatable <- bslib::card(
+cardDataTable <- bslib::card(
   full_screen = TRUE,
   max_height = 600,
   
   bslib::card_header(
-    shiny::htmlOutput(outputId = "tableTitle"),
+    shiny::htmlOutput(outputId = "cardHeaderTitle"),
     shiny::htmlOutput(outputId = "tableHelpText")
   ),
   
@@ -13,7 +13,7 @@ cardDatatable <- bslib::card(
   ),
   
   bslib::card_footer(
-    shiny::htmlOutput(outputId = "tableFooterHelpText")
+    shiny::htmlOutput(outputId = "cardFooterText")
   )
 ) |>
   htmltools::tagAppendAttributes(

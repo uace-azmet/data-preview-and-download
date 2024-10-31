@@ -1,16 +1,16 @@
-#' `fxnTableTitle.R` - Build title for data table based on user input
+#' `fxnCardHeaderTitle.R` - Build title for card header of data table based on user input
 #' 
 #' @param azmetStation - AZMet station selection by user
 #' @param timeStep - AZMet data time step selection by user
-#' @return `tableTitle` - Title for data table based on user input
+#' @return `cardHeaderTitle` - Title for card header of data table based on user input
 
 
-fxnTableTitle <- function(
+fxnCardHeaderTitle <- function(
     azmetStation, 
     timeStep
   ) {
   
-  tableTitle <- 
+  cardHeaderTitle <- 
     htmltools::p(
       htmltools::HTML(
         paste(
@@ -21,8 +21,8 @@ fxnTableTitle <- function(
         ),
       ),
       
-      class = "table-title"
+      class = "card-header-title"
     )
   
-  return(tableTitle)
+  return(cardHeaderTitle)
 }

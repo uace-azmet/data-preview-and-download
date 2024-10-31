@@ -33,13 +33,10 @@ ui <- htmltools::htmlTemplate(
     lang = NULL,
     window_title = NA,
     
-    cardDatatable, # `scr05_cardDatatable.R`
-    
-    #htmltools::br(),
-    
-    shiny::htmlOutput(outputId = "tableCaption"),
+    cardDataTable, # `scr05_cardDatatable.R`
+    shiny::htmlOutput(outputId = "downloadButtonHelpText"),
     shiny::uiOutput(outputId = "downloadButtonTSV"),
-    shiny::htmlOutput(outputId = "tableFooter")
+    shiny::htmlOutput(outputId = "sidebarPageText")
   )
 )
 
@@ -112,6 +109,30 @@ server <- function(input, output, session) {
   
   # Reactives -----
   
+  # Build card header subtitle
+  #cardHeaderSubtitle <- shiny::eventReactive(dfAZMetData(), {
+  #  fxnCardHeaderSubtitle(
+  #    startDate = input$startDate, 
+  #    endDate = input$endDate
+  #  )
+  #})
+  
+  # Build table footer help text
+  cardFooterText <- shiny::eventReactive(dfAZMetData(), {
+    fxnCardFooterText(
+      inData = dfAZMetData(),
+      timeStep = input$timeStep
+    )
+  })
+  
+  # Build card header title
+  cardHeaderTitle <- shiny::eventReactive(dfAZMetData(), {
+    fxnCardHeaderTitle(
+      azmetStation = input$azmetStation,
+      timeStep = input$timeStep
+    )
+  })
+  
   # Download AZMet data
   dfAZMetData <- shiny::eventReactive(input$previewData, {
     shiny::validate(
@@ -148,40 +169,19 @@ server <- function(input, output, session) {
     )
   })
   
-  # Build table caption
-  tableCaption <- shiny::eventReactive(dfAZMetData(), {
-    fxnTableCaption()
+  # Build download button help text
+  downloadButtonHelpText <- shiny::eventReactive(dfAZMetData(), {
+    fxnDownloadButtonHelpText()
   })
   
-  # Build table footer
-  tableFooter <- shiny::eventReactive(dfAZMetData(), {
-    fxnTableFooter(timeStep = input$timeStep)
-  })
-  
-  # Build table footer help text
-  tableFooterHelpText <- shiny::eventReactive(dfAZMetData(), {
-    fxnTableFooterHelpText()
+  # Build text for bottom of sidebar page
+  sidebarPageText <- shiny::eventReactive(dfAZMetData(), {
+    fxnSidebarPageText(timeStep = input$timeStep)
   })
   
   # Build table help text
   tableHelpText <- shiny::eventReactive(dfAZMetData(), {
     fxnTableHelpText()
-  })
-  
-  # Build table subtitle
-  tableSubtitle <- shiny::eventReactive(dfAZMetData(), {
-    fxnTableSubtitle(
-      startDate = input$startDate, 
-      endDate = input$endDate
-    )
-  })
-  
-  # Build table title
-  tableTitle <- shiny::eventReactive(dfAZMetData(), {
-    fxnTableTitle(
-      azmetStation = input$azmetStation,
-      timeStep = input$timeStep
-    )
   })
   
   # Outputs -----
@@ -204,6 +204,22 @@ server <- function(input, output, session) {
   #  na = "na"
   #)
   
+  output$cardFooterText <- renderUI({
+    cardFooterText()
+  })
+  
+  #output$cardHeaderSubtitle <- renderUI({
+  #  cardHeaderSubtitle()
+  #})
+  
+  output$cardHeaderTitle <- renderUI({
+    cardHeaderTitle()
+  })
+  
+  output$downloadButtonHelpText <- renderUI({
+    downloadButtonHelpText()
+  })
+  
   output$downloadButtonTSV <- renderUI({
     req(dfAZMetData())
     downloadButton(
@@ -220,33 +236,18 @@ server <- function(input, output, session) {
         "AZMet ", input$azmetStation, " ", input$timeStep, " Data ", input$startDate, " to ", input$endDate, ".tsv"
       )
     },
+    
     content = function(file) {
       vroom::vroom_write(x = dfAZMetData(), file = file, delim = "\t")
     }
   )
   
-  output$tableCaption <- renderUI({
-    tableCaption()
-  })
-  
-  output$tableFooter <- renderUI({
-    tableFooter()
-  })
-  
-  output$tableFooterHelpText <- renderUI({
-    tableFooterHelpText()
+  output$sidebarPageText <- renderUI({
+    sidebarPageText()
   })
   
   output$tableHelpText <- renderUI({
     tableHelpText()
-  })
-  
-  output$tableSubtitle <- renderUI({
-    tableSubtitle()
-  })
-  
-  output$tableTitle <- renderUI({
-    tableTitle()
   })
 }
 

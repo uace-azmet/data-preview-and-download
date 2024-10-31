@@ -1,12 +1,12 @@
-#' `fxnTableFooter.R` - Build footer for HTML table based on user input
+#' `fxnSidebarPageText.R` - Build footer for HTML table based on user input
 #' 
 #' @param timeStep - AZMet data time step
-#' @return `tableFooter` - Table footer for HTML table based on user input
+#' @return `sidebarPageText` - Table footer for HTML table based on user input
 
 
-fxnTableFooter <- function(timeStep) {
+fxnSidebarPageText <- function(timeStep) {
   
-  # Inputs to build table footer
+  # Inputs to build text
   
   todayDate <- gsub(" 0", " ", format(lubridate::today(), "%B %d, %Y"))
   
@@ -62,8 +62,8 @@ fxnTableFooter <- function(timeStep) {
     )
   }
   
-  # Build table footer
-  tableFooter <- 
+  # Build text
+  sidebarPageText <- 
     htmltools::p(
       htmltools::HTML(
         paste0(
@@ -73,8 +73,10 @@ fxnTableFooter <- function(timeStep) {
           br(), br(),
           "For information on how this webpage is put together, please visit the", " ", webpageCode, " ", "for this tool."
         )
-      )
+      ),
+      
+      class = "sidebar-page-text"
     )
   
-  return(tableFooter)
+  return(sidebarPageText)
 }
