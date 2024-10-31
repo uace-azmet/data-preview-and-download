@@ -1,4 +1,4 @@
-cardDataTable <- bslib::card(
+cardTable <- bslib::card(
   full_screen = TRUE,
   max_height = 600,
   
@@ -8,8 +8,9 @@ cardDataTable <- bslib::card(
   ),
   
   bslib::card_body(
-    #class = "p-0",
-    gt::gt_output(outputId = "gt_tbl")
+    #class = "table table-sm table-striped table-bordered table-hover",
+    #gt::gt_output(outputId = "cardTable")
+    DT::dataTableOutput("cardTable")
   ),
   
   bslib::card_footer(

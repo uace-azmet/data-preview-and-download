@@ -33,7 +33,7 @@ ui <- htmltools::htmlTemplate(
     lang = NULL,
     window_title = NA,
     
-    cardDataTable, # `scr05_cardDataTable.R`
+    cardTable, # `scr05_cardTable.R`
     shiny::htmlOutput(outputId = "downloadButtonHelpText"),
     shiny::uiOutput(outputId = "downloadButtonTSV"),
     shiny::htmlOutput(outputId = "sidebarPageText")
@@ -178,10 +178,6 @@ server <- function(input, output, session) {
   
   # Outputs -----
   
-  output$gt_tbl <- gt::render_gt({
-    expr = dfAZMetDataPreview()
-  })
-  
   #output$dataTablePreview <- renderTable(
   #  expr = dfAZMetDataPreview(), 
   #  striped = TRUE, 
@@ -202,6 +198,14 @@ server <- function(input, output, session) {
   
   output$cardHeaderTitle <- renderUI({
     cardHeaderTitle()
+  })
+  
+  #output$cardTable <- gt::render_gt({
+  #  expr = dfAZMetDataPreview()
+  #})
+  
+  output$cardTable <- DT::renderDataTable({
+    dfAZMetDataPreview()
   })
   
   output$downloadButtonHelpText <- renderUI({

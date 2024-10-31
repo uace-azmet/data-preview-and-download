@@ -12,9 +12,9 @@ fxn_cardFooterText <- function(
   
   if (timeStep == "Daily") {
     startDate <- 
-      gsub(" 0", " ", format(lubridate::date(min(inData$date_datetime)), format = "%B %d, %Y"))
+      gsub(" 0", " ", format(lubridate::date(min(inData$datetime)), format = "%B %d, %Y"))
     endDate <- 
-      gsub(" 0", " ", format(lubridate::date(max(inData$date_datetime)), format = "%B %d, %Y"))
+      gsub(" 0", " ", format(lubridate::date(max(inData$datetime)), format = "%B %d, %Y"))
     
     cardFooterText <- 
       htmltools::p(

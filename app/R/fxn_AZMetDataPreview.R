@@ -43,5 +43,45 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
       dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
   }
   
+  # Format for `gt`
+  #stubColumn <- function() {
+  #  dplyr::contains("datetime")
+  #}
+  
+  #dfAZMetDataPreview <- dfAZMetDataPreview |>
+    #gt::gt(
+    #  id = "cardTable"#,
+      #rowname_col = "date_datetime"#dplyr::select(stubColumn())
+    #) |>
+    #gt::tab_style(
+    #  style = gt::cell_borders(
+    #    color = "#dee2e6",
+    #    sides = "all",
+    #    style = "solid",
+    #    weight = gt::px(1.0)
+    #  ),
+    #  locations = gt::cells_body()
+    #) |>
+    #gt::opt_interactive(
+    #  active = TRUE
+    #)
+    #gt::opt_align_table_header()
+    #gt::opt_css(
+    #  css = "
+    #  #cardTable {
+    #    background-color: #001C48; 
+    #    color: #fff;
+    #  }
+    #  "
+    #) |>
+    #gt::tab_header(
+    #  title = gt::md("**Title**"),
+    #  subtitle = gt::md("Sub*title*")
+    #) |>
+    #gt::tab_spanner(
+    #  label = "Data Variables",
+    #  columns = "meta_needs_review"
+    #)
+  
   return(dfAZMetDataPreview)
 }
