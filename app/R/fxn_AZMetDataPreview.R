@@ -52,32 +52,31 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
       bordered = TRUE,
       defaultColDef = reactable::colDef(
         header = function(value) {
-          sort_icon <- 
-            htmltools::span(class = "card-table-sort-icon", "aria-hidden" = TRUE)
+          sort_icon <- htmltools::span(class = "card-table-sort-icon", "aria-hidden" = TRUE)
           htmltools::tagList(value, sort_icon)
         },
         headerClass = "nav-link",
-        headerVAlign = "top",
-        html = TRUE,
-        minWidth = 150,
-        sortable = TRUE
+        #headerVAlign = "top",
+        #html = TRUE,
+        #minWidth = 150,
+        #sortable = TRUE
       ),
       height = 400,
       highlight = TRUE,
       pagination = FALSE,
-      resizable = TRUE,
+      #resizable = TRUE,
       searchable = FALSE,
-      showSortIcon = TRUE,
-      showSortable = FALSE,
-      sortable = TRUE,
-      striped = TRUE,
+      showSortIcon = FALSE,
+      #showSortable = TRUE,
+      #sortable = TRUE,
+      striped = TRUE#,
       #theme = reactableTheme(
       #  headerStyle = list(
       #    "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
       #    "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)")
       #  )
       #),
-      wrap = FALSE
+      #wrap = FALSE
     )
     #DT::datatable(
     #  extensions = "FixedHeader",

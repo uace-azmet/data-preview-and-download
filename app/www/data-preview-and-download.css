@@ -364,6 +364,13 @@
 
 /* pseduo-elements */
 
+/* .rt-table {
+  table-layout: fixed !important;
+} */
+
+[aria-sort] .my-sort-icon {
+  color: #3f51b5;
+}
 
 .rt-th[aria-sort=ascending] .rt-sort-left:after,.rt-th[aria-sort=ascending] .rt-sort-right:after {
     content: "\23F6";
@@ -373,7 +380,15 @@
     content: "\23F7";
 }
 
+/* .rt-thead {
+  white-space: nowrap !important;
+  width: 1px !important;
+} */
 
+/* .rt-th .rt-tr-header {
+  white-space: nowrap !important;
+  width: 1px !important;
+} */
 
 
 /*
