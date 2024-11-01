@@ -43,6 +43,50 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
       dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
   }
   
+  
+  
+  
+  
+  dfAZMetDataPreview <- dfAZMetDataPreview |>
+    reactable::reactable(
+      bordered = TRUE,
+      defaultColDef = reactable::colDef(
+        header = function(value) {
+          sort_icon <- 
+            htmltools::span(class = "card-table-sort-icon", "aria-hidden" = TRUE)
+          htmltools::tagList(value, sort_icon)
+        },
+        headerClass = "nav-link",
+        headerVAlign = "top",
+        html = TRUE,
+        minWidth = 150,
+        sortable = TRUE
+      ),
+      height = 400,
+      highlight = TRUE,
+      pagination = FALSE,
+      resizable = TRUE,
+      searchable = FALSE,
+      showSortIcon = TRUE,
+      showSortable = FALSE,
+      sortable = TRUE,
+      striped = TRUE,
+      #theme = reactableTheme(
+      #  headerStyle = list(
+      #    "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
+      #    "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)")
+      #  )
+      #),
+      wrap = FALSE
+    )
+    #DT::datatable(
+    #  extensions = "FixedHeader",
+    #  options = list(
+    #    fixedHeader = TRUE
+    #  ),
+    #  rownames = FALSE
+    #)
+  
   # Format for `gt`
   #stubColumn <- function() {
   #  dplyr::contains("datetime")

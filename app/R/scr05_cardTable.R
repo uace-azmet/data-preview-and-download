@@ -8,9 +8,7 @@ cardTable <- bslib::card(
   ),
   
   bslib::card_body(
-    #class = "table table-sm table-striped table-bordered table-hover",
-    #gt::gt_output(outputId = "cardTable")
-    DT::dataTableOutput("cardTable")
+    reactable::reactableOutput("cardTable")
   ),
   
   bslib::card_footer(

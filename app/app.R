@@ -5,9 +5,11 @@ library(azmetr)
 library(bsicons)
 library(bslib)
 library(dplyr)
-library(gt)
+#library(DT)
+#library(gt)
 library(htmltools)
 library(lubridate)
+library(reactable)
 library(shiny)
 library(vroom)
 
@@ -204,8 +206,12 @@ server <- function(input, output, session) {
   #  expr = dfAZMetDataPreview()
   #})
   
-  output$cardTable <- DT::renderDataTable({
-    dfAZMetDataPreview()
+  #output$cardTable <- DT::renderDataTable({
+  #  expr = dfAZMetDataPreview()
+  #})
+  
+  output$cardTable <- reactable::renderReactable({
+    expr = dfAZMetDataPreview()
   })
   
   output$downloadButtonHelpText <- renderUI({
