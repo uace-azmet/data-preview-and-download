@@ -22,7 +22,8 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
         c("eto_azmet_in", "meta_bat_volt", "precip_total_in", "sol_rad_total", "sol_rad_total_ly", "vp_actual", "vp_deficit"), 
         \(x) format(x, nsmall = 2)
       )) %>%
-      dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
+      dplyr::mutate(dplyr::across(dplyr::everything(), as.character)) |>
+      dplyr::mutate(dplyr::across(c("dwpt", "dwptF"), as.numeric))
   }
   
   # DAILY "datetime" "wind_2min_timestamp"
@@ -45,47 +46,6 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
   
   
   
-  
-  
-  dfAZMetDataPreview <- dfAZMetDataPreview |>
-    reactable::reactable(
-      bordered = TRUE,
-      defaultColDef = reactable::colDef(
-        header = function(value) {
-          sort_icon <- htmltools::span(class = "card-table-sort-icon", "aria-hidden" = TRUE)
-          htmltools::tagList(value, sort_icon)
-        },
-        headerClass = "nav-link",
-        #headerVAlign = "top",
-        #html = TRUE,
-        #minWidth = 150,
-        #sortable = TRUE
-      ),
-      height = 400,
-      highlight = TRUE,
-      pagination = FALSE,
-      #resizable = TRUE,
-      searchable = FALSE,
-      showSortIcon = FALSE,
-      #showSortable = TRUE,
-      #sortable = TRUE,
-      striped = TRUE#,
-      #theme = reactableTheme(
-      #  headerStyle = list(
-      #    "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
-      #    "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)")
-      #  )
-      #),
-      #wrap = FALSE
-    )
-    #DT::datatable(
-    #  extensions = "FixedHeader",
-    #  options = list(
-    #    fixedHeader = TRUE
-    #  ),
-    #  rownames = FALSE
-    #)
-  
   # Format for `gt`
   #stubColumn <- function() {
   #  dplyr::contains("datetime")
@@ -94,7 +54,7 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
   #dfAZMetDataPreview <- dfAZMetDataPreview |>
     #gt::gt(
     #  id = "cardTable"#,
-      #rowname_col = "date_datetime"#dplyr::select(stubColumn())
+    #rowname_col = "date_datetime"#dplyr::select(stubColumn())
     #) |>
     #gt::tab_style(
     #  style = gt::cell_borders(
@@ -106,7 +66,9 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
     #  locations = gt::cells_body()
     #) |>
     #gt::opt_interactive(
-    #  active = TRUE
+    #  active = TRUE,
+    #  use_pagination = FALSE,
+    #  use_sorting = TRUE
     #)
     #gt::opt_align_table_header()
     #gt::opt_css(
@@ -125,6 +87,67 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
     #  label = "Data Variables",
     #  columns = "meta_needs_review"
     #)
+  
+  
+  
+  dfAZMetDataPreview <- dfAZMetDataPreview |>
+    reactable::reactable(
+      bordered = TRUE,
+      defaultColDef = reactable::colDef(
+        #footer = function(values, name) {
+        #  htmltools::div(name, style = list(fontWeight = 600))
+        #},
+    #    header = function(value) {
+    #      sort_icon <- htmltools::span(class = "card-table-sort-icon", "aria-hidden" = TRUE)
+    #      htmltools::tagList(value, sort_icon)
+    #    },
+        headerClass = "nav-link",
+        #headerVAlign = "top",
+  #      html = TRUE,
+        #minWidth = 150,
+        #sortable = TRUE
+      ),
+      height = 600,
+      highlight = TRUE,
+      pagination = FALSE,
+      #resizable = TRUE,
+    #  searchable = FALSE,
+    #  showSortIcon = FALSE,
+      #showSortable = TRUE,
+      #sortable = TRUE,
+      striped = TRUE#,
+      #theme = reactableTheme(
+      #  headerStyle = list(
+      #    "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
+      #    "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)")
+      #  )
+      #),
+  #  width = "auto",  
+  #  wrap = FALSE
+    )
+  
+  
+  # https://stackoverflow.com/questions/69835894/workaround-for-issues-with-freezing-header-in-dtdatatable-in-r-shiny
+  #dfAZMetDataPreview <- dfAZMetDataPreview |>
+  # DT::datatable(
+      #class = "dt-datatable",
+  #    extensions = "FixedHeader",
+      #filter = "none",
+  #    height = "600px",
+  #    options = list(
+  #      fixedHeader = TRUE,
+        #dom = "ti",
+  #      pageLength = -1,
+  #      paging = FALSE,
+  #      scrollX = TRUE,
+  #      scrollY = "600px",
+  #      searching = FALSE
+  #    ),
+  #    rownames = FALSE#,
+      #selection = "none"
+  #  )
+  
+  
   
   return(dfAZMetDataPreview)
 }

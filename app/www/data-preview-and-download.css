@@ -364,9 +364,15 @@
 
 /* pseduo-elements */
 
-/* .rt-table {
+.rt-tr .rt-tr-header {
+  border-collapse: collapse !important;
   table-layout: fixed !important;
-} */
+  position: sticky !important;
+  top: 0 !important;
+  background: lightgreen !important;
+  white-space: nowrap !important;
+  width: 1px !important;
+}
 
 [aria-sort] .my-sort-icon {
   color: #3f51b5;
@@ -379,11 +385,6 @@
 .rt-th[aria-sort=descending] .rt-sort-left:after,.rt-th[aria-sort=descending] .rt-sort-right:after {
     content: "\23F7";
 }
-
-/* .rt-thead {
-  white-space: nowrap !important;
-  width: 1px !important;
-} */
 
 /* .rt-th .rt-tr-header {
   white-space: nowrap !important;
