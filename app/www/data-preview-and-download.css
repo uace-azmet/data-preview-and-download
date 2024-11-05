@@ -270,11 +270,11 @@
 }
 
 .table-help-text {
-  color: #989898 !important;
+  color: red !important;
   font-size: 1rem;
   font-style: italic;
   font-weight: normal;
-  margin-bottom: 0.0rem;
+  margin-bottom: 1.0rem;
   margin-top: 1.75rem;
 }
 
@@ -344,7 +344,7 @@
 #previewData {
   background-color: transparent; 
   border-color: #001C48; 
-  color: #001C48;
+  color: lightgreen;
 }
 
 #previewData:active {
@@ -364,7 +364,7 @@
 
 /* pseduo-elements */
 
-.rt-tr .rt-tr-header {
+/* .rt-tr .rt-tr-header {
   border-collapse: collapse !important;
   table-layout: fixed !important;
   position: sticky !important;
@@ -372,11 +372,15 @@
   background: lightgreen !important;
   white-space: nowrap !important;
   width: 1px !important;
+} */
+
+.rt-th-inner {
+  background: lightgreen;
 }
 
-[aria-sort] .my-sort-icon {
+/* [aria-sort] .my-sort-icon {
   color: #3f51b5;
-}
+} */
 
 .rt-th[aria-sort=ascending] .rt-sort-left:after,.rt-th[aria-sort=ascending] .rt-sort-right:after {
     content: "\23F6";
