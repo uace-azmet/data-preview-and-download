@@ -270,11 +270,11 @@
 }
 
 .table-help-text {
-  color: red !important;
+  color: #989898 !important;
   font-size: 1rem;
   font-style: italic;
   font-weight: normal;
-  margin-bottom: 1.0rem;
+  margin-bottom: 0.5rem;
   margin-top: 1.75rem;
 }
 
@@ -344,7 +344,7 @@
 #previewData {
   background-color: transparent; 
   border-color: #001C48; 
-  color: lightgreen;
+  color: #001C48;
 }
 
 #previewData:active {
@@ -372,10 +372,20 @@
   background: lightgreen !important;
   white-space: nowrap !important;
   width: 1px !important;
+  
+  table{table-layout:fixed;}
+td{width:1px;white-space:nowrap;}
+  
 } */
 
-.rt-th-inner {
-  background: lightgreen;
+/* .rt-table {
+  table-layout: fixed !important;
+} */
+
+.rt-td-inner {
+  background: red;
+  white-space: nowrap !important;
+  width: 1px !important;
 }
 
 /* [aria-sort] .my-sort-icon {

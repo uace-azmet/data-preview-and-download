@@ -115,14 +115,14 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
     #  showSortIcon = FALSE,
       #showSortable = TRUE,
       #sortable = TRUE,
-      striped = TRUE#,
+      striped = TRUE,
       #theme = reactableTheme(
       #  headerStyle = list(
       #    "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
       #    "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)")
       #  )
       #),
-  #  width = "auto",  
+    width = "auto"#,  
   #  wrap = FALSE
     )
   
