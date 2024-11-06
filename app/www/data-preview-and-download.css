@@ -265,8 +265,7 @@
 }
 
 .sorting_1 {
-  background-color: lightgreen !important;
-  color: blue !important;
+  background-color: rgba(30,82,136,0.8) !important;
 }
 
 .table-condensed {
@@ -281,6 +280,14 @@
   font-weight: normal;
   margin-bottom: 0.5rem;
   margin-top: 1.75rem;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th {
+   background-color: var(--bs-table-accent-bg);
+}
+
+.table-striped > tbody > tr:hover {
+  background-color: red !important;
 }
 
 .year:hover {
@@ -407,6 +414,7 @@ td{width:1px;white-space:nowrap;}
   color: #3f51b5;
 } */
 
+/* 
 .rt-th[aria-sort=ascending] .rt-sort-left:after,.rt-th[aria-sort=ascending] .rt-sort-right:after {
     content: "\23F6";
 }
@@ -414,7 +422,7 @@ td{width:1px;white-space:nowrap;}
 .rt-th[aria-sort=descending] .rt-sort-left:after,.rt-th[aria-sort=descending] .rt-sort-right:after {
     content: "\23F7";
 }
-
+*/
 /* .rt-th .rt-tr-header {
   white-space: nowrap !important;
   width: 1px !important;
