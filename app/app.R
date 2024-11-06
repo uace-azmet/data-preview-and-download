@@ -36,7 +36,10 @@ ui <- htmltools::htmlTemplate(
     window_title = NA,
     
     #cardTable, # `scr05_cardTable.R`
+    shiny::htmlOutput(outputId = "tableTitle"),
+    shiny::htmlOutput(outputId = "tableHelpText"),
     DT::dataTableOutput("cardTable"),
+    shiny::htmlOutput(outputId = "cardFooterText"),
     shiny::htmlOutput(outputId = "downloadButtonHelpText"),
     shiny::uiOutput(outputId = "downloadButtonTSV"),
     shiny::htmlOutput(outputId = "sidebarPageText")
@@ -120,14 +123,6 @@ server <- function(input, output, session) {
     )
   })
   
-  # Build card header title
-  cardHeaderTitle <- shiny::eventReactive(dfAZMetData(), {
-    fxn_cardHeaderTitle(
-      azmetStation = input$azmetStation,
-      timeStep = input$timeStep
-    )
-  })
-  
   # Download AZMet data
   dfAZMetData <- shiny::eventReactive(input$previewData, {
     shiny::validate(
@@ -179,7 +174,15 @@ server <- function(input, output, session) {
     fxn_tableHelpText()
   })
   
-  # Outputs -----
+  # Build data table title
+  tableTitle <- shiny::eventReactive(dfAZMetData(), {
+    fxn_tableTitle(
+      azmetStation = input$azmetStation,
+      timeStep = input$timeStep
+    )
+  })
+  
+    # Outputs -----
   
   #output$dataTablePreview <- renderTable(
   #  expr = dfAZMetDataPreview(), 
@@ -197,10 +200,6 @@ server <- function(input, output, session) {
   
   output$cardFooterText <- renderUI({
     cardFooterText()
-  })
-  
-  output$cardHeaderTitle <- renderUI({
-    cardHeaderTitle()
   })
   
   #output$cardTable <- gt::render_gt({
@@ -247,6 +246,10 @@ server <- function(input, output, session) {
   
   output$tableHelpText <- renderUI({
     tableHelpText()
+  })
+  
+  output$tableTitle <- renderUI({
+    tableTitle()
   })
 }
 

@@ -32,9 +32,9 @@
   color: #FFFFFF;
 }
 
-.card-body {
+/* .card-body {
   padding: 0px;
-}
+} */
 
 .card-header {
   border-bottom: 0px;
@@ -42,13 +42,6 @@
   padding-bottom: 0px;
   padding-left: 0px;
   padding-top: 0px;
-}
-
-.card-header-title {
-  color: #191919;
-  font-size: 1rem;
-  font-weight: normal;
-  text-transform: uppercase;
 }
 
 .card-footer {
@@ -59,8 +52,9 @@
 
 .card-footer-text {
   color: #191919; 
+  font-size: 0.95rem;
   font-style: normal;
-  margin-top: 1.0rem;
+  margin-top: 0.5rem;
 }
 
 .century.active.disabled.focused {
@@ -80,6 +74,11 @@
 .control-label {
   color: var(--bs-body-color); 
   font-weight: bold;
+}
+
+.dataTables_info {
+  color: red;
+  padding-top: 0.5rem;
 }
 
 .datepicker {
@@ -286,8 +285,19 @@
    background-color: #cecece;
 }
 
-.table-striped > tbody > tr > td:hover {
+.table-striped > tbody > tr:nth-child(even) > td:hover, .table-striped > tbody > tr:nth-child(even) > th:hover {
+   background-color: rgba(201, 201, 201, 0.2);
+}
+
+/* .table-striped > tbody > tr > td:hover {
   background-color: rgba(201, 201, 201, 0.2);
+} */
+
+.table-title {
+  color: #191919;
+  font-size: 1rem;
+  font-weight: normal;
+  text-transform: uppercase;
 }
 
 .year:hover {
