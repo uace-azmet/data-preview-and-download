@@ -35,7 +35,8 @@ ui <- htmltools::htmlTemplate(
     lang = NULL,
     window_title = NA,
     
-    cardTable, # `scr05_cardTable.R`
+    #cardTable, # `scr05_cardTable.R`
+    DT::dataTableOutput("cardTable"),
     shiny::htmlOutput(outputId = "downloadButtonHelpText"),
     shiny::uiOutput(outputId = "downloadButtonTSV"),
     shiny::htmlOutput(outputId = "sidebarPageText")
@@ -206,13 +207,13 @@ server <- function(input, output, session) {
   #  expr = dfAZMetDataPreview()
   #})
   
-  output$cardTable <- reactable::renderReactable({
-    expr = dfAZMetDataPreview()
-  })
-  
-  #output$cardTable <- DT::renderDataTable({
+  #output$cardTable <- reactable::renderReactable({
   #  expr = dfAZMetDataPreview()
   #})
+  
+  output$cardTable <- DT::renderDataTable({
+    expr = dfAZMetDataPreview()
+  })
   
   output$downloadButtonHelpText <- renderUI({
     downloadButtonHelpText()

@@ -64,6 +64,30 @@ theme =
       text-decoration: underline;
     }
     
+    .sorting {
+      background-color: #FFFFFF !important;
+      color: #8B0015 !important;
+      text-decoration: underline !important;
+    }
+    
+    .sorting:hover {
+      color: #3f0009 !important;
+      text-decoration: underline;
+    }
+    
+    .sorting.active {
+      background-color: #E2E9EB !important;
+      border-color: #E2E9EB #E2E9EB #E2E9EB !important;
+      border-width: 1px 1px 1px 1px !important;
+      color: var(--bs-body-color) !important;
+      text-decoration: underline;
+    }
+    
+    .sorting.active:hover {
+      color: #3f0009 !important;
+      text-decoration: underline;
+    }
+    
     .tooltip-inner {
       background-color: rgba(30, 82, 136, 0.9) !important;
     }

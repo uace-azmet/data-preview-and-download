@@ -9,7 +9,7 @@ cardTable <- bslib::card(
   
   bslib::card_body(
     #gt::gt_output("cardTable")
-    reactable::reactableOutput("cardTable")
+    #reactable::reactableOutput("cardTable")
     #DT::dataTableOutput("cardTable")
   ),
   

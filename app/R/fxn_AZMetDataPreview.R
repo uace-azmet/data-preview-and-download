@@ -52,24 +52,26 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
   #}
   
   #dfAZMetDataPreview <- dfAZMetDataPreview |>
-    #gt::gt(
-    #  id = "cardTable"#,
-    #rowname_col = "date_datetime"#dplyr::select(stubColumn())
-    #) |>
-    #gt::tab_style(
-    #  style = gt::cell_borders(
-    #    color = "#dee2e6",
-    #    sides = "all",
-    #    style = "solid",
-    #    weight = gt::px(1.0)
-    #  ),
-    #  locations = gt::cells_body()
-    #) |>
-    #gt::opt_interactive(
-    #  active = TRUE,
-    #  use_pagination = FALSE,
-    #  use_sorting = TRUE
-    #)
+  #  gt::gt(
+  #    id = "cardTable"#,
+      #rowname_col = "date_datetime"#dplyr::select(stubColumn())
+  #  ) |>
+  #  gt::opt_row_striping(row_striping = TRUE) |>
+  #  gt::tab_style(
+  #    style = gt::cell_borders(
+  #      color = "#dee2e6",
+  #      sides = "all",
+  #      style = "solid",
+  #      weight = gt::px(1.0)
+  #    ),
+  #    locations = gt::cells_body()
+  #  ) |>
+  #  gt::opt_interactive(
+  #    active = TRUE,
+  #    height = 400,
+  #    use_pagination = FALSE,
+  #    use_sorting = FALSE
+  #  ) |>
     #gt::opt_align_table_header()
     #gt::opt_css(
     #  css = "
@@ -78,7 +80,7 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
     #    color: #fff;
     #  }
     #  "
-    #) |>
+    #)
     #gt::tab_header(
     #  title = gt::md("**Title**"),
     #  subtitle = gt::md("Sub*title*")
@@ -88,12 +90,19 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
     #  columns = "meta_needs_review"
     #)
   
+  #ncharToPixels <- function(input) {
+  #  input * 12
+  #}
   
-  
-  dfAZMetDataPreview <- dfAZMetDataPreview |>
-    reactable::reactable(
-      bordered = TRUE,
-      defaultColDef = reactable::colDef(
+  #dfAZMetDataPreview <- dfAZMetDataPreview |>
+  #  reactable::reactable(
+  #    bordered = TRUE,
+  #    columns = list(
+  #      meta_needs_review = reactable::colDef(width = ncharToPixels(nchar("meta_needs_review"))),
+  #      meta_station_id = reactable::colDef(width = ncharToPixels(nchar("meta_station_id"))),
+  #      meta_station_name = reactable::colDef(width = ncharToPixels(nchar("meta_station_name")))
+  #    ),
+  #    defaultColDef = reactable::colDef(
         #footer = function(values, name) {
         #  htmltools::div(name, style = list(fontWeight = 600))
         #},
@@ -101,51 +110,57 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
     #      sort_icon <- htmltools::span(class = "card-table-sort-icon", "aria-hidden" = TRUE)
     #      htmltools::tagList(value, sort_icon)
     #    },
-        headerClass = "nav-link",
-        #headerVAlign = "top",
-  #      html = TRUE,
+  #      headerClass = "nav-link"#,
+       #headerVAlign = "top",
+  #      html = TRUE#,
         #minWidth = 150,
         #sortable = TRUE
-      ),
-      height = 600,
-      highlight = TRUE,
-      pagination = FALSE,
+        #width = 250
+  #    ),
+  #    height = 400,
+  #    highlight = TRUE,
+  #    pagination = FALSE,
       #resizable = TRUE,
     #  searchable = FALSE,
     #  showSortIcon = FALSE,
       #showSortable = TRUE,
       #sortable = TRUE,
-      striped = TRUE,
+  #    striped = TRUE#,
+      #style = list(
+      #  color = "red"
+      #),
       #theme = reactableTheme(
       #  headerStyle = list(
       #    "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
       #    "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)")
       #  )
       #),
-    width = "auto"#,  
+    #width = "auto"#,  
   #  wrap = FALSE
-    )
+  #  )
   
   
   # https://stackoverflow.com/questions/69835894/workaround-for-issues-with-freezing-header-in-dtdatatable-in-r-shiny
-  #dfAZMetDataPreview <- dfAZMetDataPreview |>
-  # DT::datatable(
-      #class = "dt-datatable",
-  #    extensions = "FixedHeader",
-      #filter = "none",
-  #    height = "600px",
-  #    options = list(
-  #      fixedHeader = TRUE,
-        #dom = "ti",
-  #      pageLength = -1,
-  #      paging = FALSE,
-  #      scrollX = TRUE,
-  #      scrollY = "600px",
-  #      searching = FALSE
-  #    ),
-  #    rownames = FALSE#,
-      #selection = "none"
-  #  )
+  dfAZMetDataPreview <- dfAZMetDataPreview |>
+   DT::datatable(
+     #class = "dt-datatable",
+     #extensions = "FixedHeader",
+     #filter = "none",
+     #height = 300,
+     options = list(
+       #fixedHeader = TRUE,
+       #dom = "ti",
+  #    pageLength = -1,
+       orderClasses = TRUE,
+       ordering = TRUE,
+       paging = FALSE,
+       scrollX = TRUE,
+       scrollY = "400px",
+       searching = FALSE
+     ),
+     rownames = FALSE,
+     selection = "none"
+   )
   
   
   
