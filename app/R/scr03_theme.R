@@ -23,6 +23,7 @@ theme =
     font_scale = NULL,
     bootswatch = NULL,
     "card-border-radius" = 0,
+    "dt-row-hover" = rgb(0, 0, 0),
     "focus-ring-color" = rgb(0, 0, 0, 0.1),
     "focus-ring-width" = "0.1rem",
     "tooltip-bg" = rgb(red = 30/255, green = 82/255, blue = 136/255, alpha = 0.9)

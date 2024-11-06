@@ -265,7 +265,7 @@
 }
 
 .sorting_1 {
-  background-color: rgba(30,82,136,0.8) !important;
+  background-color: rgba(171, 5, 32, 0.1) !important;
 }
 
 .table-condensed {
@@ -283,11 +283,11 @@
 }
 
 .table-striped > tbody > tr:nth-child(even) > td, .table-striped > tbody > tr:nth-child(even) > th {
-   background-color: var(--bs-table-accent-bg);
+   background-color: #cecece;
 }
 
-.table-striped > tbody > tr:hover {
-  background-color: red !important;
+.table-striped > tbody > tr > td:hover {
+  background-color: rgba(201, 201, 201, 0.2);
 }
 
 .year:hover {
