@@ -50,13 +50,6 @@
   padding: 0px;
 }
 
-.card-footer-text {
-  color: #191919; 
-  font-size: 0.95rem;
-  font-style: normal;
-  margin-top: 0.5rem;
-}
-
 .century.active.disabled.focused {
   background-color: rgb(226, 233, 235) !important;
   border-color: none !important;
@@ -77,8 +70,9 @@
 }
 
 .dataTables_info {
-  color: red;
-  padding-top: 0.5rem;
+  color: #191919 !important;
+  padding-top: 0.25rem !important;
+  text-align: left !important;
 }
 
 .datepicker {
@@ -131,7 +125,7 @@
 .download-button-help-text {
   color: #989898; 
   font-style: italic;
-  padding-top: 1.5rem;
+  padding-top: 48px;
 }
 
 .form-control:focus {
@@ -264,12 +258,19 @@
 }
 
 .sorting_1 {
-  background-color: rgba(171, 5, 32, 0.1) !important;
+  background-color: rgba(171, 5, 32, 0.1);
 }
 
 .table-condensed {
   background-color: #FFFFFF; 
   color: var(--bs-body-color);
+}
+
+.table-footer {
+  color: #191919; 
+  font-size: 0.95rem;
+  font-style: normal;
+  margin-top: 0.25rem;
 }
 
 .table-help-text {
@@ -289,7 +290,7 @@
    background-color: rgba(201, 201, 201, 0.2);
 }
 
-/* .table-striped > tbody > tr > td:hover {
+/* .table-striped > tbody > tr > td:hover {.        
   background-color: rgba(201, 201, 201, 0.2);
 } */
 

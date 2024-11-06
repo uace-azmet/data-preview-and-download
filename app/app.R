@@ -39,7 +39,7 @@ ui <- htmltools::htmlTemplate(
     shiny::htmlOutput(outputId = "tableTitle"),
     shiny::htmlOutput(outputId = "tableHelpText"),
     DT::dataTableOutput("cardTable"),
-    shiny::htmlOutput(outputId = "cardFooterText"),
+    shiny::htmlOutput(outputId = "tableFooter"),
     shiny::htmlOutput(outputId = "downloadButtonHelpText"),
     shiny::uiOutput(outputId = "downloadButtonTSV"),
     shiny::htmlOutput(outputId = "sidebarPageText")
@@ -115,14 +115,6 @@ server <- function(input, output, session) {
   
   # Reactives -----
   
-  # Build table footer help text
-  cardFooterText <- shiny::eventReactive(dfAZMetData(), {
-    fxn_cardFooterText(
-      inData = dfAZMetData(),
-      timeStep = input$timeStep
-    )
-  })
-  
   # Download AZMet data
   dfAZMetData <- shiny::eventReactive(input$previewData, {
     shiny::validate(
@@ -169,6 +161,14 @@ server <- function(input, output, session) {
     fxn_sidebarPageText(timeStep = input$timeStep)
   })
   
+  # Build data table footer
+  tableFooter <- shiny::eventReactive(dfAZMetData(), {
+    fxn_tableFooter(
+      inData = dfAZMetData(),
+      timeStep = input$timeStep
+    )
+  })
+  
   # Build table help text
   tableHelpText <- shiny::eventReactive(dfAZMetData(), {
     fxn_tableHelpText()
@@ -197,10 +197,6 @@ server <- function(input, output, session) {
   #  digits = NULL, 
   #  na = "na"
   #)
-  
-  output$cardFooterText <- renderUI({
-    cardFooterText()
-  })
   
   #output$cardTable <- gt::render_gt({
   #  expr = dfAZMetDataPreview()
@@ -242,6 +238,10 @@ server <- function(input, output, session) {
   
   output$sidebarPageText <- renderUI({
     sidebarPageText()
+  })
+  
+  output$tableFooter <- renderUI({
+    tableFooter()
   })
   
   output$tableHelpText <- renderUI({

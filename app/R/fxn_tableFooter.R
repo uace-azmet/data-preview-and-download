@@ -1,11 +1,11 @@
-#' `fxn_cardFooterText.R` - Build text for card footer of data table
+#' `fxn_tableFooter.R` - Build text for footer of data table
 #' 
 #' @param inData - Downloaded AZMet hourly or daily data from `fxnAZMetDataELT.R`
 #' @param timeStep - AZMet data time step
-#' @return `cardFooterText` - Text for card footer of data table
+#' @return `tableFooter` - Text for footer of data table
 
 
-fxn_cardFooterText <- function(
+fxn_tableFooter <- function(
     inData,
     timeStep
   ) {
@@ -16,7 +16,7 @@ fxn_cardFooterText <- function(
     endDate <- 
       gsub(" 0", " ", format(lubridate::date(max(inData$datetime)), format = "%B %d, %Y"))
     
-    cardFooterText <- 
+    tableFooter <- 
       htmltools::p(
         htmltools::HTML(
           paste0(
@@ -24,7 +24,7 @@ fxn_cardFooterText <- function(
           )
         ), 
         
-        class = "card-footer-text"
+        class = "table-footer"
       )
   } else if (timeStep == "Hourly") {
     startDate <- 
@@ -40,7 +40,7 @@ fxn_cardFooterText <- function(
     startDateTime <- paste(startDate, startTime, sep = " ")
     endDateTime <- paste(endDate, endTime, sep = " ")
     
-    cardFooterText <- 
+    tableFooter <- 
       htmltools::p(
         htmltools::HTML(
           paste0(
@@ -48,9 +48,9 @@ fxn_cardFooterText <- function(
           )
         ), 
         
-        class = "card-footer-text"
+        class = "table-footer"
       )
   }
   
-  return(cardFooterText)
+  return(tableFooter)
 }

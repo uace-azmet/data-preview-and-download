@@ -147,7 +147,7 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
      #extensions = "FixedHeader",
      #filter = "none",
      #height = 300,
-     caption = "This is the table caption.",
+     #caption = "This is the table caption.",
      options = list(
        #fixedHeader = TRUE,
        #dom = "ti",
