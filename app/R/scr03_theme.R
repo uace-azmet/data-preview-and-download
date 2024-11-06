@@ -67,6 +67,9 @@ theme =
     
     .sorting {
       background-color: #FFFFFF !important;
+      border-bottom-color: #000000 !important;
+      border-bottom-style: solid !important;
+      border-bottom-width: 2px !important;
       color: #8B0015 !important;
       text-decoration: underline !important;
     }
