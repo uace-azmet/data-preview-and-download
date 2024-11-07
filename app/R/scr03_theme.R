@@ -23,9 +23,10 @@ theme =
     font_scale = NULL,
     bootswatch = NULL,
     "card-border-radius" = 0,
-    "dt-row-hover" = rgb(0, 0, 0),
-    "focus-ring-color" = rgb(0, 0, 0, 0.1),
+    "focus-ring-color" = rgb(red = 0/255, green = 0/255, blue = 0/255, 0.1),
     "focus-ring-width" = "0.1rem",
+    "table-hover-bg" = rgb(red = 0/255, green = 0/255, blue = 0/255, 0.08),
+    "table-striped-bg" = rgb(red = 0/255, green = 0/255, blue = 0/255, 0.04),
     "tooltip-bg" = rgb(red = 30/255, green = 82/255, blue = 136/255, alpha = 0.9)
   ) |>
   bslib::bs_add_rules("

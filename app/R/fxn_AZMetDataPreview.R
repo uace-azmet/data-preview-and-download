@@ -166,8 +166,8 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
      selection = "none"
    ) |>
     DT::formatStyle(
-      columns = c(1:dim(mtcars)[2]),
-      border = "1px solid red"
+      columns = colnames(dfAZMetDataPreview),
+      border = "1px solid #dee2e6"
     )
   
   
