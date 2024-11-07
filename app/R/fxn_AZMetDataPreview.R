@@ -144,25 +144,31 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
   dfAZMetDataPreview <- dfAZMetDataPreview |>
    DT::datatable(
      #class = "dt-datatable",
-     #extensions = "FixedHeader",
+     #extensions = "FixedColumns",
      #filter = "none",
      #height = 300,
      #caption = "This is the table caption.",
      options = list(
-       #fixedHeader = TRUE,
+       cellBorder = TRUE,
+       compact = TRUE,
+       #fixedColumns = TRUE,
        #dom = "ti",
   #    pageLength = -1,
        orderClasses = TRUE,
        ordering = TRUE,
        paging = FALSE,
-       scrollCollapse = TRUE,
+       #scrollCollapse = TRUE,
        scrollX = TRUE,
-       scrollY = "400px",
+       #scrollY = "400px",
        searching = FALSE
      ),
      rownames = FALSE,
      selection = "none"
-   )
+   ) |>
+    DT::formatStyle(
+      columns = c(1:dim(mtcars)[2]),
+      border = "1px solid red"
+    )
   
   
   

@@ -29,12 +29,6 @@ theme =
     "tooltip-bg" = rgb(red = 30/255, green = 82/255, blue = 136/255, alpha = 0.9)
   ) |>
   bslib::bs_add_rules("
-    .card-header {
-      background-color: #FFFFFF !important;
-      border-bottom-color: #E2E9EB !important;
-      border-bottom-width: 6px !important;
-    }
-    
     .nav-item {
       background-color: #FFFFFF !important;
     }
@@ -67,9 +61,9 @@ theme =
     
     .sorting {
       background-color: #FFFFFF !important;
-      border-bottom-color: #000000 !important;
+      border-bottom-color: #dee2e6 !important;
       border-bottom-style: solid !important;
-      border-bottom-width: 2px !important;
+      border-bottom-width: 1px !important;
       color: #8B0015 !important;
       text-decoration: underline !important;
     }
