@@ -143,31 +143,33 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
   # https://stackoverflow.com/questions/69835894/workaround-for-issues-with-freezing-header-in-dtdatatable-in-r-shiny
   dfAZMetDataPreview <- dfAZMetDataPreview |>
    DT::datatable(
-     #class = "dt-datatable",
+     #class = "compact",
      #extensions = "FixedColumns",
      #filter = "none",
      #height = 300,
      #caption = "This is the table caption.",
      options = list(
        cellBorder = TRUE,
-       compact = TRUE,
+       deferRender = TRUE,
        #fixedColumns = TRUE,
-       #dom = "ti",
+       #dom = "<lf<\"datatables-scroll\"t>ipr>",
   #    pageLength = -1,
        orderClasses = TRUE,
        ordering = TRUE,
        paging = FALSE,
-       #scrollCollapse = TRUE,
+       scrollCollapse = TRUE,
+       scroller = TRUE,
        scrollX = TRUE,
-       #scrollY = "400px",
+       scrollY = "400px",
        searching = FALSE
      ),
      rownames = FALSE,
      selection = "none"
    ) |>
     DT::formatStyle(
-      columns = colnames(dfAZMetDataPreview),
-      border = "1px solid #dee2e6"
+      border = "1px solid #dee2e6",
+      columns = colnames(dfAZMetDataPreview)
+      #style = "overflow-x: auto"
     )
   
   
