@@ -4,7 +4,7 @@ datepickerErrorModal <-
       "Please select a 'Start Date' that is earlier than or the same as the 'End Date'."
     ),
     easyClose = FALSE,
-    fade = FALSE,
+    fade = TRUE,
     footer = shiny::modalButton("CLOSE"),
     size = "s",
     title = htmltools::p(

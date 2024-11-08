@@ -53,26 +53,24 @@
   font-weight: bold;
 }
 
+.dataTable thead th,
+.dataTable thead td,
+.dataTable tfoot th,
+.dataTable tfoot td,
+.dataTable tbody th,
+.dataTable tbody td {
+  padding: 4px;
+}
+
 .dataTables_info {
   color: #191919 !important;
   padding-top: 0.25rem !important;
   text-align: left !important;
 }
 
-/* .dataTable.table-bordered.dtfc-has-left {
-  border-width: 5px !important;
-  color: green !important;
+.dataTables_processing {
+  visibility: hidden !important;
 }
-
-.dataTables_scrollBody {
-  border-left: 0px !important;
-}
-
-/* .dataTables_scrollFootInner table.table-bordered tr th:first-child,
-.dataTables_scrollHeadInner table.table-bordered tr th:first-child {
-  border-width: 5px !important;
-  background-color: green !important;
-} */
 
 .datepicker {
   background-color: #FFFFFF;

@@ -44,110 +44,10 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
       dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
   }
   
-  
-  
-  # Format for `gt`
-  #stubColumn <- function() {
-  #  dplyr::contains("datetime")
-  #}
-  
-  #dfAZMetDataPreview <- dfAZMetDataPreview |>
-  #  gt::gt(
-  #    id = "cardTable"#,
-      #rowname_col = "date_datetime"#dplyr::select(stubColumn())
-  #  ) |>
-  #  gt::opt_row_striping(row_striping = TRUE) |>
-  #  gt::tab_style(
-  #    style = gt::cell_borders(
-  #      color = "#dee2e6",
-  #      sides = "all",
-  #      style = "solid",
-  #      weight = gt::px(1.0)
-  #    ),
-  #    locations = gt::cells_body()
-  #  ) |>
-  #  gt::opt_interactive(
-  #    active = TRUE,
-  #    height = 400,
-  #    use_pagination = FALSE,
-  #    use_sorting = FALSE
-  #  ) |>
-    #gt::opt_align_table_header()
-    #gt::opt_css(
-    #  css = "
-    #  #cardTable {
-    #    background-color: #001C48; 
-    #    color: #fff;
-    #  }
-    #  "
-    #)
-    #gt::tab_header(
-    #  title = gt::md("**Title**"),
-    #  subtitle = gt::md("Sub*title*")
-    #) |>
-    #gt::tab_spanner(
-    #  label = "Data Variables",
-    #  columns = "meta_needs_review"
-    #)
-  
-  #ncharToPixels <- function(input) {
-  #  input * 12
-  #}
-  
-  #dfAZMetDataPreview <- dfAZMetDataPreview |>
-  #  reactable::reactable(
-  #    bordered = TRUE,
-  #    columns = list(
-  #      meta_needs_review = reactable::colDef(width = ncharToPixels(nchar("meta_needs_review"))),
-  #      meta_station_id = reactable::colDef(width = ncharToPixels(nchar("meta_station_id"))),
-  #      meta_station_name = reactable::colDef(width = ncharToPixels(nchar("meta_station_name")))
-  #    ),
-  #    defaultColDef = reactable::colDef(
-        #footer = function(values, name) {
-        #  htmltools::div(name, style = list(fontWeight = 600))
-        #},
-    #    header = function(value) {
-    #      sort_icon <- htmltools::span(class = "card-table-sort-icon", "aria-hidden" = TRUE)
-    #      htmltools::tagList(value, sort_icon)
-    #    },
-  #      headerClass = "nav-link"#,
-       #headerVAlign = "top",
-  #      html = TRUE#,
-        #minWidth = 150,
-        #sortable = TRUE
-        #width = 250
-  #    ),
-  #    height = 400,
-  #    highlight = TRUE,
-  #    pagination = FALSE,
-      #resizable = TRUE,
-    #  searchable = FALSE,
-    #  showSortIcon = FALSE,
-      #showSortable = TRUE,
-      #sortable = TRUE,
-  #    striped = TRUE#,
-      #style = list(
-      #  color = "red"
-      #),
-      #theme = reactableTheme(
-      #  headerStyle = list(
-      #    "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
-      #    "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)")
-      #  )
-      #),
-    #width = "auto"#,  
-  #  wrap = FALSE
-  #  )
-  
-  
-  # https://stackoverflow.com/questions/69835894/workaround-for-issues-with-freezing-header-in-dtdatatable-in-r-shiny
   dfAZMetDataPreview <- dfAZMetDataPreview |>
    DT::datatable(
-     #class = "compact",
+     #callback = DT::JS("table.processing( false );"),
      extensions = "FixedColumns",
-     #filter = "none",
-     #height = 300,
-     #caption = "This is the table caption.",
      options = list(
        cellBorder = TRUE,
        deferRender = TRUE,
@@ -155,7 +55,6 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
          left = 1
        ),
        #dom = "<lf<\"datatables-scroll\"t>ipr>",
-  #    pageLength = -1,
        orderClasses = TRUE,
        ordering = TRUE,
        paging = FALSE,
@@ -171,10 +70,7 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
     DT::formatStyle(
       border = "1px solid #dee2e6",
       columns = colnames(dfAZMetDataPreview)
-      #style = "overflow-x: auto"
     )
-  
-  
   
   return(dfAZMetDataPreview)
 }
