@@ -144,14 +144,16 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
   dfAZMetDataPreview <- dfAZMetDataPreview |>
    DT::datatable(
      #class = "compact",
-     #extensions = "FixedColumns",
+     extensions = "FixedColumns",
      #filter = "none",
      #height = 300,
      #caption = "This is the table caption.",
      options = list(
        cellBorder = TRUE,
        deferRender = TRUE,
-       #fixedColumns = TRUE,
+       fixedColumns = list(
+         left = 1
+       ),
        #dom = "<lf<\"datatables-scroll\"t>ipr>",
   #    pageLength = -1,
        orderClasses = TRUE,
