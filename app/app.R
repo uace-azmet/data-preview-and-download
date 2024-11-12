@@ -5,7 +5,7 @@ library(azmetr)
 library(bsicons)
 library(bslib)
 library(dplyr)
-library(gt)
+library(DT)
 library(htmltools)
 library(lubridate)
 library(shiny)
@@ -33,7 +33,11 @@ ui <- htmltools::htmlTemplate(
     lang = NULL,
     window_title = NA,
     
-    cardDataTable, # `scr05_cardDataTable.R`
+    #cardTable, # `scr05_cardTable.R`
+    shiny::htmlOutput(outputId = "tableTitle"),
+    shiny::htmlOutput(outputId = "tableHelpText"),
+    DT::dataTableOutput("cardTable"),
+    shiny::htmlOutput(outputId = "tableFooter"),
     shiny::htmlOutput(outputId = "downloadButtonHelpText"),
     shiny::uiOutput(outputId = "downloadButtonTSV"),
     shiny::htmlOutput(outputId = "sidebarPageText")
@@ -109,22 +113,6 @@ server <- function(input, output, session) {
   
   # Reactives -----
   
-  # Build table footer help text
-  cardFooterText <- shiny::eventReactive(dfAZMetData(), {
-    fxn_cardFooterText(
-      inData = dfAZMetData(),
-      timeStep = input$timeStep
-    )
-  })
-  
-  # Build card header title
-  cardHeaderTitle <- shiny::eventReactive(dfAZMetData(), {
-    fxn_cardHeaderTitle(
-      azmetStation = input$azmetStation,
-      timeStep = input$timeStep
-    )
-  })
-  
   # Download AZMet data
   dfAZMetData <- shiny::eventReactive(input$previewData, {
     shiny::validate(
@@ -171,16 +159,28 @@ server <- function(input, output, session) {
     fxn_sidebarPageText(timeStep = input$timeStep)
   })
   
+  # Build data table footer
+  tableFooter <- shiny::eventReactive(dfAZMetData(), {
+    fxn_tableFooter(
+      inData = dfAZMetData(),
+      timeStep = input$timeStep
+    )
+  })
+  
   # Build table help text
   tableHelpText <- shiny::eventReactive(dfAZMetData(), {
     fxn_tableHelpText()
   })
   
-  # Outputs -----
-  
-  output$gt_tbl <- gt::render_gt({
-    expr = dfAZMetDataPreview()
+  # Build data table title
+  tableTitle <- shiny::eventReactive(dfAZMetData(), {
+    fxn_tableTitle(
+      azmetStation = input$azmetStation,
+      timeStep = input$timeStep
+    )
   })
+  
+    # Outputs -----
   
   #output$dataTablePreview <- renderTable(
   #  expr = dfAZMetDataPreview(), 
@@ -196,12 +196,16 @@ server <- function(input, output, session) {
   #  na = "na"
   #)
   
-  output$cardFooterText <- renderUI({
-    cardFooterText()
-  })
+  #output$cardTable <- gt::render_gt({
+  #  expr = dfAZMetDataPreview()
+  #})
   
-  output$cardHeaderTitle <- renderUI({
-    cardHeaderTitle()
+  #output$cardTable <- reactable::renderReactable({
+  #  expr = dfAZMetDataPreview()
+  #})
+  
+  output$cardTable <- DT::renderDataTable({
+    expr = dfAZMetDataPreview()
   })
   
   output$downloadButtonHelpText <- renderUI({
@@ -234,8 +238,16 @@ server <- function(input, output, session) {
     sidebarPageText()
   })
   
+  output$tableFooter <- renderUI({
+    tableFooter()
+  })
+  
   output$tableHelpText <- renderUI({
     tableHelpText()
+  })
+  
+  output$tableTitle <- renderUI({
+    tableTitle()
   })
 }
 

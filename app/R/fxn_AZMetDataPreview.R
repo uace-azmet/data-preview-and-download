@@ -22,7 +22,8 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
         c("eto_azmet_in", "meta_bat_volt", "precip_total_in", "sol_rad_total", "sol_rad_total_ly", "vp_actual", "vp_deficit"), 
         \(x) format(x, nsmall = 2)
       )) %>%
-      dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
+      dplyr::mutate(dplyr::across(dplyr::everything(), as.character)) |>
+      dplyr::mutate(dplyr::across(c("dwpt", "dwptF"), as.numeric))
   }
   
   # DAILY "datetime" "wind_2min_timestamp"
@@ -42,6 +43,34 @@ fxn_AZMetDataPreview <- function(inData, timeStep) {
       )) %>%
       dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
   }
+  
+  dfAZMetDataPreview <- dfAZMetDataPreview |>
+   DT::datatable(
+     #callback = DT::JS("table.processing( false );"),
+     extensions = "FixedColumns",
+     options = list(
+       cellBorder = TRUE,
+       deferRender = TRUE,
+       fixedColumns = list(
+         left = 1
+       ),
+       #dom = "<lf<\"datatables-scroll\"t>ipr>",
+       orderClasses = TRUE,
+       ordering = TRUE,
+       paging = FALSE,
+       scrollCollapse = TRUE,
+       scroller = TRUE,
+       scrollX = TRUE,
+       scrollY = "400px",
+       searching = FALSE
+     ),
+     rownames = FALSE,
+     selection = "none"
+   ) |>
+    DT::formatStyle(
+      border = "1px solid #dee2e6",
+      columns = colnames(dfAZMetDataPreview)
+    )
   
   return(dfAZMetDataPreview)
 }

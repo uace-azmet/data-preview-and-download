@@ -1,5 +1,7 @@
 /* class */
 
+/* https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
+
 /* https://stackoverflow.com/questions/77114751/is-it-possible-to-modify-the-arrow-that-collapses-the-sidebar */
 .bslib-sidebar-layout > .collapse-toggle > .collapse-icon {
   fill: #989898 !important;
@@ -32,37 +34,6 @@
   color: #FFFFFF;
 }
 
-.card-body {
-  padding: 0px;
-}
-
-.card-header {
-  border-bottom: 0px;
-  margin-bottom: 0.5rem;
-  padding-bottom: 0px;
-  padding-left: 0px;
-  padding-top: 0px;
-}
-
-.card-header-title {
-  color: #191919;
-  font-size: 1rem;
-  font-weight: normal;
-  text-transform: uppercase;
-}
-
-.card-footer {
-  background-color: rgb(255, 255, 255);
-  border-top: 0px;
-  padding: 0px;
-}
-
-.card-footer-text {
-  color: #191919; 
-  font-style: normal;
-  margin-top: 1.0rem;
-}
-
 .century.active.disabled.focused {
   background-color: rgb(226, 233, 235) !important;
   border-color: none !important;
@@ -80,6 +51,25 @@
 .control-label {
   color: var(--bs-body-color); 
   font-weight: bold;
+}
+
+.dataTable thead th,
+.dataTable thead td,
+.dataTable tfoot th,
+.dataTable tfoot td,
+.dataTable tbody th,
+.dataTable tbody td {
+  padding: 4px;
+}
+
+.dataTables_info {
+  color: #191919 !important;
+  padding-top: 0.25rem !important;
+  text-align: left !important;
+}
+
+.dataTables_processing {
+  visibility: hidden !important;
 }
 
 .datepicker {
@@ -132,7 +122,7 @@
 .download-button-help-text {
   color: #989898; 
   font-style: italic;
-  padding-top: 1.5rem;
+  padding-top: 48px;
 }
 
 .form-control:focus {
@@ -264,9 +254,82 @@
   color: #191919;
 }
 
+.sorting_1 {
+  background-color: rgba(239, 226, 226, 1.0) !important;
+  outline-color: rgba(63, 0, 9, 0.2);
+  outline-offset: -1px;
+  outline-style: solid;
+  outline-width: 1px;
+}
+
+/* .table {
+  border-left-color: #dee2e6 !important;
+  border-left-style: solid !important;
+  border-left-width: 0px !important;
+  border-right-color: #dee2e6 !important;
+  border-right-style: solid !important;
+  border-right-width: 1px !important;
+  border-top-color: #dee2e6 !important;
+  border-top-style: solid !important;
+  border-top-width: 1px !important;
+}
+
+.table > tbody {
+  overflow: auto !important;
+}
+
+.table > tbody > tr > td {
+  border-top-width: 0px !important;
+  border-right-color: #dee2e6 !important;
+  border-right-style: solid !important;
+  border-right-width: 1px !important;
+} */
+
+.table > tbody > tr > td:nth-of-type(1) {
+  border-right-color: rgb(180, 180, 180, 1.0) !important;
+  border-right-width: 1.25px !important;
+}
+
+/* .table > thead > tr > th {
+  border-bottom-width: 1px !important;
+  border-left-color: #dee2e6 !important;
+  border-left-style: solid !important;
+  border-left-width: 1px !important;
+}
+
+.table > thead > tr > th:nth-of-type(1) {
+  border-bottom-width: 1px !important;
+  border-right-color: #dee2e6 !important;
+  border-right-style: solid !important;
+  border-right-width: 1px !important;
+} */
+
 .table-condensed {
   background-color: #FFFFFF; 
   color: var(--bs-body-color);
+}
+
+.table.dataTable thead > tr > th:hover {
+  outline-color: rgba(63, 0, 9, 0.2);
+  outline-offset: -2px;
+  outline-style: solid;
+  outline-width: 2px;
+}
+
+.table.dataTable thead > tr > th {
+  border-bottom-color: rgb(180, 180, 180, 1.0) !important;
+  border-bottom-width: 1px !important;
+}
+
+.table.dataTable thead > tr > th:nth-of-type(1) {
+  box-shadow: 1px 0px 0px 0px rgb(180, 180, 180, 1.0) !important;
+}
+
+.table-footer {
+  color: #191919; 
+  font-size: 0.95rem;
+  font-style: normal;
+  margin-top: 0.25rem;
 }
 
 .table-help-text {
@@ -274,8 +337,15 @@
   font-size: 1rem;
   font-style: italic;
   font-weight: normal;
-  margin-bottom: 0.0rem;
+  margin-bottom: 0.7rem !important;
   margin-top: 1.75rem;
+}
+
+.table-title {
+  color: #191919;
+  font-size: 1rem;
+  font-weight: normal;
+  text-transform: uppercase;
 }
 
 .year:hover {
@@ -328,7 +398,7 @@
   color: #001C48; 
   margin-bottom: 48px; 
   margin-left: 0px;
-  margin-top: 1.0rem;
+  margin-top: 1.5rem;
 }
 
 #downloadTSV:active {

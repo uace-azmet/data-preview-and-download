@@ -1,6 +1,6 @@
-cardDataTable <- bslib::card(
+cardTable <- bslib::card(
   full_screen = TRUE,
-  max_height = 600,
+  max_height = 800,
   
   bslib::card_header(
     shiny::htmlOutput(outputId = "cardHeaderTitle"),
@@ -8,8 +8,9 @@ cardDataTable <- bslib::card(
   ),
   
   bslib::card_body(
-    #class = "p-0",
-    gt::gt_output(outputId = "gt_tbl")
+    #gt::gt_output("cardTable")
+    #reactable::reactableOutput("cardTable")
+    #DT::dataTableOutput("cardTable")
   ),
   
   bslib::card_footer(
