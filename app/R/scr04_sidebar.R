@@ -8,7 +8,7 @@ sidebar <- bslib::sidebar(
   id = "sidebar",
   title = NULL,
   bg = "#FFFFFF",
-  fg = "#1a1a1a", # https://www.color-hex.com/color-palette/1041718
+  fg = "#191919", # https://www.color-hex.com/color-palette/1041718
   class = NULL,
   max_height_mobile = NULL,
   gap = NULL,

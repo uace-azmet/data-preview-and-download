@@ -1,13 +1,11 @@
-#' `fxn_sidebarPageText.R` - Build footer for HTML table based on user input
+#' `fxn_sidebarPageText.R` - Build supporting text for data tool based on user input
 #' 
 #' @param timeStep - AZMet data time step
-#' @return `sidebarPageText` - Table footer for HTML table based on user input
+#' @return `sidebarPageText` - Supporting text for data tool based on user input
 
 
 fxn_sidebarPageText <- function(timeStep) {
-  
-  # Inputs to build text
-  
+  # Define inputs
   todayDate <- gsub(" 0", " ", format(lubridate::today(), "%B %d, %Y"))
   
   todayYear <- lubridate::year(lubridate::today())
@@ -67,11 +65,11 @@ fxn_sidebarPageText <- function(timeStep) {
     htmltools::p(
       htmltools::HTML(
         paste0(
-          timeStep, " ", "AZMet data are from", " ", apiURL, " and accessed using the ", azmetrURL, " R package. Table values from recent dates may be based on provisional data", ".", " ", "More information about", " ", webpageDataVariables, ",", " ", webpageNetworkMap, ",", " ", "and", " ", webpageStationMetadata, " ", "is available on the", " ", webpageAZMet, ".", " ", "Users of AZMet data and related information assume all risks of its use", ".",
-          br(), br(),
-          "To cite the above AZMet data, please use: 'Arizona Meteorological Network (", todayYear, ") Arizona Meteorological Network (AZMet) Data. https:://azmet.arizona.edu. Accessed", " ", todayDate, "'.",
-          br(), br(),
-          "For information on how this webpage is put together, please visit the", " ", webpageCode, " ", "for this tool."
+          timeStep, " AZMet data are from ", apiURL, " and accessed using the ", azmetrURL, " R package. Table values from recent dates may be based on provisional data. More information about ", webpageDataVariables, ", ", webpageNetworkMap, ", and ", webpageStationMetadata, " is available on the ", webpageAZMet, ". Users of AZMet data and related information assume all risks of its use.",
+          htmltools::br(), htmltools::br(),
+          "To cite the above AZMet data, please use: 'Arizona Meteorological Network (", todayYear, ") Arizona Meteorological Network (AZMet) Data. https:://azmet.arizona.edu. Accessed ", todayDate, "'.",
+          htmltools::br(), htmltools::br(),
+          "For information on how this webpage is put together, please visit the ", webpageCode, " for this tool."
         )
       ),
       

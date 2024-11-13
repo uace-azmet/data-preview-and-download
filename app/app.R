@@ -140,7 +140,7 @@ server <- function(input, output, session) {
     )
   })
   
-  # Format AZMet data for table preview
+  # Format AZMet data for preview table
   dataFormat <- shiny::eventReactive(dataETL(), {
     fxn_dataFormat(
       inData = dataETL(), 
@@ -158,7 +158,7 @@ server <- function(input, output, session) {
     fxn_sidebarPageText(timeStep = input$timeStep)
   })
   
-  # Build data table footer
+  # Build footer for preview table
   tableFooter <- shiny::eventReactive(dataETL(), {
     fxn_tableFooter(
       inData = dataETL(),
@@ -166,7 +166,7 @@ server <- function(input, output, session) {
     )
   })
   
-  # Build table help text
+  # Build help text for preview table
   tableHelpText <- shiny::eventReactive(dataETL(), {
     fxn_tableHelpText()
   })
@@ -179,7 +179,7 @@ server <- function(input, output, session) {
     )
   })
   
-  # Build data table title
+  # Build title for preview table
   tableTitle <- shiny::eventReactive(dataETL(), {
     fxn_tableTitle(
       azmetStation = input$azmetStation,
@@ -211,7 +211,11 @@ server <- function(input, output, session) {
     },
     
     content = function(file) {
-      vroom::vroom_write(x = dataFormat(), file = file, delim = "\t")
+      vroom::vroom_write(
+        x = dataFormat(), 
+        file = file, 
+        delim = "\t"
+      )
     }
   )
   

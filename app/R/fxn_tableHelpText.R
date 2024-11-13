@@ -1,6 +1,6 @@
-#' `fxn_tableHelpText.R` - Build help text for data table
+#' `fxn_tableHelpText.R` - Build help text for preview table
 #' 
-#' @return `tableHelpText` - Help text for data table
+#' @return `tableHelpText` - Help text for preview table
 
 
 fxn_tableHelpText <- function() {

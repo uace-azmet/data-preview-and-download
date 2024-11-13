@@ -1,6 +1,8 @@
-/* class */
+/* Notes: 
+https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
 
-/* https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
+
+/* class */
 
 /* https://stackoverflow.com/questions/77114751/is-it-possible-to-modify-the-arrow-that-collapses-the-sidebar */
 .bslib-sidebar-layout > .collapse-toggle > .collapse-icon {
@@ -74,30 +76,34 @@
 
 .datepicker {
   background-color: #FFFFFF;
-  box-shadow: 0 -6px 12px rgb(var(--bs-body-color-rgb, 0, 0, 0), 0.1);
   border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
+  box-shadow: 0 -6px 12px rgb(var(--bs-body-color-rgb, 0, 0, 0), 0.1);
   color: var(--bs-body-color);
 }
 
-.datepicker table tr td.active.day { /* current month and selected day, no hover */
+/* current month and selected day, no hover */
+.datepicker table tr td.active.day { 
   background-color: rgb(226, 233, 235);
   border-color: none;
   color: var(--bs-body-color);
   text-shadow: none;
 }
 
-.datepicker table tr td.active.day:hover { /*  current month and selected day, hover */
+/*  current month and selected day, hover */
+.datepicker table tr td.active.day:hover { 
   background-color: rgb(226, 233, 235);
   border-color: none;
   color: var(--bs-body-color);
   text-shadow: none;
 }
 
-.datepicker table tr td.day:hover { /*  unselected month and day, hover */
+/*  unselected month and day, hover */
+.datepicker table tr td.day:hover { 
   background-color: rgb(226, 233, 235);
 }
 
-.datepicker table tr td.disabled.day:hover { /*  unselected disabled month and day, hover */
+/*  unselected disabled month and day, hover */
+.datepicker table tr td.disabled.day:hover { 
   background-color: #FFFFFF;
 }
 
@@ -262,47 +268,10 @@
   outline-width: 1px;
 }
 
-/* .table {
-  border-left-color: #dee2e6 !important;
-  border-left-style: solid !important;
-  border-left-width: 0px !important;
-  border-right-color: #dee2e6 !important;
-  border-right-style: solid !important;
-  border-right-width: 1px !important;
-  border-top-color: #dee2e6 !important;
-  border-top-style: solid !important;
-  border-top-width: 1px !important;
-}
-
-.table > tbody {
-  overflow: auto !important;
-}
-
-.table > tbody > tr > td {
-  border-top-width: 0px !important;
-  border-right-color: #dee2e6 !important;
-  border-right-style: solid !important;
-  border-right-width: 1px !important;
-} */
-
 .table > tbody > tr > td:nth-of-type(1) {
   border-right-color: rgb(180, 180, 180, 1.0) !important;
   border-right-width: 1.25px !important;
 }
-
-/* .table > thead > tr > th {
-  border-bottom-width: 1px !important;
-  border-left-color: #dee2e6 !important;
-  border-left-style: solid !important;
-  border-left-width: 1px !important;
-}
-
-.table > thead > tr > th:nth-of-type(1) {
-  border-bottom-width: 1px !important;
-  border-right-color: #dee2e6 !important;
-  border-right-style: solid !important;
-  border-right-width: 1px !important;
-} */
 
 .table-condensed {
   background-color: #FFFFFF; 
