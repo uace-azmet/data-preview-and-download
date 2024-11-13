@@ -1,5 +1,6 @@
 apiStartDate <- as.Date("2021-01-01")
 
+# Initial input date, based on `hourly` time step
 if (
   lubridate::now(tzone = "America/Phoenix") > 
   lubridate::as_datetime(

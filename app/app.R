@@ -33,10 +33,9 @@ ui <- htmltools::htmlTemplate(
     lang = NULL,
     window_title = NA,
     
-    #cardTable, # `scr05_cardTable.R`
     shiny::htmlOutput(outputId = "tableTitle"),
     shiny::htmlOutput(outputId = "tableHelpText"),
-    DT::dataTableOutput("cardTable"),
+    DT::dataTableOutput("tablePreview"),
     shiny::htmlOutput(outputId = "tableFooter"),
     shiny::htmlOutput(outputId = "downloadButtonHelpText"),
     shiny::uiOutput(outputId = "downloadButtonTSV"),
@@ -107,14 +106,14 @@ server <- function(input, output, session) {
   # Date error notification
   shiny::observeEvent(input$previewData, {
     if (input$startDate > input$endDate) {
-      shiny::showModal(datepickerErrorModal) # `scr06_datepickerErrorModal.R`
+      shiny::showModal(datepickerErrorModal) # `scr05_datepickerErrorModal.R`
     }
   })
   
   # Reactives -----
   
   # Download AZMet data
-  dfAZMetData <- shiny::eventReactive(input$previewData, {
+  dataETL <- shiny::eventReactive(input$previewData, {
     shiny::validate(
       shiny::need(
         expr = input$startDate <= input$endDate, 
@@ -133,7 +132,7 @@ server <- function(input, output, session) {
     
     on.exit(shiny::removeNotification(id = idPreview), add = TRUE)
     
-    fxn_AZMetDataELT(
+    fxn_dataETL(
       azmetStation = input$azmetStation, 
       timeStep = input$timeStep, 
       startDate = input$startDate, 
@@ -142,78 +141,60 @@ server <- function(input, output, session) {
   })
   
   # Format AZMet data for table preview
-  dfAZMetDataPreview <- shiny::eventReactive(dfAZMetData(), {
-    fxn_AZMetDataPreview(
-      inData = dfAZMetData(), 
+  dataFormat <- shiny::eventReactive(dataETL(), {
+    fxn_dataFormat(
+      inData = dataETL(), 
       timeStep = input$timeStep
     )
   })
   
   # Build download button help text
-  downloadButtonHelpText <- shiny::eventReactive(dfAZMetData(), {
+  downloadButtonHelpText <- shiny::eventReactive(dataETL(), {
     fxn_downloadButtonHelpText()
   })
   
   # Build text for bottom of sidebar page
-  sidebarPageText <- shiny::eventReactive(dfAZMetData(), {
+  sidebarPageText <- shiny::eventReactive(dataETL(), {
     fxn_sidebarPageText(timeStep = input$timeStep)
   })
   
   # Build data table footer
-  tableFooter <- shiny::eventReactive(dfAZMetData(), {
+  tableFooter <- shiny::eventReactive(dataETL(), {
     fxn_tableFooter(
-      inData = dfAZMetData(),
+      inData = dataETL(),
       timeStep = input$timeStep
     )
   })
   
   # Build table help text
-  tableHelpText <- shiny::eventReactive(dfAZMetData(), {
+  tableHelpText <- shiny::eventReactive(dataETL(), {
     fxn_tableHelpText()
   })
   
+  # Build preview table for formatted data
+  tablePreview <- shiny::eventReactive(dataETL(), {
+    fxn_tablePreview(
+      inData = dataFormat(),
+      timeStep = input$timeStep
+    )
+  })
+  
   # Build data table title
-  tableTitle <- shiny::eventReactive(dfAZMetData(), {
+  tableTitle <- shiny::eventReactive(dataETL(), {
     fxn_tableTitle(
       azmetStation = input$azmetStation,
       timeStep = input$timeStep
     )
   })
   
-    # Outputs -----
-  
-  #output$dataTablePreview <- renderTable(
-  #  expr = dfAZMetDataPreview(), 
-  #  striped = TRUE, 
-  #  hover = TRUE, 
-  #  bordered = FALSE, 
-  #  spacing = "xs", 
-  #  width = "auto", 
-  #  align = "c", 
-  #  rownames = FALSE, 
-  #  colnames = TRUE, 
-  #  digits = NULL, 
-  #  na = "na"
-  #)
-  
-  #output$cardTable <- gt::render_gt({
-  #  expr = dfAZMetDataPreview()
-  #})
-  
-  #output$cardTable <- reactable::renderReactable({
-  #  expr = dfAZMetDataPreview()
-  #})
-  
-  output$cardTable <- DT::renderDataTable({
-    expr = dfAZMetDataPreview()
-  })
+  # Outputs -----
   
   output$downloadButtonHelpText <- renderUI({
     downloadButtonHelpText()
   })
   
   output$downloadButtonTSV <- renderUI({
-    req(dfAZMetData())
+    req(dataETL())
     downloadButton(
       "downloadTSV", 
       label = "Download .tsv", 
@@ -230,7 +211,7 @@ server <- function(input, output, session) {
     },
     
     content = function(file) {
-      vroom::vroom_write(x = dfAZMetData(), file = file, delim = "\t")
+      vroom::vroom_write(x = dataFormat(), file = file, delim = "\t")
     }
   )
   
@@ -244,6 +225,10 @@ server <- function(input, output, session) {
   
   output$tableHelpText <- renderUI({
     tableHelpText()
+  })
+  
+  output$tablePreview <- DT::renderDataTable({
+    tablePreview()
   })
   
   output$tableTitle <- renderUI({
