@@ -69,11 +69,6 @@ theme =
       text-decoration: underline !important;
     }
     
-    .sorting:hover {
-      color: #3f0009 !important;
-      text-decoration: underline;
-    }
-    
     .sorting.active {
       background-color: #E2E9EB !important;
       border-color: #E2E9EB #E2E9EB #E2E9EB !important;
@@ -83,6 +78,11 @@ theme =
     }
     
     .sorting.active:hover {
+      color: #3f0009 !important;
+      text-decoration: underline;
+    }
+    
+    .sorting:hover {
       color: #3f0009 !important;
       text-decoration: underline;
     }
