@@ -1,13 +1,13 @@
-#' `fxn_dataDownload.R` Download AZMet hourly or daily data from API-based database
+#' `fxn_dataETL.R` Download AZMet hourly or daily data from API-based database
 #' 
 #' @param azmetStation - AZMet station name
 #' @param timeStep - AZMet data time step
 #' @param startDate - Start date of period of interest
 #' @param endDate - End date of period of interest
-#' @return `dataDownload` - Downloaded data table
+#' @return `dataETL` - Downloaded data table
 
 
-fxn_dataDownload <- function(azmetStation, timeStep, startDate, endDate) {
+fxn_dataETL <- function(azmetStation, timeStep, startDate, endDate) {
   
   # Hourly data -----
   
@@ -20,7 +20,7 @@ fxn_dataDownload <- function(azmetStation, timeStep, startDate, endDate) {
       end_date_time = paste(endDate, "24", sep = " ")
     }
     
-    dataDownload <- azmetr::az_hourly(
+    dataETL <- azmetr::az_hourly(
       station_id = 
         dplyr::filter(azmetStations, stationName == azmetStation)$stationID,
       start_date_time = start_date_time,
@@ -40,16 +40,16 @@ fxn_dataDownload <- function(azmetStation, timeStep, startDate, endDate) {
     )
    
     # For case of empty data return
-    if (nrow(dataDownload) == 0) {
-      dataDownload <- data.frame(matrix(
+    if (nrow(dataETL) == 0) {
+      dataETL <- data.frame(matrix(
         nrow = 0, 
         ncol = length(c(varsID, varsMeasure))
       ))
       
-      colnames(dataDownload) <- c(varsID, varsMeasure)
+      colnames(dataETL) <- c(varsID, varsMeasure)
     } else {
       # Tidy data
-      dataDownload <- dataDownload %>%
+      dataETL <- dataETL %>%
         dplyr::select(all_of(c(varsID, varsMeasure))) %>%
         dplyr::mutate(
           dplyr::across(c("date_datetime", "wind_2min_timestamp"), as.character)
@@ -60,7 +60,7 @@ fxn_dataDownload <- function(azmetStation, timeStep, startDate, endDate) {
   # Daily data -----
   
   if (timeStep == "Daily") {
-    dataDownload <- azmetr::az_daily(
+    dataETL <- azmetr::az_daily(
       station_id = 
         dplyr::filter(azmetStations, stationName == azmetStation)$stationID, 
       start = startDate, 
@@ -80,16 +80,16 @@ fxn_dataDownload <- function(azmetStation, timeStep, startDate, endDate) {
     )
     
     # For case of empty data return
-    if (nrow(dataDownload) == 0) {
-      dataDownload <- data.frame(matrix(
+    if (nrow(dataETL) == 0) {
+      dataETL <- data.frame(matrix(
         nrow = 0, 
         ncol = length(c(varsID, varsMeasure))
       ))
       
-      colnames(dataDownload) <- c(varsID, varsMeasure)
+      colnames(dataETL) <- c(varsID, varsMeasure)
     } else {
       # Tidy data
-      dataDownload <- dataDownload %>%
+      dataETL <- dataETL %>%
         dplyr::select(all_of(c(varsID, varsMeasure))) %>%
         dplyr::mutate(
           dplyr::across("wind_2min_timestamp", as.character)
@@ -97,5 +97,5 @@ fxn_dataDownload <- function(azmetStation, timeStep, startDate, endDate) {
     }
   }
   
-  return(dataDownload)
+  return(dataETL)
 }

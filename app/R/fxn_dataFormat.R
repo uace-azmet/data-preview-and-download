@@ -1,6 +1,6 @@
 #' `fxn_dataFormat.R` - Format downloaded AZMet hourly or daily data for preview table
 #' 
-#' @param inData - Downloaded AZMet hourly or daily data from `fxn_dataDownload.R`
+#' @param inData - Downloaded AZMet hourly or daily data from `fxn_dataETL.R`
 #' @param timeStep - AZMet data time step
 #' @return `dataFormat` - formatted data for preview table
 
@@ -29,7 +29,6 @@ fxn_dataFormat <- function(inData, timeStep) {
           \(x) format(x, nsmall = 2)
         )
       ) %>%
-      #dplyr::mutate(dplyr::across(c("dwpt", "dwptF"), as.numeric))
       dplyr::mutate(dplyr::across(dplyr::everything(), as.character)) %>%
       dplyr::select(order(colnames(inData))) %>%
       dplyr::relocate(date_datetime, .before = dplyr::everything())

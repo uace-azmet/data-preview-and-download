@@ -112,15 +112,8 @@ server <- function(input, output, session) {
   
   # Reactives -----
   
-  # Build preview table for formatted data
-  tablePreview <- shiny::eventReactive(dataDownload(), {
-    fxn_tablePreview(
-      inData = dataFormat()
-    )
-  })
-  
   # Download AZMet data
-  dataDownload <- shiny::eventReactive(input$previewData, {
+  dataETL <- shiny::eventReactive(input$previewData, {
     shiny::validate(
       shiny::need(
         expr = input$startDate <= input$endDate, 
@@ -139,7 +132,7 @@ server <- function(input, output, session) {
     
     on.exit(shiny::removeNotification(id = idPreview), add = TRUE)
     
-    fxn_dataDownload(
+    fxn_dataETL(
       azmetStation = input$azmetStation, 
       timeStep = input$timeStep, 
       startDate = input$startDate, 
@@ -148,38 +141,46 @@ server <- function(input, output, session) {
   })
   
   # Format AZMet data for table preview
-  dataFormat <- shiny::eventReactive(dataDownload(), {
+  dataFormat <- shiny::eventReactive(dataETL(), {
     fxn_dataFormat(
-      inData = dataDownload(), 
+      inData = dataETL(), 
       timeStep = input$timeStep
     )
   })
   
   # Build download button help text
-  downloadButtonHelpText <- shiny::eventReactive(dataDownload(), {
+  downloadButtonHelpText <- shiny::eventReactive(dataETL(), {
     fxn_downloadButtonHelpText()
   })
   
   # Build text for bottom of sidebar page
-  sidebarPageText <- shiny::eventReactive(dataDownload(), {
+  sidebarPageText <- shiny::eventReactive(dataETL(), {
     fxn_sidebarPageText(timeStep = input$timeStep)
   })
   
   # Build data table footer
-  tableFooter <- shiny::eventReactive(dataDownload(), {
+  tableFooter <- shiny::eventReactive(dataETL(), {
     fxn_tableFooter(
-      inData = dataDownload(),
+      inData = dataETL(),
       timeStep = input$timeStep
     )
   })
   
   # Build table help text
-  tableHelpText <- shiny::eventReactive(dataDownload(), {
+  tableHelpText <- shiny::eventReactive(dataETL(), {
     fxn_tableHelpText()
   })
   
+  # Build preview table for formatted data
+  tablePreview <- shiny::eventReactive(dataETL(), {
+    fxn_tablePreview(
+      inData = dataFormat(),
+      timeStep = input$timeStep
+    )
+  })
+  
   # Build data table title
-  tableTitle <- shiny::eventReactive(dataDownload(), {
+  tableTitle <- shiny::eventReactive(dataETL(), {
     fxn_tableTitle(
       azmetStation = input$azmetStation,
       timeStep = input$timeStep
@@ -193,7 +194,7 @@ server <- function(input, output, session) {
   })
   
   output$downloadButtonTSV <- renderUI({
-    req(dataDownload())
+    req(dataETL())
     downloadButton(
       "downloadTSV", 
       label = "Download .tsv", 
@@ -210,7 +211,7 @@ server <- function(input, output, session) {
     },
     
     content = function(file) {
-      vroom::vroom_write(x = dataDownload(), file = file, delim = "\t")
+      vroom::vroom_write(x = dataFormat(), file = file, delim = "\t")
     }
   )
   
