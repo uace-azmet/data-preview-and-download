@@ -38,6 +38,7 @@ ui <- htmltools::htmlTemplate(
     DT::dataTableOutput("tablePreview"),
     shiny::htmlOutput(outputId = "tableFooter"),
     shiny::htmlOutput(outputId = "downloadButtonHelpText"),
+    shiny::uiOutput(outputId = "downloadButtonCSV"),
     shiny::uiOutput(outputId = "downloadButtonTSV"),
     shiny::htmlOutput(outputId = "sidebarPageText")
   )
@@ -189,6 +190,16 @@ server <- function(input, output, session) {
   
   # Outputs -----
   
+  output$downloadButtonCSV <- renderUI({
+    req(dataETL())
+    downloadButton(
+      "downloadCSV", 
+      label = "Download .csv", 
+      class = "btn btn-default btn-blue", 
+      type = "button"
+    )
+  })
+  
   output$downloadButtonHelpText <- renderUI({
     downloadButtonHelpText()
   })
@@ -202,6 +213,22 @@ server <- function(input, output, session) {
       type = "button"
     )
   })
+  
+  output$downloadCSV <- downloadHandler(
+    filename = function() {
+      paste0(
+        "AZMet-", input$azmetStation, "-", input$timeStep, "-Data-", input$startDate, "-to-", input$endDate, ".csv"
+      )
+    },
+    
+    content = function(file) {
+      vroom::vroom_write(
+        x = dataFormat(), 
+        file = file, 
+        delim = ","
+      )
+    }
+  )
   
   output$downloadTSV <- downloadHandler(
     filename = function() {
