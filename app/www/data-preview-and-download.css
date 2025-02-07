@@ -361,6 +361,26 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   text-align: left;
 }
 
+#downloadCSV {
+  background-color: transparent; 
+  border-color: #001C48; 
+  color: #001C48; 
+  margin-bottom: 48px; 
+  margin-left: 0px;
+  margin-right: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+#downloadCSV:active {
+  background-color: #001C48; 
+  color: #fff;
+}
+
+#downloadCSV:hover {
+  background-color: #001C48; 
+  color: #fff;
+}
+
 #downloadTSV {
   background-color: transparent; 
   border-color: #001C48; 
