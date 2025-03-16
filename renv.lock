@@ -70,13 +70,8 @@
     "azmetr": {
       "Package": "azmetr",
       "Version": "0.4.0",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "uace-azmet",
-      "RemoteRepo": "azmetr",
-      "RemoteRef": "main",
-      "RemoteSha": "3daee2bedaf67cc98be0ccc4589ffd1a14ecabf0",
+      "Source": "Repository",
+      "Repository": "https://uace-azmet.r-universe.dev",
       "Requirements": [
         "R",
         "attempt",
@@ -90,7 +85,7 @@
         "tibble",
         "tidyselect"
       ],
-      "Hash": "8ba34b3029ae24cc3f875afc5c640ad7"
+      "Hash": "1da33b210ac3540ae4ff37ebf716905b"
     },
     "base64enc": {
       "Package": "base64enc",
@@ -104,27 +99,28 @@
     },
     "bit": {
       "Package": "bit",
-      "Version": "4.5.0",
+      "Version": "4.6.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "5dc7b2677d65d0e874fc4aaf0e879987"
+      "Hash": "ebe86ffd194564abdc895d87742d5a29"
     },
     "bit64": {
       "Package": "bit64",
-      "Version": "4.5.2",
+      "Version": "4.6.0-1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "bit",
+        "graphics",
         "methods",
         "stats",
         "utils"
       ],
-      "Hash": "e84984bf5f12a18628d9a02322128dfd"
+      "Hash": "4f572fbc586294afff277db583b9060f"
     },
     "bsicons": {
       "Package": "bsicons",
@@ -508,16 +504,16 @@
     },
     "lubridate": {
       "Package": "lubridate",
-      "Version": "1.9.3",
+      "Version": "1.9.4",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "generics",
         "methods",
         "timechange"
       ],
-      "Hash": "680ad542fbcf801442c83a6ac5a2126c"
+      "Hash": "be38bc740fc51783a78edb5a157e4104"
     },
     "magrittr": {
       "Package": "magrittr",
@@ -552,13 +548,13 @@
     },
     "openssl": {
       "Package": "openssl",
-      "Version": "2.2.2",
+      "Version": "2.3.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "askpass"
       ],
-      "Hash": "d413e0fef796c9401a4419485f709ca1"
+      "Hash": "bc54d87ebf858b28de18df4bca6528d3"
     },
     "pillar": {
       "Package": "pillar",
