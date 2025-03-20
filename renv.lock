@@ -49,14 +49,14 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.0.11",
+      "Version": "1.0.13",
       "Source": "Repository",
       "Repository": "RSPM",
       "Requirements": [
         "methods",
         "utils"
       ],
-      "Hash": "ae6cbbe1492f4de79c45fce06f967ce8"
+      "Hash": "f27411eb6d9c3dada5edd444b8416675"
     },
     "askpass": {
       "Package": "askpass",
@@ -81,8 +81,13 @@
     "azmetr": {
       "Package": "azmetr",
       "Version": "0.4.0",
-      "Source": "Repository",
-      "Repository": "https://uace-azmet.r-universe.dev",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "uace-azmet",
+      "RemoteRepo": "azmetr",
+      "RemoteRef": "main",
+      "RemoteSha": "3daee2bedaf67cc98be0ccc4589ffd1a14ecabf0",
       "Requirements": [
         "R",
         "attempt",
@@ -96,7 +101,7 @@
         "tibble",
         "tidyselect"
       ],
-      "Hash": "1da33b210ac3540ae4ff37ebf716905b"
+      "Hash": "8ba34b3029ae24cc3f875afc5c640ad7"
     },
     "base64enc": {
       "Package": "base64enc",
@@ -110,28 +115,27 @@
     },
     "bit": {
       "Package": "bit",
-      "Version": "4.6.0",
+      "Version": "4.5.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R"
       ],
-      "Hash": "ebe86ffd194564abdc895d87742d5a29"
+      "Hash": "5dc7b2677d65d0e874fc4aaf0e879987"
     },
     "bit64": {
       "Package": "bit64",
-      "Version": "4.6.0-1",
+      "Version": "4.5.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "bit",
-        "graphics",
         "methods",
         "stats",
         "utils"
       ],
-      "Hash": "4f572fbc586294afff277db583b9060f"
+      "Hash": "e84984bf5f12a18628d9a02322128dfd"
     },
     "bsicons": {
       "Package": "bsicons",
@@ -515,16 +519,16 @@
     },
     "lubridate": {
       "Package": "lubridate",
-      "Version": "1.9.4",
+      "Version": "1.9.3",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "generics",
         "methods",
         "timechange"
       ],
-      "Hash": "be38bc740fc51783a78edb5a157e4104"
+      "Hash": "680ad542fbcf801442c83a6ac5a2126c"
     },
     "magrittr": {
       "Package": "magrittr",
@@ -559,25 +563,13 @@
     },
     "openssl": {
       "Package": "openssl",
-      "Version": "2.3.2",
+      "Version": "2.2.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "askpass"
       ],
-      "Hash": "bc54d87ebf858b28de18df4bca6528d3"
-    },
-    "packrat": {
-      "Package": "packrat",
-      "Version": "0.9.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "tools",
-        "utils"
-      ],
-      "Hash": "55ddd2d4a1959535f18393478b0c14a6"
+      "Hash": "d413e0fef796c9401a4419485f709ca1"
     },
     "packrat": {
       "Package": "packrat",
