@@ -87,7 +87,7 @@
       "RemoteUsername": "uace-azmet",
       "RemoteRepo": "azmetr",
       "RemoteRef": "main",
-      "RemoteSha": "3daee2bedaf67cc98be0ccc4589ffd1a14ecabf0",
+      "RemoteSha": "f2da29a6e0dedbb4c4e43fc0022fd4b089676ddd",
       "Requirements": [
         "R",
         "attempt",
@@ -101,7 +101,7 @@
         "tibble",
         "tidyselect"
       ],
-      "Hash": "8ba34b3029ae24cc3f875afc5c640ad7"
+      "Hash": "8fbe122bc52b1650a32a0e3c223ff107"
     },
     "base64enc": {
       "Package": "base64enc",
@@ -430,7 +430,7 @@
       "Package": "httr2",
       "Version": "1.0.5",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "R6",
