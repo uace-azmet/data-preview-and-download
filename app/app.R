@@ -34,12 +34,15 @@ ui <- htmltools::htmlTemplate(
     window_title = NA,
     
     shiny::htmlOutput(outputId = "tableTitle"),
-    # shiny::htmlOutput(outputId = "tableHelpText"),
     DT::dataTableOutput("tablePreview"),
     shiny::htmlOutput(outputId = "tableFooter"),
-    shiny::htmlOutput(outputId = "downloadButtonHelpText"),
-    shiny::uiOutput(outputId = "downloadButtonCSV"),
-    shiny::uiOutput(outputId = "downloadButtonTSV"),
+    htmltools::div(
+      shiny::uiOutput(outputId = "downloadButtonCSV"),
+      shiny::uiOutput(outputId = "downloadButtonTSV"),
+      shiny::uiOutput(outputId = "downloadDataInfo"),
+      
+      style = "display: flex; align-items: top; gap: 0px;", # Flexbox styling
+    ),
     shiny::htmlOutput(outputId = "sidebarPageText")
   )
 )
@@ -146,10 +149,6 @@ server <- function(input, output, session) {
     )
   })
   
-  downloadButtonHelpText <- shiny::eventReactive(dataETL(), {
-    fxn_downloadButtonHelpText()
-  })
-  
   sidebarPageText <- shiny::eventReactive(dataETL(), {
     fxn_sidebarPageText(timeStep = input$timeStep)
   })
@@ -188,10 +187,6 @@ server <- function(input, output, session) {
     )
   })
   
-  output$downloadButtonHelpText <- renderUI({
-    downloadButtonHelpText()
-  })
-  
   output$downloadButtonTSV <- renderUI({
     req(dataETL())
     downloadButton(
@@ -217,6 +212,16 @@ server <- function(input, output, session) {
       )
     }
   )
+  
+  output$downloadDataInfo <- shiny::renderUI({
+    req(dataETL())
+    bslib::tooltip(
+      bsicons::bs_icon("info-circle"),
+      "Click or tap to download a file of the above data with either comma- or tab-separated values.",
+      id = "downloadDataInfo",
+      placement = "right"
+    )
+  })
   
   output$downloadTSV <- downloadHandler(
     filename = function() {
