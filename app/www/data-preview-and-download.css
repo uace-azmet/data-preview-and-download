@@ -59,6 +59,10 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   font-weight: bold;
 }
 
+.data-options-title {
+  padding-bottom: 1rem !important;
+}
+
 .dataTable thead th,
 .dataTable thead td,
 .dataTable tfoot th,
@@ -174,6 +178,7 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
 }
 
 .modal-title {
+  font-weight: normal !important; 
   margin-top: 0px !important;
 }
 
@@ -319,6 +324,7 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   color: #191919;
   font-size: 1rem;
   font-weight: normal;
+  padding-bottom: 1rem !important;
   text-transform: uppercase;
 }
 

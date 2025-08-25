@@ -34,7 +34,7 @@ ui <- htmltools::htmlTemplate(
     window_title = NA,
     
     shiny::htmlOutput(outputId = "tableTitle"),
-    shiny::htmlOutput(outputId = "tableHelpText"),
+    # shiny::htmlOutput(outputId = "tableHelpText"),
     DT::dataTableOutput("tablePreview"),
     shiny::htmlOutput(outputId = "tableFooter"),
     shiny::htmlOutput(outputId = "downloadButtonHelpText"),
@@ -104,7 +104,6 @@ server <- function(input, output, session) {
     }
   })
   
-  # Date error notification
   shiny::observeEvent(input$previewData, {
     if (input$startDate > input$endDate) {
       shiny::showModal(datepickerErrorModal) # `scr05_datepickerErrorModal.R`
@@ -113,7 +112,6 @@ server <- function(input, output, session) {
   
   # Reactives -----
   
-  # Download AZMet data
   dataETL <- shiny::eventReactive(input$previewData, {
     shiny::validate(
       shiny::need(
@@ -141,7 +139,6 @@ server <- function(input, output, session) {
     )
   })
   
-  # Format AZMet data for preview table
   dataFormat <- shiny::eventReactive(dataETL(), {
     fxn_dataFormat(
       inData = dataETL(), 
@@ -149,17 +146,14 @@ server <- function(input, output, session) {
     )
   })
   
-  # Build download button help text
   downloadButtonHelpText <- shiny::eventReactive(dataETL(), {
     fxn_downloadButtonHelpText()
   })
   
-  # Build text for bottom of sidebar page
   sidebarPageText <- shiny::eventReactive(dataETL(), {
     fxn_sidebarPageText(timeStep = input$timeStep)
   })
   
-  # Build footer for preview table
   tableFooter <- shiny::eventReactive(dataETL(), {
     fxn_tableFooter(
       inData = dataETL(),
@@ -167,12 +161,6 @@ server <- function(input, output, session) {
     )
   })
   
-  # Build help text for preview table
-  tableHelpText <- shiny::eventReactive(dataETL(), {
-    fxn_tableHelpText()
-  })
-  
-  # Build preview table for formatted data
   tablePreview <- shiny::eventReactive(dataETL(), {
     fxn_tablePreview(
       inData = dataFormat(),
@@ -180,13 +168,13 @@ server <- function(input, output, session) {
     )
   })
   
-  # Build title for preview table
   tableTitle <- shiny::eventReactive(dataETL(), {
     fxn_tableTitle(
       azmetStation = input$azmetStation,
       timeStep = input$timeStep
     )
   })
+  
   
   # Outputs -----
   
@@ -252,10 +240,6 @@ server <- function(input, output, session) {
   
   output$tableFooter <- renderUI({
     tableFooter()
-  })
-  
-  output$tableHelpText <- renderUI({
-    tableHelpText()
   })
   
   output$tablePreview <- DT::renderDataTable({

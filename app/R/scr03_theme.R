@@ -22,6 +22,7 @@ theme =
     heading_font = NULL,
     font_scale = NULL,
     bootswatch = NULL,
+    "bslib-spacer" = "1.0rem",
     "card-border-radius" = 0,
     "focus-ring-color" = rgb(red = 0/255, green = 0/255, blue = 0/255, 0.1),
     "focus-ring-width" = "0.1rem",
