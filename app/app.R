@@ -1,22 +1,5 @@
 # Preview and download hourly and daily data from API database by specified stations and date ranges
 
-# Libraries
-library(azmetr)
-library(bsicons)
-library(bslib)
-library(dplyr)
-library(DT)
-library(htmltools)
-library(lubridate)
-library(shiny)
-library(vroom)
-
-# Functions 
-#source("./R/fxn_ABC.R", local = TRUE)
-
-# Scripts
-#source("./R/scr##_DEF.R", local = TRUE)
-
 
 # UI --------------------
 
@@ -26,10 +9,10 @@ ui <- htmltools::htmlTemplate(
   
   pageSidebar = bslib::page_sidebar(
     title = NULL,
-    sidebar = sidebar, # `scr04_sidebar.R`
+    sidebar = sidebar, # `scr##_sidebar.R`
     fillable = TRUE,
     fillable_mobile = FALSE,
-    theme = theme, # `scr03_theme.R`
+    theme = theme, # `scr##_theme.R`
     lang = NULL,
     window_title = NA,
     
@@ -51,6 +34,7 @@ ui <- htmltools::htmlTemplate(
 # Server --------------------
 
 server <- function(input, output, session) {
+  
   
   # Observables -----
   
@@ -109,9 +93,10 @@ server <- function(input, output, session) {
   
   shiny::observeEvent(input$previewData, {
     if (input$startDate > input$endDate) {
-      shiny::showModal(datepickerErrorModal) # `scr05_datepickerErrorModal.R`
+      shiny::showModal(datepickerErrorModal) # `scr##_datepickerErrorModal.R`
     }
   })
+  
   
   # Reactives -----
   
