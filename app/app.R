@@ -38,7 +38,7 @@ server <- function(input, output, session) {
   
   # Observables -----
   
-  # Update maximum calendar date based on time step 
+  # Update calendars date based on time step 
   shiny::observeEvent(input$timeStep, {
     if (input$timeStep == "Daily") {
       if (input$startDate == lubridate::today(tzone = "America/Phoenix")) {
@@ -58,7 +58,7 @@ server <- function(input, output, session) {
         inputId = "startDate",
         label = "Start Date",
         value = startDateAdjusted,
-        min = apiStartDate,
+        min = initialDateMinimum, # need to change this
         max = lubridate::today(tzone = "America/Phoenix") - 1
       )
       
@@ -67,7 +67,7 @@ server <- function(input, output, session) {
         inputId = "endDate",
         label = "End Date",
         value = endDateAdjusted,
-        min = apiStartDate,
+        min = initialDateMinimum, # need to change this
         max = lubridate::today(tzone = "America/Phoenix") - 1
       )
     } else if (input$timeStep == "Hourly") {
@@ -76,7 +76,7 @@ server <- function(input, output, session) {
         inputId = "startDate",
         label = "Start Date",
         value = input$startDate,
-        min = apiStartDate,
+        min = initialDateMinimum, # need to change this
         max = lubridate::today(tzone = "America/Phoenix")
       )
       
@@ -85,7 +85,7 @@ server <- function(input, output, session) {
         inputId = "endDate",
         label = "End Date",
         value = input$endDate,
-        min = apiStartDate,
+        min = initialDateMinimum, # need to change this
         max = lubridate::today(tzone = "America/Phoenix")
       )
     }

@@ -22,7 +22,8 @@ fxn_dataETL <- function(azmetStation, timeStep, startDate, endDate) {
     
     dataETL <- azmetr::az_hourly(
       station_id = 
-        dplyr::filter(azmetStations, stationName == azmetStation)$stationID,
+        # dplyr::filter(azmetStations, stationName == azmetStation)$stationID,
+        dplyr::filter(azmetStationMetadata, meta_station_name == azmetStation)$meta_station_id,
       start_date_time = start_date_time,
       end_date_time = end_date_time
     )
