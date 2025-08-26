@@ -1,22 +1,5 @@
 # Preview and download hourly and daily data from API database by specified stations and date ranges
 
-# Libraries
-library(azmetr)
-library(bsicons)
-library(bslib)
-library(dplyr)
-library(DT)
-library(htmltools)
-library(lubridate)
-library(shiny)
-library(vroom)
-
-# Functions 
-#source("./R/fxn_ABC.R", local = TRUE)
-
-# Scripts
-#source("./R/scr##_DEF.R", local = TRUE)
-
 
 # UI --------------------
 
@@ -26,20 +9,23 @@ ui <- htmltools::htmlTemplate(
   
   pageSidebar = bslib::page_sidebar(
     title = NULL,
-    sidebar = sidebar, # `scr04_sidebar.R`
+    sidebar = sidebar, # `scr##_sidebar.R`
     fillable = TRUE,
     fillable_mobile = FALSE,
-    theme = theme, # `scr03_theme.R`
+    theme = theme, # `scr##_theme.R`
     lang = NULL,
     window_title = NA,
     
     shiny::htmlOutput(outputId = "tableTitle"),
-    shiny::htmlOutput(outputId = "tableHelpText"),
     DT::dataTableOutput("tablePreview"),
     shiny::htmlOutput(outputId = "tableFooter"),
-    shiny::htmlOutput(outputId = "downloadButtonHelpText"),
-    shiny::uiOutput(outputId = "downloadButtonCSV"),
-    shiny::uiOutput(outputId = "downloadButtonTSV"),
+    htmltools::div(
+      shiny::uiOutput(outputId = "downloadButtonCSV"),
+      shiny::uiOutput(outputId = "downloadButtonTSV"),
+      shiny::uiOutput(outputId = "downloadDataInfo"),
+      
+      style = "display: flex; align-items: top; gap: 0px;", # Flexbox styling
+    ),
     shiny::htmlOutput(outputId = "sidebarPageText")
   )
 )
@@ -48,6 +34,7 @@ ui <- htmltools::htmlTemplate(
 # Server --------------------
 
 server <- function(input, output, session) {
+  
   
   # Observables -----
   
@@ -104,16 +91,15 @@ server <- function(input, output, session) {
     }
   })
   
-  # Date error notification
   shiny::observeEvent(input$previewData, {
     if (input$startDate > input$endDate) {
-      shiny::showModal(datepickerErrorModal) # `scr05_datepickerErrorModal.R`
+      shiny::showModal(datepickerErrorModal) # `scr##_datepickerErrorModal.R`
     }
   })
   
+  
   # Reactives -----
   
-  # Download AZMet data
   dataETL <- shiny::eventReactive(input$previewData, {
     shiny::validate(
       shiny::need(
@@ -141,7 +127,6 @@ server <- function(input, output, session) {
     )
   })
   
-  # Format AZMet data for preview table
   dataFormat <- shiny::eventReactive(dataETL(), {
     fxn_dataFormat(
       inData = dataETL(), 
@@ -149,17 +134,10 @@ server <- function(input, output, session) {
     )
   })
   
-  # Build download button help text
-  downloadButtonHelpText <- shiny::eventReactive(dataETL(), {
-    fxn_downloadButtonHelpText()
-  })
-  
-  # Build text for bottom of sidebar page
   sidebarPageText <- shiny::eventReactive(dataETL(), {
     fxn_sidebarPageText(timeStep = input$timeStep)
   })
   
-  # Build footer for preview table
   tableFooter <- shiny::eventReactive(dataETL(), {
     fxn_tableFooter(
       inData = dataETL(),
@@ -167,12 +145,6 @@ server <- function(input, output, session) {
     )
   })
   
-  # Build help text for preview table
-  tableHelpText <- shiny::eventReactive(dataETL(), {
-    fxn_tableHelpText()
-  })
-  
-  # Build preview table for formatted data
   tablePreview <- shiny::eventReactive(dataETL(), {
     fxn_tablePreview(
       inData = dataFormat(),
@@ -180,13 +152,13 @@ server <- function(input, output, session) {
     )
   })
   
-  # Build title for preview table
   tableTitle <- shiny::eventReactive(dataETL(), {
     fxn_tableTitle(
       azmetStation = input$azmetStation,
       timeStep = input$timeStep
     )
   })
+  
   
   # Outputs -----
   
@@ -198,10 +170,6 @@ server <- function(input, output, session) {
       class = "btn btn-default btn-blue", 
       type = "button"
     )
-  })
-  
-  output$downloadButtonHelpText <- renderUI({
-    downloadButtonHelpText()
   })
   
   output$downloadButtonTSV <- renderUI({
@@ -230,6 +198,16 @@ server <- function(input, output, session) {
     }
   )
   
+  output$downloadDataInfo <- shiny::renderUI({
+    req(dataETL())
+    bslib::tooltip(
+      bsicons::bs_icon("info-circle"),
+      "Click or tap to download a file of the above data with either comma- or tab-separated values.",
+      id = "downloadDataInfo",
+      placement = "right"
+    )
+  })
+  
   output$downloadTSV <- downloadHandler(
     filename = function() {
       paste0(
@@ -252,10 +230,6 @@ server <- function(input, output, session) {
   
   output$tableFooter <- renderUI({
     tableFooter()
-  })
-  
-  output$tableHelpText <- renderUI({
-    tableHelpText()
   })
   
   output$tablePreview <- DT::renderDataTable({

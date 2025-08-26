@@ -9,11 +9,21 @@ fxn_tableTitle <- function(azmetStation, timeStep) {
   tableTitle <- 
     htmltools::p(
       htmltools::HTML(
-        paste(
+        paste0(
           bsicons::bs_icon("table"), 
-          htmltools::HTML("&nbsp;"), 
-          timeStep, "Data from the AZMet", azmetStation, "station", 
-          sep = " "
+          htmltools::HTML("&nbsp;&nbsp;"), 
+          toupper(
+            paste0(
+              timeStep, " Data from the AZMet ", azmetStation, " station"
+            ) 
+          ),
+          htmltools::HTML("&nbsp;&nbsp;&nbsp;&nbsp;"),
+          bslib::tooltip(
+            bsicons::bs_icon("info-circle"),
+            "Scroll or swipe over the table to view additional rows and columns. Click or tap on column headers to sort corresponding data by ascending or descending values.",
+            id = "infoFigureTitle",
+            placement = "right"
+          )
         ),
       ),
       

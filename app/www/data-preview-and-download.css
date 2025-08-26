@@ -59,6 +59,10 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   font-weight: bold;
 }
 
+.data-options-title {
+  padding-bottom: 1rem !important;
+}
+
 .dataTable thead th,
 .dataTable thead td,
 .dataTable tfoot th,
@@ -86,29 +90,25 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   color: var(--bs-body-color);
 }
 
-/* current month and selected day, no hover */
-.datepicker table tr td.active.day { 
+.datepicker table tr td.active.day { /* current month and selected day, no hover */
   background-color: rgb(226, 233, 235);
   border-color: none;
   color: var(--bs-body-color);
   text-shadow: none;
 }
 
-/*  current month and selected day, hover */
-.datepicker table tr td.active.day:hover { 
+.datepicker table tr td.active.day:hover { /*  current month and selected day, hover */
   background-color: rgb(226, 233, 235);
   border-color: none;
   color: var(--bs-body-color);
   text-shadow: none;
 }
 
-/*  unselected month and day, hover */
-.datepicker table tr td.day:hover { 
+.datepicker table tr td.day:hover { /*  unselected month and day, hover */
   background-color: rgb(226, 233, 235);
 }
 
-/*  unselected disabled month and day, hover */
-.datepicker table tr td.disabled.day:hover { 
+.datepicker table tr td.disabled.day:hover { /*  unselected disabled month and day, hover */
   background-color: #FFFFFF;
 }
 
@@ -130,26 +130,16 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   text-shadow: none !important;
 }
 
-.download-button-help-text {
-  color: #989898; 
-  font-style: italic;
-  padding-top: 48px;
-}
-
 .form-control:focus {
   border: 1px solid #CCCCCC !important;
   box-shadow: 0 0 0 0.1rem #0000001A;
 }
 
-.help-block {
-  color: #989898 !important;
-  font-size: 1rem;
-  font-style: italic;
-  font-weight: normal;
-}
-
 .main.bslib-gap-spacing.html-fill-container {
-  padding-top: calc(calc(1rem*2)*1.5);
+  padding-bottom: 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 48px;
 }
 
 .modal-body {
@@ -174,6 +164,7 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
 }
 
 .modal-title {
+  font-weight: normal !important; 
   margin-top: 0px !important;
 }
 
@@ -195,6 +186,20 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   text-shadow: none !important;
 }
 
+.month.disabled {
+  background-color: #FFFFFF !important;
+  border-color: none !important;
+  color: var(--bs-tertiary-color) !important;
+  text-shadow: none !important;
+}
+
+.month.disabled:hover {
+  background-color: #FFFFFF !important;
+  border-color: none !important;
+  color: var(--bs-tertiary-color) !important;
+  text-shadow: none !important;
+}
+
 .month.focused {
   background-color: #FFFFFF !important;
   border-color: none !important;
@@ -213,6 +218,20 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   background-color: rgb(226, 233, 235) !important;
   border-color: none !important;
   color: var(--bs-body-color) !important;
+  text-shadow: none !important;
+}
+
+.month.focused.disabled {
+  background-color: #FFFFFF !important;
+  border-color: none !important;
+  color: var(--bs-tertiary-color) !important;
+  text-shadow: none !important;
+}
+
+.month.focused.disabled:hover {
+  background-color: #FFFFFF !important;
+  border-color: none !important;
+  color: var(--bs-tertiary-color) !important;
   text-shadow: none !important;
 }
 
@@ -261,6 +280,13 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   transform: translate(-50%, -50%);
 }
 
+.sidebar-content {
+  padding-bottom: 24px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  padding-top: 48px !important;
+}
+
 .sidebar-page-text {
   color: #191919;
 }
@@ -304,21 +330,14 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   font-size: 0.85rem;
   font-style: normal;
   margin-top: 1.0rem;
-}
-
-.table-help-text {
-  color: #989898 !important;
-  font-size: 1rem;
-  font-style: italic;
-  font-weight: normal;
-  margin-bottom: 0.7rem !important;
-  margin-top: 1.75rem;
+  padding-bottom: 48px !important;
 }
 
 .table-title {
   color: #191919;
   font-size: 1rem;
   font-weight: normal;
+  padding-bottom: 1rem !important;
   text-transform: uppercase;
 }
 
@@ -350,6 +369,13 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   text-shadow: none !important;
 }
 
+.year.disabled {
+  background-color: #FFFFFF !important;
+  border-color: none !important;
+  color: var(--bs-tertiary-color) !important;
+  text-shadow: none !important;
+}
+
 .year.focused {
   background-color: #FFFFFF !important;
   border-color: none !important;
@@ -373,7 +399,7 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   margin-bottom: 48px; 
   margin-left: 0px;
   margin-right: 1.5rem;
-  margin-top: 16px;
+  margin-top: 0px;
 }
 
 #downloadCSV:active {
@@ -392,7 +418,8 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   color: #001C48; 
   margin-bottom: 48px; 
   margin-left: 0px;
-  margin-top: 16px;
+  margin-right: 24px;
+  margin-top: 0px;
 }
 
 #downloadTSV:active {
@@ -419,9 +446,4 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
 #previewData:hover {
   background-color: #001C48; 
   color: #fff;
-}
-
-#sidebarPanel {
-  background-color: #E2E9EB !important; 
-  margin-bottom: 72px;
 }
