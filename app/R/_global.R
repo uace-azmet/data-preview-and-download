@@ -22,14 +22,32 @@ library(vroom)
 
 # Variables --------------------
 
-apiStartDate <- as.Date("2021-01-01")
+# apiStartDate <- as.Date("2021-01-01")
+# 
+# azmetStations <- vroom::vroom(
+#   file = "aux-files/azmet-stations-api-db.csv", 
+#   delim = ",", 
+#   col_names = TRUE, 
+#   show_col_types = FALSE
+# )
 
-azmetStations <- vroom::vroom(
-  file = "aux-files/azmet-stations-api-db.csv", 
-  delim = ",", 
-  col_names = TRUE, 
-  show_col_types = FALSE
-)
+azmetStationMetadata <- azmetr::station_info |>
+  dplyr::mutate(end_date = NA) |> # Placeholder until inactive stations are in API and `azmetr`
+  dplyr::mutate(
+    end_date = dplyr::if_else(
+      status == "active",
+      lubridate::today(tzone = "America/Phoenix") - 1,
+      end_date
+    )
+  ) |>
+  dplyr::mutate(
+    start_date = dplyr::if_else(
+      meta_station_name == "Mohave ETo",
+      lubridate::date("2024-06-20"), # When solar radiation measurements started at MOE
+      start_date
+    )
+  ) |>
+  dplyr::filter(!meta_station_name %in% c("Test"))
 
 # Initial input date, based on `hourly` time step
 if (
