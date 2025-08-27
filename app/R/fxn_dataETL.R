@@ -63,7 +63,8 @@ fxn_dataETL <- function(azmetStation, timeStep, startDate, endDate) {
   if (timeStep == "Daily") {
     dataETL <- azmetr::az_daily(
       station_id = 
-        dplyr::filter(azmetStations, stationName == azmetStation)$stationID, 
+        # dplyr::filter(azmetStations, stationName == azmetStation)$stationID,
+        dplyr::filter(azmetStationMetadata, stationName == azmetStation)$stationID,
       start = startDate, 
       end = endDate
     )
