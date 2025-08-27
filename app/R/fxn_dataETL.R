@@ -42,6 +42,7 @@ fxn_dataETL <- function(azmetStation, timeStep, startDate, endDate) {
     # For case of empty data return
     if (nrow(dataETL) == 0) {
       dataETL <- data.frame(matrix(
+        data = NA,
         nrow = 0, 
         ncol = length(c(varsID, varsMeasure))
       ))
@@ -70,24 +71,25 @@ fxn_dataETL <- function(azmetStation, timeStep, startDate, endDate) {
     # For case of empty data return
     if (nrow(dataETL) == 0) {
       dataETL <- data.frame(matrix(
+        data = 1,
         nrow = 1, 
         ncol = length(c(dailyVarsID, dailyVarsMeasured, dailyVarsDerived))
       ))
       
       colnames(dataETL) <- c(dailyVarsID, dailyVarsMeasured, dailyVarsDerived)
       
-      dataETL[1, ] <- NA
-      
       dataETL <- dataETL %>% 
-        dplyr::select(sort(names(.)))
+        dplyr::select(dplyr::all_of(c(dailyVarsID, dailyVarsMeasured, dailyVarsDerived))) %>%
+        dplyr::select(sort(names(.))) %>% 
+        dplyr::mutate(dplyr::across(dplyr::where(is.numeric), ~ na_if(., 1)))
     } else {
       # Tidy data
       dataETL <- dataETL %>%
-        dplyr::select(all_of(c(dailyVarsID, dailyVarsMeasured, dailyVarsDerived))) %>%
+        dplyr::select(dplyr::all_of(c(dailyVarsID, dailyVarsMeasured, dailyVarsDerived))) %>%
+        dplyr::select(sort(names(.))) %>% 
         dplyr::mutate(
           dplyr::across("wind_2min_timestamp", as.character)
-        ) %>% 
-        dplyr::select(sort(names(.)))
+        )
     }
   }
   

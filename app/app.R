@@ -181,7 +181,7 @@ server <- function(input, output, session) {
     on.exit(shiny::removeNotification(id = idPreview), add = TRUE)
     
     fxn_dataETL(
-      azmetStation = input$azmetStation, 
+      azmetStation = input$azmetStation,
       timeStep = input$timeStep, 
       startDate = input$startDate, 
       endDate = input$endDate
