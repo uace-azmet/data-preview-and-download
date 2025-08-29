@@ -38,57 +38,118 @@ server <- function(input, output, session) {
   
   # Observables -----
   
-  # Update maximum calendar date based on time step 
-  shiny::observeEvent(input$timeStep, {
+  # Update selectable calendar dates based on AZMet station
+  shiny::observeEvent(input$azmetStation, {
+    stationDateMinimum <-
+      dplyr::filter(
+        azmetStationMetadata,
+        meta_station_name == input$azmetStation
+      )$start_date
+
     if (input$timeStep == "Daily") {
-      if (input$startDate == lubridate::today(tzone = "America/Phoenix")) {
-        startDateAdjusted <- lubridate::today(tzone = "America/Phoenix") - 1
+      stationDateMaximum <-
+        dplyr::filter(
+          azmetStationMetadata,
+          meta_station_name == input$azmetStation
+        )$end_date_daily
+    } else if (input$timeStep == "Hourly") {
+      stationDateMaximum <-
+        dplyr::filter(
+          azmetStationMetadata,
+          meta_station_name == input$azmetStation
+        )$end_date_hourly
+    }
+
+    if (input$startDate < stationDateMinimum) {
+      startDateAdjusted <- stationDateMinimum
+    } else if (input$startDate > stationDateMaximum) {
+      startDateAdjusted <- stationDateMaximum
+    } else {
+      startDateAdjusted <- input$startDate
+    }
+
+    if (input$endDate < stationDateMinimum) {
+      endDateAdjusted <- stationDateMinimum
+    } else if (input$endDate > stationDateMaximum) {
+      endDateAdjusted <- stationDateMaximum
+    } else {
+      endDateAdjusted <- input$endDate
+    }
+    
+    shiny::updateDateInput(
+      session = session,
+      inputId = "startDate",
+      label = "Start Date",
+      value = startDateAdjusted,
+      min = stationDateMinimum,
+      max = stationDateMaximum
+    )
+
+    shiny::updateDateInput(
+      session = session,
+      inputId = "endDate",
+      label = "End Date",
+      value = endDateAdjusted,
+      min = stationDateMinimum,
+      max = stationDateMaximum
+    )
+  })
+  
+  # Update selectable calendar dates based on changes in time step
+  shiny::observeEvent(input$timeStep, {
+    stationDateMinimum <- 
+      dplyr::filter(
+        azmetStationMetadata,
+        meta_station_name == input$azmetStation
+      )$start_date
+    
+    if (input$timeStep == "Daily") {
+      stationDateMaximum <- 
+        dplyr::filter(
+          azmetStationMetadata,
+          meta_station_name == input$azmetStation
+        )$end_date_daily
+      
+      if (input$startDate == endDateMaxHourly) {
+        startDateAdjusted <- endDateMaxDaily
       } else {
         startDateAdjusted <- input$startDate
       }
-      
-      if (input$endDate == lubridate::today(tzone = "America/Phoenix")) {
-        endDateAdjusted <- lubridate::today(tzone = "America/Phoenix") - 1
+
+      if (input$endDate == endDateMaxHourly) {
+        endDateAdjusted <- endDateMaxDaily
       } else {
         endDateAdjusted <- input$endDate
       }
       
-      shiny::updateDateInput(
-        session = session, 
-        inputId = "startDate",
-        label = "Start Date",
-        value = startDateAdjusted,
-        min = apiStartDate,
-        max = lubridate::today(tzone = "America/Phoenix") - 1
-      )
-      
-      shiny::updateDateInput(
-        session = session, 
-        inputId = "endDate",
-        label = "End Date",
-        value = endDateAdjusted,
-        min = apiStartDate,
-        max = lubridate::today(tzone = "America/Phoenix") - 1
-      )
     } else if (input$timeStep == "Hourly") {
-      shiny::updateDateInput(
-        session = session, 
-        inputId = "startDate",
-        label = "Start Date",
-        value = input$startDate,
-        min = apiStartDate,
-        max = lubridate::today(tzone = "America/Phoenix")
-      )
+      stationDateMaximum <- 
+        dplyr::filter(
+          azmetStationMetadata,
+          meta_station_name == input$azmetStation
+        )$end_date_hourly
       
-      shiny::updateDateInput(
-        session = session, 
-        inputId = "endDate",
-        label = "End Date",
-        value = input$endDate,
-        min = apiStartDate,
-        max = lubridate::today(tzone = "America/Phoenix")
-      )
+      startDateAdjusted <- input$startDate
+      endDateAdjusted <- input$endDate
     }
+    
+    shiny::updateDateInput(
+      session = session, 
+      inputId = "startDate",
+      label = "Start Date",
+      value = startDateAdjusted,
+      min = stationDateMinimum,
+      max = stationDateMaximum
+    )
+    
+    shiny::updateDateInput(
+      session = session, 
+      inputId = "endDate",
+      label = "End Date",
+      value = endDateAdjusted,
+      min = stationDateMinimum,
+      max = stationDateMaximum
+    )
   })
   
   shiny::observeEvent(input$previewData, {
@@ -120,7 +181,7 @@ server <- function(input, output, session) {
     on.exit(shiny::removeNotification(id = idPreview), add = TRUE)
     
     fxn_dataETL(
-      azmetStation = input$azmetStation, 
+      azmetStation = input$azmetStation,
       timeStep = input$timeStep, 
       startDate = input$startDate, 
       endDate = input$endDate
@@ -141,7 +202,10 @@ server <- function(input, output, session) {
   tableFooter <- shiny::eventReactive(dataETL(), {
     fxn_tableFooter(
       inData = dataETL(),
-      timeStep = input$timeStep
+      azmetStation = input$azmetStation,
+      timeStep = input$timeStep,
+      startDate = input$startDate, 
+      endDate = input$endDate
     )
   })
   

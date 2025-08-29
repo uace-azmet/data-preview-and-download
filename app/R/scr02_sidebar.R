@@ -32,8 +32,8 @@ sidebar <- bslib::sidebar(
   shiny::selectInput(
     inputId = "azmetStation", 
     label = "AZMet Station",
-    choices = azmetStations[order(azmetStations$stationName), ]$stationName,
-    selected = "Aguila"
+    choices = azmetStationMetadata[order(azmetStationMetadata$meta_station_name), ]$meta_station_name,
+    selected = initialStation
   ),
   
   shiny::selectInput(
@@ -46,9 +46,9 @@ sidebar <- bslib::sidebar(
   shiny::dateInput(
     inputId = "startDate",
     label = "Start Date",
-    value = initialInputDate,
-    min = apiStartDate,
-    max = initialInputDate,
+    value = endDateMaxHourly,
+    min = initialDateMinimum,
+    max = endDateMaxHourly,
     format = "MM d, yyyy",
     startview = "month",
     weekstart = 0, # Sunday
@@ -59,9 +59,9 @@ sidebar <- bslib::sidebar(
   shiny::dateInput(
     inputId = "endDate",
     label = "End Date",
-    value = initialInputDate,,
-    min = apiStartDate,
-    max = initialInputDate,
+    value = endDateMaxHourly,
+    min = initialDateMinimum,
+    max = endDateMaxHourly,
     format = "MM d, yyyy",
     startview = "month",
     weekstart = 0, # Sunday
