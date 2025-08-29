@@ -6,7 +6,7 @@
 
 
 fxn_tablePreview <- function(inData, timeStep) {
-  # `inData` has character values for .tsv download
+  # `inData` has character values for .csv and .tsv download
   if (timeStep == "Daily") {
     varsCharacter <- 
       c(
@@ -27,6 +27,20 @@ fxn_tablePreview <- function(inData, timeStep) {
       extensions = "FixedColumns",
       options = list(
         cellBorder = TRUE,
+        # columnDefs = list(
+        #   list(
+        #     targets = "_all",
+        #     render = DT::JS(
+        #       "function(data, type, row, meta) {",
+        #       "  if (type === 'display') {",
+        #       "    return data === null ? 'NA' : data;",
+        #       "  } else {",
+        #       "    return data;",
+        #       "  }",
+        #       "}"
+        #     )
+        #   )
+        # ),
         deferRender = TRUE,
         fixedColumns = list(left = 1),
         orderClasses = TRUE,

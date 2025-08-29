@@ -71,8 +71,8 @@ fxn_dataETL <- function(azmetStation, timeStep, startDate, endDate) {
     # For case of empty data return
     if (nrow(dataETL) == 0) {
       dataETL <- data.frame(matrix(
-        data = 1,
-        nrow = 1, 
+        # data = NA,
+        nrow = 0, 
         ncol = length(c(dailyVarsID, dailyVarsMeasured, dailyVarsDerived))
       ))
       
@@ -80,8 +80,7 @@ fxn_dataETL <- function(azmetStation, timeStep, startDate, endDate) {
       
       dataETL <- dataETL %>% 
         dplyr::select(dplyr::all_of(c(dailyVarsID, dailyVarsMeasured, dailyVarsDerived))) %>%
-        dplyr::select(sort(names(.))) %>% 
-        dplyr::mutate(dplyr::across(dplyr::where(is.numeric), ~ na_if(., 1)))
+        dplyr::select(sort(names(.)))
     } else {
       # Tidy data
       dataETL <- dataETL %>%

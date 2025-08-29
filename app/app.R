@@ -202,7 +202,10 @@ server <- function(input, output, session) {
   tableFooter <- shiny::eventReactive(dataETL(), {
     fxn_tableFooter(
       inData = dataETL(),
-      timeStep = input$timeStep
+      azmetStation = input$azmetStation,
+      timeStep = input$timeStep,
+      startDate = input$startDate, 
+      endDate = input$endDate
     )
   })
   
