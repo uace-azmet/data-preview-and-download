@@ -10,14 +10,16 @@ fxn_tableTitle <- function(azmetStation, timeStep) {
     htmltools::p(
       htmltools::HTML(
         paste0(
-          bsicons::bs_icon("table"), 
+          bsicons::bs_icon("table", class = "bolder-icon"), 
           htmltools::HTML("&nbsp;&nbsp;"), 
           toupper(
-            paste0(
-              timeStep, " Data from the AZMet ", azmetStation, " station"
-            ) 
+            htmltools::HTML(
+              paste0(
+                "<strong>", timeStep, " Data from the AZMet ", azmetStation, " station </strong>"
+              )
+            )
           ),
-          htmltools::HTML("&nbsp;&nbsp;&nbsp;&nbsp;"),
+          htmltools::HTML("&nbsp;"),
           bslib::tooltip(
             bsicons::bs_icon("info-circle"),
             "Scroll or swipe over the table to view additional rows and columns. Click or tap on column headers to sort corresponding data by ascending or descending values.",

@@ -15,10 +15,9 @@ sidebar <- bslib::sidebar(
   padding = NULL,
   
   htmltools::p(
-    bsicons::bs_icon("sliders"), 
+    bsicons::bs_icon("sliders", class = "bolder-icon"), 
     htmltools::HTML("&nbsp;"), 
-    "DATA OPTIONS",
-    htmltools::HTML("&nbsp;&nbsp;&nbsp;&nbsp;"),
+    htmltools::HTML("<strong>DATA OPTIONS</strong>&nbsp;"),
     bslib::tooltip(
       bsicons::bs_icon("info-circle"),
       "Select an AZMet station, specify the time step, and set dates for the period of interest. Then, click or tap 'PREVIEW DATA'.",

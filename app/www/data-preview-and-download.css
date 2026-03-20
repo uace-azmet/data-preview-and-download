@@ -4,6 +4,11 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
 
 /* class */
 
+.bolder-icon {
+  stroke-width: 0.5;
+  stroke: currentColor; /* Inherits the 'color' property of the parent */
+}
+
 /* https://stackoverflow.com/questions/77114751/is-it-possible-to-modify-the-arrow-that-collapses-the-sidebar */
 .bslib-sidebar-layout > .collapse-toggle > .collapse-icon {
   fill: #989898 !important;
@@ -11,6 +16,14 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
 
 .bslib-sidebar-layout.bslib-mb-spacing.html-fill-item {
   margin-bottom: 0px !important;
+}
+
+.bslib-sidebar-layout > .collapse-toggle:hover {
+  background-color: #f8f8f8 !important;
+}
+
+.bslib-sidebar-layout > .collapse-toggle:hover > .collapse-icon {
+  fill: #191919 !important;
 }
 
 .btn {
@@ -418,7 +431,7 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   color: #001C48; 
   margin-bottom: 48px; 
   margin-left: 0px;
-  margin-right: 24px;
+  margin-right: 0.5rem;
   margin-top: 0px;
 }
 
