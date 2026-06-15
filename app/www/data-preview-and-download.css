@@ -177,8 +177,11 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
 }
 
 .modal-title {
-  font-weight: normal !important; 
+  color: #191919 !important;
+  font-size: 1rem;
+  /* font-weight: normal !important; */
   margin-top: 0px !important;
+  text-align: left;
 }
 
 .month:hover {
