@@ -1,5 +1,6 @@
 # Libraries --------------------
 
+
 library(azmetr)
 library(bsicons)
 library(bslib)
@@ -12,6 +13,7 @@ library(vroom)
 
 
 # Files --------------------
+
 
 # Functions 
 #source("./R/fxn_ABC.R", local = TRUE)
@@ -178,7 +180,8 @@ hourlyVarsMeasured <-
 
 tzone <- "America/Phoenix"
 
-newDayThresholdTime <- paste(lubridate::today(tzone = tzone), "01:30:00", sep = " ")
+newDayThresholdTime <- 
+  paste(lubridate::today(tzone = tzone), "01:30:00", sep = " ")
 
 # Maximum hourly and daily end dates for active stations
 if (lubridate::now(tzone = tzone) > lubridate::as_datetime(newDayThresholdTime)) {
@@ -192,34 +195,33 @@ endDateMaxDaily <- endDateMaxHourly - 1
 azmetStationMetadata <- azmetr::station_info |>
   dplyr::mutate(end_date = NA) |> # Placeholder until inactive stations are in API and `azmetr`
   dplyr::mutate(
-    end_date_daily = dplyr::if_else(
-      status == "active",
-      endDateMaxDaily,
-      end_date
-    )
+    end_date_daily = 
+      dplyr::if_else(
+        status == "active",
+        endDateMaxDaily,
+        end_date
+      )
   ) |>
   dplyr::mutate(
-    end_date_hourly = dplyr::if_else(
-      status == "active",
-      endDateMaxHourly,
-      end_date
-    )
+    end_date_hourly = 
+      dplyr::if_else(
+        status == "active",
+        endDateMaxHourly,
+        end_date
+      )
   ) |>
   dplyr::filter(!meta_station_name %in% c("Test"))
 
 activeStations <-
-  dplyr::filter(
-    azmetStationMetadata,
-    status == "active"
-  )
+  dplyr::filter(azmetStationMetadata, status == "active")
 
-initialStation <-
-  dplyr::filter(
-    activeStations,
-    meta_station_name == azmetStationMetadata[order(azmetStationMetadata$meta_station_name), ]$meta_station_name[1]
-  )$meta_station_name
+initialStation <- activeStations |>
+  dplyr::arrange(meta_station_name) |>
+  dplyr::pull(meta_station_name) |>
+  dplyr::first()
 
 initialDateMinimum <- 
-  dplyr::filter(activeStations, meta_station_name == initialStation)$start_date
+  dplyr::filter(activeStations, meta_station_name == initialStation) |>
+  dplyr::pull(start_date)
 
 timeSteps <- c("Hourly", "Daily")
