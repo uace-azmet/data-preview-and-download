@@ -9,13 +9,13 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   stroke: currentColor; /* Inherits the 'color' property of the parent */
 }
 
+.bslib-sidebar-layout {
+  padding-bottom: 0px;
+}
+
 /* https://stackoverflow.com/questions/77114751/is-it-possible-to-modify-the-arrow-that-collapses-the-sidebar */
 .bslib-sidebar-layout > .collapse-toggle > .collapse-icon {
   fill: #989898 !important;
-}
-
-.bslib-sidebar-layout.bslib-mb-spacing.html-fill-item {
-  margin-bottom: 0px !important;
 }
 
 .bslib-sidebar-layout > .collapse-toggle:hover {
@@ -24,6 +24,11 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
 
 .bslib-sidebar-layout > .collapse-toggle:hover > .collapse-icon {
   fill: #191919 !important;
+}
+
+.bslib-sidebar-layout.bslib-mb-spacing.html-fill-item {
+  border-width: 0px !important;
+  margin-bottom: 0px !important;
 }
 
 .btn {
@@ -196,6 +201,11 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   text-shadow: none !important;
 }
 
+.download-buttons-div {
+  padding-left: 24px;
+  padding-top: 48px;
+}
+
 .form-control:focus {
   border: 1px solid #CCCCCC !important;
   box-shadow: 0 0 0 0.1rem #0000001A;
@@ -310,6 +320,9 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
 
 .page-bottom-text {
   color: #191919;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 0px !important;
 }
 
 .prev:hover {
@@ -406,7 +419,7 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   color: #191919;
   font-size: 1rem;
   font-weight: normal;
-  padding-bottom: 1rem !important;
+  padding-bottom: 0.5rem !important;
   text-transform: uppercase;
 }
 

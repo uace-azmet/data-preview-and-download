@@ -8,19 +8,30 @@ ui <-
     
     filename = "azmet-shiny-template.html",
     
-    pageSidebar = 
-      bslib::page_sidebar(
+    pageDataPreviewDownload = 
+      bslib::page(
         title = NULL,
-        sidebar = sidebar, # `scr##_sidebar.R`
-        fillable = TRUE,
-        fillable_mobile = FALSE,
+        # sidebar = sidebar, # `scr##_sidebar.R`
+        # fillable = TRUE,
+        # fillable_mobile = FALSE,
         theme = theme, # `scr##_theme.R`
-        lang = NULL,
-        window_title = NA,
+        # lang = NULL,
+        # window_title = NA,
         
-        shiny::htmlOutput(outputId = "tableTitle"),
-        DT::dataTableOutput("tablePreview"),
-        shiny::htmlOutput(outputId = "tableFooter"),
+        bslib::layout_sidebar(
+          sidebar = sidebar, # `scr##_sidebar.R`
+          shiny::htmlOutput(outputId = "tableTitle"),
+          
+          card(
+            full_screen = TRUE,
+            card_body(
+              DT::dataTableOutput("tablePreview", height = "100%")#,
+            )
+          ),
+          
+          shiny::htmlOutput(outputId = "tableFooter")
+        ),
+        
         htmltools::div(
           shiny::uiOutput(outputId = "downloadButtonCSV"),
           shiny::uiOutput(outputId = "downloadButtonTSV"),

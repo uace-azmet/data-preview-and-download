@@ -12,6 +12,9 @@ sidebar <-
     gap = NULL,
     padding = NULL,
     
+    
+    # Visible elements -----
+    
     htmltools::p(
       bsicons::bs_icon("sliders", class = "bolder-icon"), 
       htmltools::HTML("&nbsp;<strong>DATA OPTIONS</strong>&nbsp;"),
