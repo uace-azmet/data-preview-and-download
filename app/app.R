@@ -20,16 +20,20 @@ ui <-
         
         bslib::layout_sidebar(
           sidebar = sidebar, # `scr##_sidebar.R`
+          
           shiny::htmlOutput(outputId = "tableTitle"),
-          
-          card(
-            full_screen = TRUE,
-            card_body(
-              DT::dataTableOutput("tablePreview", height = "100%")#,
-            )
+          bslib::card(
+            bslib::card_body(
+              htmltools::div(
+                DT::dataTableOutput("tablePreview", height = "100%")
+              ),
+              height = "400px",
+              padding = 0
+            ),
+            class = "border-0 shadow-none",
+            full_screen = FALSE
           ),
-          
-          shiny::htmlOutput(outputId = "tableFooter")
+          shiny::htmlOutput(outputId = "tableCaption")
         ),
         
         htmltools::div(
@@ -205,9 +209,9 @@ server <-
         fxn_pageBottomText(timeStep = input$timeStep)
       })
     
-    tableFooter <- 
+    tableCaption <- 
       shiny::eventReactive(dataETL(), {
-        fxn_tableFooter(
+        fxn_tableCaption(
           inData = dataETL(),
           azmetStation = input$azmetStation,
           timeStep = input$timeStep,
@@ -309,9 +313,9 @@ server <-
         pageBottomText()
       })
     
-    output$tableFooter <- 
+    output$tableCaption <- 
       renderUI({
-        tableFooter()
+        tableCaption()
       })
     
     output$tablePreview <- 

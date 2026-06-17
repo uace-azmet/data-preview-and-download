@@ -20,35 +20,22 @@ fxn_tablePreview <- function(inData, timeStep) {
   
   tablePreview <- inData |>
     DT::datatable(
-      extensions = "FixedColumns",
-      fillContainer = TRUE,
+      extensions = c("FixedColumns", "FixedHeader"),
       # fillContainer = TRUE,
       options = 
         list(
           cellBorder = TRUE,
-          # columnDefs = list(
-          #   list(
-          #     targets = "_all",
-          #     render = DT::JS(
-          #       "function(data, type, row, meta) {",
-          #       "  if (type === 'display') {",
-          #       "    return data === null ? 'NA' : data;",
-          #       "  } else {",
-          #       "    return data;",
-          #       "  }",
-          #       "}"
-          #     )
-          #   )
-          # ),
           deferRender = TRUE,
           fixedColumns = list(left = 1),
+          fixedHeader = TRUE,
+          info = FALSE,
           orderClasses = TRUE,
           ordering = TRUE,
           paging = FALSE,
           scrollCollapse = TRUE,
           scroller = TRUE,
           scrollX = TRUE,
-          scrollY = TRUE,
+          scrollY = "400px",
           searching = FALSE
         ),
         rownames = FALSE,

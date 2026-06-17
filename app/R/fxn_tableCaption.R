@@ -1,21 +1,22 @@
-#' `fxn_tableFooter.R` - Build text for footer of preview table
+#' `fxn_tableCaption.R` - Build text for caption of preview table
 #' 
 #' @param inData - Downloaded AZMet hourly or daily data from `fxn_dataELT.R`
 #' @param azmetStation - AZMet station name
 #' @param timeStep - AZMet data time step
 #' @param startDate - Start date of period of interest
 #' @param endDate - End date of period of interest
-#' @return `tableFooter` - Text for footer of preview table
+#' @return `tableCaption` - Text for caption of preview table
 
 
-fxn_tableFooter <- 
+fxn_tableCaption <- 
   function(inData, azmetStation, timeStep, startDate, endDate) {
+    
     if (timeStep == "Daily") { # For daily data
       if (nrow(inData) == 0) {
         startDate <- gsub(" 0", " ", format(startDate, format = "%B %d, %Y"))
         endDate <- gsub(" 0", " ", format(endDate, format = "%B %d, %Y"))
         
-        tableFooter <- 
+        tableCaption <- 
           htmltools::p(
             htmltools::HTML(
               paste0(
@@ -23,7 +24,7 @@ fxn_tableFooter <-
               )
             ), 
             
-            class = "table-footer"
+            class = "table-caption"
           )
       } else {
         startDate <- 
@@ -32,7 +33,7 @@ fxn_tableFooter <-
         endDate <- 
           gsub(" 0", " ", format(lubridate::date(max(inData$datetime)), format = "%B %d, %Y"))
         
-        tableFooter <- 
+        tableCaption <- 
           htmltools::p(
             htmltools::HTML(
               paste0(
@@ -40,7 +41,7 @@ fxn_tableFooter <-
               )
             ), 
             
-            class = "table-footer"
+            class = "table-caption"
           )
       }
     } else if (timeStep == "Hourly") { # For hourly data
@@ -54,7 +55,7 @@ fxn_tableFooter <-
         startDateTime <- paste(startDate, startTime, sep = " ")
         endDateTime <- paste(endDate, endTime, sep = " ")
         
-        tableFooter <- 
+        tableCaption <- 
           htmltools::p(
             htmltools::HTML(
               paste0(
@@ -62,7 +63,7 @@ fxn_tableFooter <-
               )
             ), 
             
-            class = "table-footer"
+            class = "table-caption"
           )
       } else {
         startDate <- 
@@ -81,7 +82,7 @@ fxn_tableFooter <-
         
         endDateTime <- paste(endDate, endTime, sep = " ")
         
-        tableFooter <- 
+        tableCaption <- 
           htmltools::p(
             htmltools::HTML(
               paste0(
@@ -89,10 +90,10 @@ fxn_tableFooter <-
               )
             ), 
             
-            class = "table-footer"
+            class = "table-caption"
           )
       }
     }
     
-    return(tableFooter)
+    return(tableCaption)
   }

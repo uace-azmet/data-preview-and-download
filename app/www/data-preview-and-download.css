@@ -386,6 +386,13 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   border-right-width: 1.25px !important;
 }
 
+.table-caption {
+  color: #606060; 
+  font-size: 0.85rem;
+  font-style: normal;
+  padding-top: 0px !important;
+}
+
 .table-condensed {
   background-color: #FFFFFF; 
   color: var(--bs-body-color);
@@ -407,19 +414,11 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   box-shadow: 1px 0px 0px 0px rgb(180, 180, 180, 1.0) !important;
 }
 
-.table-footer {
-  color: #606060; 
-  font-size: 0.85rem;
-  font-style: normal;
-  margin-top: 1.0rem;
-  padding-bottom: 48px !important;
-}
-
 .table-title {
   color: #191919;
   font-size: 1rem;
   font-weight: normal;
-  padding-bottom: 0.5rem !important;
+  padding-bottom: 6px !important;
   text-transform: uppercase;
 }
 
