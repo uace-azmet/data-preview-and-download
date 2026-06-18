@@ -5,32 +5,34 @@
 #' @return `tableTitle` - Title for preview table based on user input
 
 
-fxn_tableTitle <- function(azmetStation, timeStep) {
-  tableTitle <- 
-    htmltools::p(
-      htmltools::HTML(
-        paste0(
-          bsicons::bs_icon("table", class = "bolder-icon"), 
-          htmltools::HTML("&nbsp;&nbsp;"), 
-          toupper(
-            htmltools::HTML(
-              paste0(
-                "<strong>", timeStep, " Data from the AZMet ", azmetStation, " station </strong>"
+fxn_tableTitle <- 
+  function(azmetStation, timeStep) {
+    
+    tableTitle <- 
+      htmltools::p(
+        htmltools::HTML(
+          paste0(
+            bsicons::bs_icon("table", class = "bolder-icon"), 
+            htmltools::HTML("&nbsp;&nbsp;"), 
+            toupper(
+              htmltools::HTML(
+                paste0(
+                  "<strong>", timeStep, " Data from the AZMet ", azmetStation, " station </strong>"
+                )
               )
+            ),
+            htmltools::HTML("&nbsp;"),
+            bslib::tooltip(
+              bsicons::bs_icon("info-circle"),
+              "Scroll or swipe over the table to view additional rows and columns. Click or tap on column headers to sort corresponding data by ascending or descending values.",
+              id = "infoFigureTitle",
+              placement = "right"
             )
           ),
-          htmltools::HTML("&nbsp;"),
-          bslib::tooltip(
-            bsicons::bs_icon("info-circle"),
-            "Scroll or swipe over the table to view additional rows and columns. Click or tap on column headers to sort corresponding data by ascending or descending values.",
-            id = "infoFigureTitle",
-            placement = "right"
-          )
         ),
-      ),
-      
-      class = "table-title"
-    )
-  
-  return(tableTitle)
-}
+        
+        class = "table-title"
+      )
+    
+    return(tableTitle)
+  }

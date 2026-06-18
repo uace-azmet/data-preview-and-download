@@ -9,14 +9,10 @@ fxn_tablePreview <- function(inData, timeStep) {
   # `inData` has character values for .csv and .tsv download
   if (timeStep == "Daily") {
     varsCharacter <- 
-      c(
-        "meta_station_id", "meta_station_name", "datetime", "wind_2min_timestamp"
-      )
+      c("meta_station_id", "meta_station_name", "datetime", "wind_2min_timestamp")
   } else if (timeStep == "Hourly") {
     varsCharacter <- 
-      c(
-        "meta_station_id", "meta_station_name", "date_datetime", "date_hour", "wind_2min_timestamp"
-      )
+      c("meta_station_id", "meta_station_name", "date_datetime", "date_hour", "wind_2min_timestamp")
   }
   
   inData <- inData |>
@@ -24,37 +20,31 @@ fxn_tablePreview <- function(inData, timeStep) {
   
   tablePreview <- inData |>
     DT::datatable(
-      extensions = "FixedColumns",
-      options = list(
-        cellBorder = TRUE,
-        # columnDefs = list(
-        #   list(
-        #     targets = "_all",
-        #     render = DT::JS(
-        #       "function(data, type, row, meta) {",
-        #       "  if (type === 'display') {",
-        #       "    return data === null ? 'NA' : data;",
-        #       "  } else {",
-        #       "    return data;",
-        #       "  }",
-        #       "}"
-        #     )
-        #   )
-        # ),
-        deferRender = TRUE,
-        fixedColumns = list(left = 1),
-        orderClasses = TRUE,
-        ordering = TRUE,
-        paging = FALSE,
-        scrollCollapse = TRUE,
-        scroller = TRUE,
-        scrollX = TRUE,
-        scrollY = "400px",
-        searching = FALSE
-      ),
+      extensions = c("FixedColumns", "FixedHeader"),
+      fillContainer = TRUE,
+      # height = "100%",
+      options = 
+        list(
+          cellBorder = TRUE,
+          deferRender = TRUE,
+          fixedColumns = list(left = 1),
+          fixedHeader = TRUE,
+          info = FALSE,
+          orderClasses = TRUE,
+          ordering = TRUE,
+          paging = FALSE,
+          scrollCollapse = TRUE,
+          scroller = TRUE,
+          scrollX = TRUE,
+          # scrollY = "400px",
+          scrollY = "100%",
+          # scrollY = FALSE,
+          searching = FALSE
+        ),
       rownames = FALSE,
-      selection = "none"
-    ) |>
+      selection = "none"#,
+      # width = "100%"
+      ) |>
     DT::formatStyle(
       border = "1px solid #dee2e6",
       columns = colnames(inData),
