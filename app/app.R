@@ -11,12 +11,18 @@ ui <-
     pageDataPreviewDownload = 
       bslib::page(
         title = NULL,
-        # sidebar = sidebar, # `scr##_sidebar.R`
-        # fillable = TRUE,
-        # fillable_mobile = FALSE,
         theme = theme, # `scr##_theme.R`
-        # lang = NULL,
-        # window_title = NA,
+        
+        # Inject custom CSS to modify the scrollBody
+        # tags$head(
+        #   tags$style(
+        #     htmltools::HTML("
+        #       .dataTables_scrollBody {
+        #         border-left: 0px solid #ffffff !important;
+        #       }
+        #     ")
+        #   )
+        # ),
         
         bslib::layout_sidebar(
           sidebar = sidebar, # `scr##_sidebar.R`
@@ -24,16 +30,18 @@ ui <-
           shiny::htmlOutput(outputId = "tableTitle"),
           bslib::card(
             bslib::card_body(
-              htmltools::div(
-                DT::dataTableOutput("tablePreview", height = "100%")
-              ),
-              height = "400px",
-              padding = 0
+              DT::dataTableOutput("tablePreview"),
+              shiny::htmlOutput(outputId = "tableCaption"),
+              # fill = FALSE,
+              # fillable = FALSE,
+              # height = "100%",
+              # max_height = "400px",
+              padding = c(0, 24, 0, 24)
             ),
             class = "border-0 shadow-none",
-            full_screen = FALSE
-          ),
-          shiny::htmlOutput(outputId = "tableCaption")
+            fill = FALSE,
+            full_screen = TRUE
+          )
         ),
         
         htmltools::div(

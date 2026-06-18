@@ -21,7 +21,8 @@ fxn_tablePreview <- function(inData, timeStep) {
   tablePreview <- inData |>
     DT::datatable(
       extensions = c("FixedColumns", "FixedHeader"),
-      # fillContainer = TRUE,
+      fillContainer = TRUE,
+      # height = "100%",
       options = 
         list(
           cellBorder = TRUE,
@@ -35,11 +36,12 @@ fxn_tablePreview <- function(inData, timeStep) {
           scrollCollapse = TRUE,
           scroller = TRUE,
           scrollX = TRUE,
-          scrollY = "400px",
+          # scrollY = "400px",
+          scrollY = "100%",
           searching = FALSE
         ),
-        rownames = FALSE,
-        selection = "none"
+      rownames = FALSE,
+      selection = "none"
       ) |>
     DT::formatStyle(
       border = "1px solid #dee2e6",

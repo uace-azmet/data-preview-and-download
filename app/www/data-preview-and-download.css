@@ -101,6 +101,20 @@ https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css */
   visibility: hidden !important;
 }
 
+/* .dataTables_scroll .dtfc-has-left .dataTables_scrollBody {
+   border-left: 10px solid #3f0009 !important;
+ }
+
+table.dataTable.cell-border tbody > tr > td.dtfc-fixed-left:first-child,
+ table.dataTable.cell-border thead > tr > th.dtfc-fixed-left:first-child {
+   color: red !important;
+   border-left: none !important;
+   box-shadow: none !important; /* clears scroller/fixedheader edge artifacts */
+/* } */
+
+
+
+ 
 .datepicker {
   background-color: #FFFFFF !important;
   box-shadow: 0 -6px 12px rgb(var(--bs-body-color-rgb, 0, 0, 0), 0.1);
