@@ -38,10 +38,12 @@ fxn_tablePreview <- function(inData, timeStep) {
           scrollX = TRUE,
           # scrollY = "400px",
           scrollY = "100%",
+          # scrollY = FALSE,
           searching = FALSE
         ),
       rownames = FALSE,
-      selection = "none"
+      selection = "none"#,
+      # width = "100%"
       ) |>
     DT::formatStyle(
       border = "1px solid #dee2e6",

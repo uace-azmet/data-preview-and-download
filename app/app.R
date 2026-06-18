@@ -13,17 +13,6 @@ ui <-
         title = NULL,
         theme = theme, # `scr##_theme.R`
         
-        # Inject custom CSS to modify the scrollBody
-        # tags$head(
-        #   tags$style(
-        #     htmltools::HTML("
-        #       .dataTables_scrollBody {
-        #         border-left: 0px solid #ffffff !important;
-        #       }
-        #     ")
-        #   )
-        # ),
-        
         bslib::layout_sidebar(
           sidebar = sidebar, # `scr##_sidebar.R`
           
@@ -32,15 +21,15 @@ ui <-
             bslib::card_body(
               DT::dataTableOutput("tablePreview"),
               shiny::htmlOutput(outputId = "tableCaption"),
-              # fill = FALSE,
-              # fillable = FALSE,
-              # height = "100%",
-              # max_height = "400px",
+              fill = TRUE,
+              fillable = TRUE,
+              # height = "450px",
               padding = c(0, 24, 0, 24)
             ),
             class = "border-0 shadow-none",
             fill = FALSE,
-            full_screen = TRUE
+            full_screen = TRUE,
+            height = "451px"
           )
         ),
         
